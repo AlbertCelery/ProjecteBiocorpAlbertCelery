@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_graph"
+    app:startDestination="@id/pacientFragment">
+
+    <fragment
+        android:id="@+id/allergiaFragment"
+        android:name="com.example.projectebiocorpalbertcelery.ui.allergia.AllergiaFragment"
+        android:label="fragment_allergia"
+        tools:layout="@layout/fragment_allergia" />
+
+    <fragment
+        android:id="@+id/hospitalitFragment"
+        android:name="com.example.projectebiocorpalbertcelery.ui.hopitalit.HospitalitFragment"
+        android:label="fragment_hospitalit"
+        tools:layout="@layout/fragment_hospitalit" />
+    <fragment
+        android:id="@+id/malaltiaFragment"
+        android:name="com.example.projectebiocorpalbertcelery.ui.malaltia.MalaltiaFragment"
+        android:label="fragment_malaltia"
+        tools:layout="@layout/fragment_malaltia" />
+    <fragment
+        android:id="@+id/medicacioFragment"
+        android:name="com.example.projectebiocorpalbertcelery.ui.medicacio.MedicacioFragment"
+        android:label="fragment_medicacio"
+        tools:layout="@layout/fragment_medicacio" />
+    <fragment
+        android:id="@+id/pacientFragment"
+        android:name="com.example.projectebiocorpalbertcelery.ui.pacient.PacientFragment"
+        android:label="fragment_pacient"
+        tools:layout="@layout/fragment_pacient" />
+</navigation>

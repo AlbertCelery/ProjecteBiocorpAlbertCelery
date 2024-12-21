@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">ProjecteBiocorpAlbertCelery</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="allergia">Alèrgia</string>
+    <string name="hospitalit"> hospitalització</string>
+    <string name="malaltia">malaltia</string>
+    <string name="pacient">pacient</string>
+    <string name="medicacio">medicació</string>
+</resources>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/pacientFragment"
+        android:title="@string/pacient"
+        android:icon="@drawable/ic_pacient"
+        />
+    <item
+        android:id="@+id/allergiaFragment"
+        android:title="@string/allergia"
+        android:icon="@drawable/ic_allergia"
+        />
+    <item
+        android:id="@+id/hospitalitFragment"
+        android:title="@string/hospitalit"
+        android:icon="@drawable/ic_hospitalit"
+        />
+    <item
+        android:id="@+id/malaltiaFragment"
+        android:title="@string/malaltia"
+        android:icon="@drawable/ic_malaltia"
+        />
+    <item
+        android:id="@+id/medicacioFragment"
+        android:title="@string/medicacio"
+        android:icon="@drawable/ic_medicacio"
+        />
+
+
+</menu>
