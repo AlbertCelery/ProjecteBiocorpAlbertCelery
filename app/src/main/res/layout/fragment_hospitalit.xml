@@ -1,14 +1,499 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.hopitalit.HospitalitFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.hopitalit.HospitalitFragment"
+    android:background="@color/primary">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
 
-</FrameLayout>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardHospView1"
+        android:layout_width="480dp"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="100dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="8dp"
+        app:cardBackgroundColor="@color/primary_alt"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="4dp"
+        app:layout_constraintEnd_toStartOf="@+id/cardHospView2"
+
+        app:layout_constraintStart_toStartOf="parent"
+
+
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent="0.5">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/primary_alt"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/titleTextView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/hospitalit"
+
+                android:textSize="20sp"
+                android:textStyle="bold"
+
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/numHospView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:text="@string/numhosp"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/titleTextView1" />
+
+            <TextView
+                android:id="@+id/dataIniciView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/inicidata"
+                android:textSize="20sp"
+
+                app:layout_constraintEnd_toEndOf="@id/numHospView"
+
+                app:layout_constraintTop_toBottomOf="@id/numHospView" />
+
+            <TextView
+                android:id="@+id/dataFiView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/fidata"
+                android:textSize="20sp"
+
+                app:layout_constraintEnd_toEndOf="@id/numHospView"
+                app:layout_constraintTop_toBottomOf="@id/dataIniciView" />
+
+            <TextView
+                android:id="@+id/tempsTotalHospView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/tempstotal"
+                android:textSize="20sp"
+
+                app:layout_constraintEnd_toEndOf="@id/numHospView"
+                app:layout_constraintTop_toBottomOf="@id/dataFiView" />
+
+            <TextView
+                android:id="@+id/hospView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/hosp"
+                android:textSize="20sp"
+
+                app:layout_constraintEnd_toEndOf="@id/numHospView"
+                app:layout_constraintTop_toBottomOf="@id/tempsTotalHospView" />
+
+            <TextView
+                android:id="@+id/motiuHospView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/motiuHosp"
+
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="@id/numHospView"
+                app:layout_constraintTop_toBottomOf="@id/hospView" />
+            <TextView
+                android:id="@+id/numHospValueView"
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+               android:layout_marginStart="20dp"
+                android:maxLines="1"
+                android:textSize="20sp"
+                app:layout_constraintStart_toEndOf="@id/numHospView"
+                app:layout_constraintTop_toTopOf="@id/numHospView"/>
+            <EditText
+                android:id="@+id/dataIniciHospEdit"
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:maxLines="1"
+                android:textSize="20sp"
+                android:background="@color/white_alpha_40"
+                app:layout_constraintStart_toEndOf="@id/dataIniciView"
+                app:layout_constraintTop_toTopOf="@id/dataIniciView"/>
+            <EditText
+                android:id="@+id/dataFiHospEdit"
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:maxLines="1"
+                android:textSize="20sp"
+                android:background="@color/white_alpha_40"
+                app:layout_constraintStart_toEndOf="@id/dataFiView"
+                app:layout_constraintTop_toTopOf="@id/dataFiView"/>
+            <TextView
+                android:id="@+id/tempsTotalHospValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:maxLines="1"
+                android:textSize="20sp"
+                app:layout_constraintStart_toEndOf="@id/tempsTotalHospView"
+                app:layout_constraintTop_toTopOf="@id/tempsTotalHospView"/>
+            <EditText
+                android:id="@+id/HospitalEdit"
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:maxLines="1"
+                android:textSize="20sp"
+                android:background="@color/white_alpha_40"
+                app:layout_constraintStart_toEndOf="@id/hospView"
+                app:layout_constraintTop_toTopOf="@id/hospView"/>
+            <Spinner
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:textSize="20sp"
+                android:maxLines="1"
+                android:background="@color/white_alpha_40"
+                app:layout_constraintStart_toEndOf="@id/motiuHospView"
+                app:layout_constraintTop_toTopOf="@id/motiuHospView"
+                android:id="@+id/spinnerMotiuHosp"
+                />
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:id="@+id/previousHospitalitBtn"
+                app:layout_constraintTop_toBottomOf="@id/motiuHospView"
+                android:layout_marginTop="60dp"
+                android:text="@string/previousHospitalit"/>
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/nextHospitalit"
+                app:layout_constraintStart_toEndOf="@id/previousHospitalitBtn"
+                app:layout_constraintBottom_toBottomOf="@id/previousHospitalitBtn"
+                android:id="@+id/nextHospitalitBtn"
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardHospView2"
+        android:layout_width="700dp"
+        android:layout_height="match_parent"
+        android:layout_marginStart="8dp"
+        app:cardBackgroundColor="@color/primary_alt"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/cardHospView1"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent="0.5"
+        android:layout_marginBottom="100dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/primary_alt"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/tractamentsView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/Tracthosp"
+
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/medicamentTractView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:text="@string/medicament"
+                android:textSize="20sp"
+
+
+
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tractamentsView"
+                app:layout_constraintVertical_bias="0.503" />
+
+            <TextView
+                android:id="@+id/horesTractView"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="@string/horesmed"
+                android:layout_marginTop="25dp"
+                android:layout_marginStart="50dp"
+                app:layout_constraintBottom_toBottomOf="@id/medicamentTractView"
+
+
+                app:layout_constraintStart_toEndOf="@id/medicamentTractView"
+                app:layout_constraintTop_toBottomOf="@id/tractamentsView" />
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:maxLines="1"
+                android:background="@color/white_alpha_40"
+                app:layout_constraintStart_toStartOf="@id/medicamentTractView"
+                app:layout_constraintTop_toBottomOf="@id/horesTractView"
+                android:id="@+id/spinnerMedicamentTract1"
+                android:layout_marginTop="30dp"
+
+                />
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:maxLines="1"
+                android:background="@color/white_alpha_40"
+                app:layout_constraintStart_toStartOf="@id/medicamentTractView"
+                app:layout_constraintTop_toBottomOf="@id/spinnerMedicamentTract1"
+                android:id="@+id/spinnerMedicamentTract2"
+                android:layout_marginTop="30dp"
+                />
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:maxLines="1"
+                android:background="@color/white_alpha_40"
+                app:layout_constraintStart_toStartOf="@id/medicamentTractView"
+                app:layout_constraintTop_toBottomOf="@id/spinnerMedicamentTract2"
+                android:id="@+id/spinnerMedicamentTract3"
+                android:layout_marginTop="30dp"
+                />
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:maxLines="1"
+                android:background="@color/white_alpha_40"
+                app:layout_constraintStart_toStartOf="@id/medicamentTractView"
+                app:layout_constraintTop_toBottomOf="@id/spinnerMedicamentTract3"
+                android:id="@+id/spinnerMedicamentTract4"
+                android:layout_marginTop="30dp"
+                />
+            <androidx.appcompat.widget.AppCompatEditText
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+
+                android:maxLines="1"
+                app:layout_constraintStart_toStartOf="@id/horesTractView"
+                app:layout_constraintBottom_toBottomOf="@id/spinnerMedicamentTract1"
+                android:textSize="20sp"
+                android:background="@color/white_alpha_40"
+                android:id="@+id/horesTractEdit1"
+                android:hint="@string/defaultHint"
+                />
+            <androidx.appcompat.widget.AppCompatEditText
+                android:layout_width="130dp"
+                android:hint="@string/defaultHint"
+
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:textSize="20sp"
+                android:background="@color/white_alpha_40"
+                app:layout_constraintStart_toStartOf="@id/horesTractView"
+                app:layout_constraintBottom_toBottomOf="@id/spinnerMedicamentTract2"
+                android:id="@+id/horesTractEdit2"
+                />
+            <androidx.appcompat.widget.AppCompatEditText
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/defaultHint"
+
+                android:maxLines="1"
+                android:textSize="20sp"
+                android:background="@color/white_alpha_40"
+                app:layout_constraintStart_toStartOf="@id/horesTractView"
+                app:layout_constraintBottom_toBottomOf="@id/spinnerMedicamentTract3"
+                android:id="@+id/horesTractEdit3"
+                />
+            <androidx.appcompat.widget.AppCompatEditText
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/defaultHint"
+
+                android:maxLines="1"
+                android:textSize="20sp"
+                android:background="@color/white_alpha_40"
+                app:layout_constraintStart_toStartOf="@id/horesTractView"
+                app:layout_constraintBottom_toBottomOf="@id/spinnerMedicamentTract4"
+                android:id="@+id/horesTractEdit4"
+                />
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@id/horesTractEdit1"
+                app:layout_constraintStart_toEndOf="@id/horesTractEdit1"
+                app:layout_constraintTop_toTopOf="@id/horesTractEdit1"
+                android:id="@+id/infoTractBtn1"
+                android:text="@string/mesinfo"
+                android:layout_marginStart="60dp"
+                />
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/mesinfo"
+                app:layout_constraintStart_toStartOf="@id/infoTractBtn1"
+                app:layout_constraintBottom_toBottomOf="@id/horesTractEdit2"
+                app:layout_constraintTop_toTopOf="@id/horesTractEdit2"
+
+                android:id="@+id/infoTractBtn2"
+                />
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/mesinfo"
+                app:layout_constraintStart_toStartOf="@id/infoTractBtn1"
+                app:layout_constraintBottom_toBottomOf="@id/horesTractEdit3"
+                app:layout_constraintTop_toTopOf="@id/horesTractEdit3"
+
+                android:id="@+id/infoTractBtn3"
+                />
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/mesinfo"
+                app:layout_constraintStart_toStartOf="@id/infoTractBtn1"
+                app:layout_constraintBottom_toBottomOf="@id/horesTractEdit4"
+                app:layout_constraintTop_toTopOf="@id/horesTractEdit4"
+
+                android:id="@+id/infoTractBtn4"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_marginStart="30dp"
+                android:text="@string/iniciTract"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/spinnerMedicamentTract4"
+                android:id="@+id/iniciTractView"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="30dp"
+                android:text="@string/fiTract"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/iniciTractView"
+                app:layout_constraintEnd_toEndOf="@id/iniciTractView"
+                android:id="@+id/fiTractView"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tempstotal"
+                android:id="@+id/tempsTotalTractView"
+                app:layout_constraintTop_toBottomOf="@id/fiTractView"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/iniciTractView"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="30dp"
+                />
+            <androidx.appcompat.widget.AppCompatEditText
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                app:layout_constraintStart_toEndOf="@id/iniciTractView"
+                app:layout_constraintTop_toTopOf="@id/iniciTractView"
+                app:layout_constraintBottom_toBottomOf="@id/iniciTractView"
+                android:id="@+id/iniciTractEdit"
+                android:background="@color/white_alpha_40"
+                android:layout_marginStart="20dp"
+                android:textSize="20sp"
+
+                />
+            <androidx.appcompat.widget.AppCompatEditText
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:id="@+id/fiTractEdit"
+                android:background="@color/white_alpha_40"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="@id/iniciTractEdit"
+                app:layout_constraintTop_toTopOf="@id/fiTractView"
+                app:layout_constraintBottom_toBottomOf="@id/fiTractView"
+
+                />
+            <androidx.appcompat.widget.AppCompatEditText
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:id="@+id/tempsTotalTractEdit"
+                android:background="@color/white_alpha_40"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="@id/fiTractEdit"
+                app:layout_constraintTop_toTopOf="@id/tempsTotalTractView"
+                app:layout_constraintBottom_toBottomOf="@id/tempsTotalTractView"
+                />
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tempsTotalTractView"
+                android:id="@+id/previousTractamentsBtn"
+                android:text="@string/previousTractaments"
+                android:layout_marginTop="40dp"/>
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/nextTractaments"
+                app:layout_constraintStart_toEndOf="@id/previousTractamentsBtn"
+                app:layout_constraintBottom_toBottomOf="@id/previousTractamentsBtn"
+                android:id="@+id/nextTractamentsBtn"
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+<!--TODO: QUIT LAST BUTTONS!!!! -->
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="previous"
+        android:id="@+id/PreviousPBtn"
+        />
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/PreviousPBtn"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="next"
+        android:id="@+id/NextHBtn"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

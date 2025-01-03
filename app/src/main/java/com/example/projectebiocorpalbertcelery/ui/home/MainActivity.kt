@@ -49,7 +49,10 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this, ex.message, Toast.LENGTH_LONG).show()
         }
     }
-    /**   //COMPLETAR TAULES**/
+    /**   //COMPLETAR TAULES
+     * Malaltia : id, nom, descripcio (inclou hospitalitzacio: si, no)-->si sí ajuntar les que si amb hospitalitzacio
+     * Hospitalitzacio: excloure les malalties i colocaro tot a malalties
+     * **/
     private fun createTables(){
 
         var createTable = "CREATE TABLE IF NOT EXISTS pacient (dni TEXT PRIMARY KEY, nom TEXT, cognom1 TEXT, cognom2 TEXT, adreca TEXT, telefon TEXT, correu TEXT)"

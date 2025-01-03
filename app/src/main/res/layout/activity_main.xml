@@ -10,24 +10,26 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
-        android:id="@+id/dniTextView"
-        app:layout_constraintTop_toTopOf="parent"
-        android:text="DNI"
-        android:textSize="18sp"
+        android:id="@+id/NomCompltTextView"
+
+        app:layout_constraintBottom_toTopOf="@id/fragmentContainerView"
+        android:text="@string/all_name"
+        android:textSize="20sp"
         />
-    <EditText
+    <TextView
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@id/dniTextView"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@id/NomCompltTextView"
+        app:layout_constraintBottom_toBottomOf="@id/NomCompltTextView"
         android:id="@+id/dniEditText"
+        android:textSize="20sp"
         />
     <androidx.appcompat.widget.AppCompatButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="buscar"
         app:layout_constraintStart_toEndOf="@id/dniEditText"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/NomCompltTextView"
         android:id="@+id/selectDni"
         />
 
@@ -42,7 +44,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/bottomNavView"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="100dp"
 
         />
     <com.google.android.material.bottomnavigation.BottomNavigationView

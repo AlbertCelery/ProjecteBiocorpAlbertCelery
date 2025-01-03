@@ -1,10 +1,52 @@
 <resources>
     <string name="app_name">ProjecteBiocorpAlbertCelery</string>
-    <!-- TODO: Remove or change this placeholder text -->
+    <string name="defaultHint">\.\.\.</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="allergia">Alèrgia</string>
-    <string name="hospitalit"> hospitalització</string>
-    <string name="malaltia">malaltia</string>
-    <string name="pacient">pacient</string>
-    <string name="medicacio">medicació</string>
+    <string name="hospitalit"> Hospitalització</string>
+    <string name="malaltia">Malaltia</string>
+    <string name="pacient">Pacient</string>
+    <string name="medicacio">Medicació</string>
+    <string name="desc">Descripció</string>
+    <!-- pacient-->
+    <string name="all_name">Nom complet del pacient</string>
+    <string name="naixement">Data naixement</string>
+    <string name="dni">DNI</string>
+    <string name="nom">Nom</string>
+    <string name="cnom1">Cognom 1</string>
+    <string name="cnom2">Cognom 2</string>
+    <string name="ciutatn">Ciutat naixement</string>
+    <string name="ciutatr">Ciutat residència</string>
+    <string name="cd">Codi postal</string>
+    <string name="edat">Edat</string>
+    <string name="carrer">Carrer</string>
+    <!-- hospitalit-->
+    <string name="numhosp">Número d\'hospitalització</string>
+    <string name="inicidata">Data d\'inici</string>
+    <string name="fidata">Data fi</string>
+    <string name="tempstotal">Temps total</string>
+    <string name="hosp">Hospital</string>
+    <string name="motiuHosp">Motiu de hospitalització</string>
+    <string name="previousHospitalit">&lt; Anterior hospitalització</string>
+    <string name="nextHospitalit">Següent hospitalització &gt;</string>
+    <string name="previousTractaments">&lt; Anterior tractament</string>
+    <string name="nextTractaments">Següent tractament &gt;</string>
+    <!--tractaments-->
+    <string name="Tracthosp">Tractaments seguits durant la hospitalització</string>
+    <string name="medicament">Medicament</string>
+    <string name="horesmed">Hores a les que s\'ha de prendre</string>
+    <string name="mesinfo">Més informació</string>
+    <string name="iniciTract">Inici del tractament</string>
+    <string name="fiTract">Fi del tractament</string>
+    <!--Malaltia-->
+    <string name="malaltiaTitle">Malalties</string>
+    <string name="nmalaltia">Nom malaltia</string>
+    <string name="simptoms">Síntomes</string>
+    <string name="previousMalaltia">&lt; Anterior malaltia</string>
+    <string name="nextMalaltia">Següent malaltia &gt;</string>
+    <string name="tractMalaltia">Tractaments seguits durant la malaltia</string>
+    <!--Allergia-->
+    <string name="descAllergia">Descripció de la reacció alèrgica</string>
+    <string name="medInfo">Més informació sobre aquest medicament</string>
+
 </resources>

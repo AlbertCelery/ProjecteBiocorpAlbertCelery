@@ -7,37 +7,220 @@
     tools:context=".ui.pacient.PacientFragment"
     android:background="@color/primary">
 
-    <!-- TODO: Update blank fragment layout -->
-    <EditText
-        android:id="@+id/editDniPacient"
-        android:layout_width="300dp"
+
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/Cognom2View"
+        app:layout_constraintBottom_toTopOf="@id/EdatView"
+        app:layout_constraintEnd_toStartOf="@id/CiutatNView"
 
+        android:text="@string/naixement"
+        android:id="@+id/NaixementView"
         />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toStartOf="@id/editDniPacient"
-        android:text="DNI"
-        android:textSize="18sp"
+        android:textSize="20sp"
+
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/Cognom1View"
+        app:layout_constraintEnd_toEndOf="@id/NaixementView"
+
+        android:id="@+id/NomView"
+        android:text="@string/nom"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@id/NaixementView"
+        app:layout_constraintTop_toBottomOf="@id/NomView"
+        app:layout_constraintBottom_toTopOf="@id/Cognom2View"
+
+        android:id="@+id/Cognom1View"
+        android:text="@string/cnom1"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@id/NaixementView"
+        app:layout_constraintTop_toBottomOf="@id/Cognom1View"
+        app:layout_constraintBottom_toTopOf="@id/NaixementView"
+
+        android:id="@+id/Cognom2View"
+        android:text="@string/cnom2"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@id/NaixementView"
+        app:layout_constraintTop_toBottomOf="@id/NaixementView"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:id="@+id/dniTextView"
-        android:background="@color/primary_dark"
+        android:id="@+id/EdatView"
+        android:text="@string/edat"
+        />
+
+    <EditText
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        app:layout_constraintStart_toEndOf="@id/NaixementView"
+        app:layout_constraintBottom_toBottomOf="@id/NomView"
+        app:layout_constraintTop_toTopOf="@id/NomView"
+        android:hint="@string/nom"
+        android:maxLines="1"
+
+        android:id="@+id/NomEditText"
+        />
+    <EditText
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        app:layout_constraintStart_toEndOf="@id/NaixementView"
+        app:layout_constraintBottom_toBottomOf="@id/Cognom1View"
+        app:layout_constraintTop_toTopOf="@id/Cognom1View"
+        android:hint="@string/cnom1"
+        android:maxLines="1"
+        android:id="@+id/Cognom1EditText"
+        />
+    <EditText
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        app:layout_constraintStart_toEndOf="@id/NaixementView"
+        app:layout_constraintBottom_toBottomOf="@id/Cognom2View"
+        app:layout_constraintTop_toTopOf="@id/Cognom2View"
+        android:hint="@string/cnom2"
+        android:maxLines="1"
+        android:id="@+id/Cognom2EditText"
+        />
+    <EditText
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        app:layout_constraintStart_toEndOf="@id/NaixementView"
+        app:layout_constraintBottom_toBottomOf="@id/NaixementView"
+        app:layout_constraintTop_toTopOf="@id/NaixementView"
+        android:hint="@string/naixement"
+        android:maxLines="1"
+        android:id="@+id/NaixementEditText"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/NaixementView"
+        app:layout_constraintBottom_toBottomOf="@id/EdatView"
+        app:layout_constraintTop_toTopOf="@id/EdatView"
+        android:maxLines="1"
+
+        android:textSize="20sp"
+        android:id="@+id/EdatNumberView"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+
+        app:layout_constraintStart_toEndOf="@id/PreviousPBtn"
+        app:layout_constraintTop_toTopOf="@id/NomView"
+
+        android:text="@string/ciutatn"
+        android:id="@+id/CiutatNView"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@id/CiutatNView"
+        app:layout_constraintTop_toTopOf="@id/Cognom1View"
+        android:text="@string/ciutatr"
+        android:id="@+id/CiutatRView"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@id/CiutatNView"
+        app:layout_constraintTop_toTopOf="@id/Cognom2View"
+        android:text="@string/carrer"
+        android:id="@+id/CarrerView"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@id/CiutatNView"
+        app:layout_constraintTop_toTopOf="@id/NaixementView"
+        android:text="@string/cd"
+        android:id="@+id/CodiPostalView"
+        />
+    <EditText
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        app:layout_constraintStart_toEndOf="@id/CiutatNView"
+        app:layout_constraintTop_toTopOf="@id/CiutatNView"
+        app:layout_constraintBottom_toBottomOf="@id/CiutatNView"
+        android:maxLines="1"
+
+        android:hint="@string/ciutatn"
+        android:id="@+id/CiutatNEditText"
+        />
+    <EditText
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        app:layout_constraintStart_toEndOf="@id/CiutatRView"
+        app:layout_constraintTop_toTopOf="@id/CiutatRView"
+        app:layout_constraintBottom_toBottomOf="@id/CiutatRView"
+        android:maxLines="1"
+        android:hint="@string/ciutatr"
+        android:id="@+id/CiutatREditText"
+        />
+    <EditText
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        app:layout_constraintStart_toEndOf="@id/CarrerView"
+        app:layout_constraintTop_toTopOf="@id/CarrerView"
+        app:layout_constraintBottom_toBottomOf="@id/CarrerView"
+        android:maxLines="1"
+        android:hint="@string/carrer"
+        android:id="@+id/CarrerEditText"
+        />
+    <EditText
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        app:layout_constraintStart_toEndOf="@id/CodiPostalView"
+        app:layout_constraintTop_toTopOf="@id/CodiPostalView"
+        app:layout_constraintBottom_toBottomOf="@id/CodiPostalView"
+        android:maxLines="1"
+        android:hint="@string/cd"
+        android:id="@+id/CodiPostalEditText"
         />
     <androidx.appcompat.widget.AppCompatButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="guardar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/editDniPacient"
-        android:id="@+id/buttonGuardar"
+        android:text="previous"
+        android:id="@+id/PreviousPBtn"
         />
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/PreviousPBtn"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="next"
+        android:id="@+id/NextPBtn"
+        />
+
+
+
+
+
+
+
 
 
 

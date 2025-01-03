@@ -1,14 +1,499 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.malaltia.MalaltiaFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.malaltia.MalaltiaFragment"
+    android:background="@color/primary">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardMalaltiaView1"
+        android:layout_width="480dp"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_marginBottom="100dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="8dp"
+        app:cardBackgroundColor="@color/primary_alt"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="4dp"
+        app:layout_constraintEnd_toStartOf="@+id/cardMalaltiaView2"
 
-</FrameLayout>
+        app:layout_constraintStart_toStartOf="parent"
+
+
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent="0.5">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/primary_alt"
+            android:padding="16dp">
+<!--TODO: CHANGE IDS-->
+            <TextView
+                android:id="@+id/titleTextMalaltiaView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/hospitalit"
+
+                android:textSize="20sp"
+                android:textStyle="bold"
+
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/nMalaltiaView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:text="@string/nmalaltia"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/titleTextMalaltiaView1" />
+
+            <TextView
+                android:id="@+id/simpView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/simptoms"
+                android:textSize="20sp"
+
+                app:layout_constraintEnd_toEndOf="@id/nMalaltiaView"
+
+                app:layout_constraintTop_toBottomOf="@id/nMalaltiaView" />
+
+            <TextView
+                android:id="@+id/descMalaltView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/desc"
+                android:textSize="20sp"
+
+                app:layout_constraintEnd_toEndOf="@id/nMalaltiaView"
+                app:layout_constraintTop_toBottomOf="@id/simpView" />
+
+            <TextView
+                android:id="@+id/iniciMalaltView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="160dp"
+                android:text="@string/inicidata"
+                android:textSize="20sp"
+
+                app:layout_constraintEnd_toEndOf="@id/nMalaltiaView"
+                app:layout_constraintTop_toBottomOf="@id/descMalaltView" />
+
+            <TextView
+                android:id="@+id/fiMalaltView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/fidata"
+                android:textSize="20sp"
+
+                app:layout_constraintEnd_toEndOf="@id/nMalaltiaView"
+                app:layout_constraintTop_toBottomOf="@id/iniciMalaltView" />
+
+            <TextView
+                android:id="@+id/tempsMalaltView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/tempstotal"
+
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="@id/nMalaltiaView"
+                app:layout_constraintTop_toBottomOf="@id/fiMalaltView" />
+            <EditText
+                android:id="@+id/nMalaltiaEdit"
+                android:background="@color/white_alpha_40"
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:maxLines="1"
+                android:textSize="20sp"
+                app:layout_constraintStart_toEndOf="@id/nMalaltiaView"
+                app:layout_constraintTop_toTopOf="@id/nMalaltiaView"/>
+            <EditText
+                android:id="@+id/simpEdit"
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:maxLines="1"
+                android:textSize="20sp"
+                android:background="@color/white_alpha_40"
+                app:layout_constraintStart_toEndOf="@id/simpView"
+                app:layout_constraintTop_toTopOf="@id/simpView"/>
+            <EditText
+                android:id="@+id/descMalaltEdit"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:inputType="textMultiLine"
+                android:maxLines="5"
+                android:scrollbars="vertical"
+                android:overScrollMode="always"
+                android:textSize="20sp"
+                android:background="@color/white_alpha_40"
+                app:layout_constraintStart_toEndOf="@id/descMalaltView"
+                app:layout_constraintTop_toTopOf="@id/descMalaltView"/>
+            <EditText
+                android:id="@+id/iniciMalaltValue"
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:maxLines="1"
+                android:background="@color/white_alpha_40"
+                android:textSize="20sp"
+                app:layout_constraintStart_toEndOf="@id/iniciMalaltView"
+                app:layout_constraintTop_toTopOf="@id/iniciMalaltView"/>
+            <EditText
+                android:id="@+id/fiMalaltEdit"
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:maxLines="1"
+                android:textSize="20sp"
+                android:background="@color/white_alpha_40"
+                app:layout_constraintStart_toEndOf="@id/fiMalaltView"
+                app:layout_constraintTop_toTopOf="@id/fiMalaltView"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:textSize="20sp"
+                android:maxLines="1"
+                android:background="@color/white_alpha_40"
+                app:layout_constraintStart_toEndOf="@id/tempsMalaltView"
+                app:layout_constraintTop_toTopOf="@id/tempsMalaltView"
+                android:id="@+id/tempsMalaltValue"
+                />
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:id="@+id/previousMalaltBtn"
+                app:layout_constraintTop_toBottomOf="@id/tempsMalaltView"
+                android:layout_marginTop="60dp"
+                android:text="@string/previousHospitalit"/>
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/nextHospitalit"
+                app:layout_constraintStart_toEndOf="@id/previousMalaltBtn"
+                app:layout_constraintBottom_toBottomOf="@id/previousMalaltBtn"
+                android:id="@+id/nextMalaltBtn"
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardMalaltiaView2"
+        android:layout_width="700dp"
+        android:layout_height="match_parent"
+        android:layout_marginStart="8dp"
+        app:cardBackgroundColor="@color/primary_alt"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/cardMalaltiaView1"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent="0.5"
+        android:layout_marginBottom="100dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/primary_alt"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/tractamentsMalaltiaView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tractMalaltia"
+
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/malaltiaMedTractView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:text="@string/medicament"
+                android:textSize="20sp"
+
+
+
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tractamentsMalaltiaView"
+                app:layout_constraintVertical_bias="0.503" />
+
+            <TextView
+                android:id="@+id/horesMalaltTractView"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="@string/horesmed"
+                android:layout_marginTop="25dp"
+                android:layout_marginStart="50dp"
+                app:layout_constraintBottom_toBottomOf="@id/malaltiaMedTractView"
+
+
+                app:layout_constraintStart_toEndOf="@id/malaltiaMedTractView"
+                app:layout_constraintTop_toBottomOf="@id/tractamentsMalaltiaView" />
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:maxLines="1"
+                android:background="@color/white_alpha_40"
+                app:layout_constraintStart_toStartOf="@id/malaltiaMedTractView"
+                app:layout_constraintTop_toBottomOf="@id/horesMalaltTractView"
+                android:id="@+id/spinnerMedMalaltTract1"
+                android:layout_marginTop="30dp"
+
+                />
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:maxLines="1"
+                android:background="@color/white_alpha_40"
+                app:layout_constraintStart_toStartOf="@id/malaltiaMedTractView"
+                app:layout_constraintTop_toBottomOf="@id/spinnerMedMalaltTract1"
+                android:id="@+id/spinnerMedMalaltTract2"
+                android:layout_marginTop="30dp"
+                />
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:maxLines="1"
+                android:background="@color/white_alpha_40"
+                app:layout_constraintStart_toStartOf="@id/malaltiaMedTractView"
+                app:layout_constraintTop_toBottomOf="@id/spinnerMedMalaltTract2"
+                android:id="@+id/spinnerMedMalaltTract3"
+                android:layout_marginTop="30dp"
+                />
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:maxLines="1"
+                android:background="@color/white_alpha_40"
+                app:layout_constraintStart_toStartOf="@id/malaltiaMedTractView"
+                app:layout_constraintTop_toBottomOf="@id/spinnerMedMalaltTract3"
+                android:id="@+id/spinnerMedMalaltTract4"
+                android:layout_marginTop="30dp"
+                />
+            <androidx.appcompat.widget.AppCompatEditText
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+
+                android:maxLines="1"
+                app:layout_constraintStart_toStartOf="@id/horesMalaltTractView"
+                app:layout_constraintBottom_toBottomOf="@id/spinnerMedMalaltTract1"
+                android:textSize="20sp"
+                android:background="@color/white_alpha_40"
+                android:id="@+id/horesTractMalaltEdit1"
+                android:hint="@string/defaultHint"
+                />
+            <androidx.appcompat.widget.AppCompatEditText
+                android:layout_width="130dp"
+                android:hint="@string/defaultHint"
+
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:textSize="20sp"
+                android:background="@color/white_alpha_40"
+                app:layout_constraintStart_toStartOf="@id/horesMalaltTractView"
+                app:layout_constraintBottom_toBottomOf="@id/spinnerMedMalaltTract2"
+                android:id="@+id/horesTractMalaltEdit2"
+                />
+            <androidx.appcompat.widget.AppCompatEditText
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/defaultHint"
+
+                android:maxLines="1"
+                android:textSize="20sp"
+                android:background="@color/white_alpha_40"
+                app:layout_constraintStart_toStartOf="@id/horesMalaltTractView"
+                app:layout_constraintBottom_toBottomOf="@id/spinnerMedMalaltTract3"
+                android:id="@+id/horesTractMalaltEdit3"
+                />
+            <androidx.appcompat.widget.AppCompatEditText
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/defaultHint"
+
+                android:maxLines="1"
+                android:textSize="20sp"
+                android:background="@color/white_alpha_40"
+                app:layout_constraintStart_toStartOf="@id/horesMalaltTractView"
+                app:layout_constraintBottom_toBottomOf="@id/spinnerMedMalaltTract4"
+                android:id="@+id/horesTractMalaltEdit4"
+                />
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@id/horesTractMalaltEdit1"
+                app:layout_constraintStart_toEndOf="@id/horesTractMalaltEdit1"
+                app:layout_constraintTop_toTopOf="@id/horesTractMalaltEdit1"
+                android:id="@+id/infoTractMalaltBtn1"
+                android:text="@string/mesinfo"
+                android:layout_marginStart="60dp"
+                />
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/mesinfo"
+                app:layout_constraintStart_toStartOf="@id/infoTractMalaltBtn1"
+                app:layout_constraintBottom_toBottomOf="@id/horesTractMalaltEdit2"
+                app:layout_constraintTop_toTopOf="@id/horesTractMalaltEdit2"
+
+                android:id="@+id/infoTractMalaltBtn2"
+                />
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/mesinfo"
+                app:layout_constraintStart_toStartOf="@id/infoTractMalaltBtn1"
+                app:layout_constraintBottom_toBottomOf="@id/horesTractMalaltEdit3"
+                app:layout_constraintTop_toTopOf="@id/horesTractMalaltEdit3"
+
+                android:id="@+id/infoTractMalaltBtn3"
+                />
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/mesinfo"
+                app:layout_constraintStart_toStartOf="@id/infoTractMalaltBtn1"
+                app:layout_constraintBottom_toBottomOf="@id/horesTractMalaltEdit4"
+                app:layout_constraintTop_toTopOf="@id/horesTractMalaltEdit4"
+
+                android:id="@+id/infoTractMalaltBtn4"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_marginStart="30dp"
+                android:text="@string/iniciTract"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/spinnerMedMalaltTract4"
+                android:id="@+id/iniciTractMalaltView"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="30dp"
+                android:text="@string/fiTract"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/iniciTractMalaltView"
+                app:layout_constraintEnd_toEndOf="@id/iniciTractMalaltView"
+                android:id="@+id/fiTractMalaltView"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tempstotal"
+                android:id="@+id/tempsTotalTractMalaltView"
+                app:layout_constraintTop_toBottomOf="@id/fiTractMalaltView"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/iniciTractMalaltView"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="30dp"
+                />
+            <androidx.appcompat.widget.AppCompatEditText
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                app:layout_constraintStart_toEndOf="@id/iniciTractMalaltView"
+                app:layout_constraintTop_toTopOf="@id/iniciTractMalaltView"
+                app:layout_constraintBottom_toBottomOf="@id/iniciTractMalaltView"
+                android:id="@+id/iniciTractMalaltEdit"
+                android:background="@color/white_alpha_40"
+                android:layout_marginStart="20dp"
+                android:textSize="20sp"
+
+                />
+            <androidx.appcompat.widget.AppCompatEditText
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:id="@+id/fiTractMalaltEdit"
+                android:background="@color/white_alpha_40"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="@id/iniciTractMalaltEdit"
+                app:layout_constraintTop_toTopOf="@id/fiTractMalaltView"
+                app:layout_constraintBottom_toBottomOf="@id/fiTractMalaltView"
+
+                />
+            <androidx.appcompat.widget.AppCompatEditText
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:id="@+id/tempsTotalTractMalaltEdit"
+                android:background="@color/white_alpha_40"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="@id/fiTractMalaltEdit"
+                app:layout_constraintTop_toTopOf="@id/tempsTotalTractMalaltView"
+                app:layout_constraintBottom_toBottomOf="@id/tempsTotalTractMalaltView"
+                />
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tempsTotalTractMalaltView"
+                android:id="@+id/previousTractMalaltBtn"
+                android:text="@string/previousTractaments"
+                android:layout_marginTop="40dp"/>
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/nextTractaments"
+                app:layout_constraintStart_toEndOf="@id/previousTractMalaltBtn"
+                app:layout_constraintBottom_toBottomOf="@id/previousTractMalaltBtn"
+                android:id="@+id/nextTractMalaltBtn"
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="previous"
+        android:id="@+id/PreviousPBtn"
+        />
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/PreviousPBtn"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="next"
+        android:id="@+id/NextPBtn"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
