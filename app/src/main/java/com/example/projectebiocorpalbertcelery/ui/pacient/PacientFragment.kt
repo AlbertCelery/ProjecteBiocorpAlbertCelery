@@ -19,7 +19,7 @@ class PacientFragment : Fragment() {
 
     private lateinit var databaseManager: DatabaseManager
 
-   /
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
