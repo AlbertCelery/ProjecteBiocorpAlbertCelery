@@ -12,7 +12,7 @@
         android:id="@+id/cardMalaltiaView1"
         android:layout_width="480dp"
         android:layout_height="match_parent"
-        android:layout_marginBottom="100dp"
+        android:layout_marginBottom="50dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="8dp"
         app:cardBackgroundColor="@color/primary_alt"
@@ -58,7 +58,7 @@
                 android:id="@+id/simpView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="5dp"
                 android:text="@string/simptoms"
                 android:textSize="20sp"
 
@@ -70,7 +70,7 @@
                 android:id="@+id/descMalaltView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="5dp"
                 android:text="@string/desc"
                 android:textSize="20sp"
 
@@ -81,7 +81,7 @@
                 android:id="@+id/iniciMalaltView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="160dp"
+                android:layout_marginTop="100dp"
                 android:text="@string/inicidata"
                 android:textSize="20sp"
 
@@ -173,15 +173,16 @@
                 app:layout_constraintTop_toTopOf="@id/tempsMalaltView"
                 android:id="@+id/tempsMalaltValue"
                 />
+
             <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/previousMalaltBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="@string/previousHospitalit"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                android:id="@+id/previousMalaltBtn"
-                app:layout_constraintTop_toBottomOf="@id/tempsMalaltView"
-                android:layout_marginTop="60dp"
-                android:text="@string/previousHospitalit"/>
+
+                app:layout_constraintTop_toBottomOf="@id/tempsMalaltView" />
             <androidx.appcompat.widget.AppCompatButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -189,6 +190,23 @@
                 app:layout_constraintStart_toEndOf="@id/previousMalaltBtn"
                 app:layout_constraintBottom_toBottomOf="@id/previousMalaltBtn"
                 android:id="@+id/nextMalaltBtn"
+                />
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/save"
+                app:layout_constraintEnd_toEndOf="@id/previousMalaltBtn"
+                app:layout_constraintTop_toBottomOf="@id/previousMalaltBtn"
+
+                android:id="@+id/saveMalaltBtn"
+                />
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/newEntry"
+                app:layout_constraintStart_toStartOf="@id/nextMalaltBtn"
+                app:layout_constraintBottom_toBottomOf="@id/saveMalaltBtn"
+                android:id="@+id/newEntryHospitalitBtn"
                 />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -206,7 +224,7 @@
         app:layout_constraintStart_toEndOf="@+id/cardMalaltiaView1"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintWidth_percent="0.5"
-        android:layout_marginBottom="100dp">
+        android:layout_marginBottom="50dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -445,12 +463,12 @@
                 app:layout_constraintBottom_toBottomOf="@id/fiTractMalaltView"
 
                 />
-            <androidx.appcompat.widget.AppCompatEditText
-                android:layout_width="130dp"
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:maxLines="1"
+
                 android:id="@+id/tempsTotalTractMalaltEdit"
-                android:background="@color/white_alpha_40"
+
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="@id/fiTractMalaltEdit"
                 app:layout_constraintTop_toTopOf="@id/tempsTotalTractMalaltView"
@@ -464,7 +482,7 @@
                 app:layout_constraintTop_toBottomOf="@id/tempsTotalTractMalaltView"
                 android:id="@+id/previousTractMalaltBtn"
                 android:text="@string/previousTractaments"
-                android:layout_marginTop="40dp"/>
+                android:layout_marginTop="10dp"/>
             <androidx.appcompat.widget.AppCompatButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -473,27 +491,26 @@
                 app:layout_constraintBottom_toBottomOf="@id/previousTractMalaltBtn"
                 android:id="@+id/nextTractMalaltBtn"
                 />
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/save"
+                app:layout_constraintEnd_toEndOf="@id/previousTractMalaltBtn"
+                app:layout_constraintTop_toBottomOf="@id/previousTractMalaltBtn"
+                android:id="@+id/saveTractMalaltBtn"
+                />
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/newEntry"
+                app:layout_constraintStart_toStartOf="@id/nextTractMalaltBtn"
+                app:layout_constraintBottom_toBottomOf="@id/saveTractMalaltBtn"
+                android:id="@+id/newEntryTractMalaltBtn"
+                />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
-    <androidx.appcompat.widget.AppCompatButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
 
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:text="previous"
-        android:id="@+id/PreviousPBtn"
-        />
-    <androidx.appcompat.widget.AppCompatButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/PreviousPBtn"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:text="next"
-        android:id="@+id/NextPBtn"
-        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

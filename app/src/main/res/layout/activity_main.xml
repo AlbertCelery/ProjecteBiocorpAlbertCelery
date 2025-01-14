@@ -18,19 +18,32 @@
         />
     <TextView
         android:layout_width="300dp"
+        android:text="@string/all_name"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toEndOf="@id/NomCompltTextView"
         app:layout_constraintBottom_toBottomOf="@id/NomCompltTextView"
-        android:id="@+id/dniEditText"
+        android:id="@+id/NomCompltEdit"
         android:textSize="20sp"
+        android:background="@color/black_alpha_10"
         />
+
     <androidx.appcompat.widget.AppCompatButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="buscar"
-        app:layout_constraintStart_toEndOf="@id/dniEditText"
+        app:layout_constraintStart_toEndOf="@id/NomCompltEdit"
         app:layout_constraintBottom_toBottomOf="@id/NomCompltTextView"
-        android:id="@+id/selectDni"
+        android:layout_marginStart="30dp"
+        android:text="@string/previousPacient"
+        android:id="@+id/PreviousPBtn"
+    />
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        app:layout_constraintStart_toEndOf="@id/PreviousPBtn"
+        app:layout_constraintBottom_toBottomOf="@id/PreviousPBtn"
+        android:text="@string/nextPacient"
+        android:id="@+id/NextPBtn"
         />
 
     <androidx.fragment.app.FragmentContainerView

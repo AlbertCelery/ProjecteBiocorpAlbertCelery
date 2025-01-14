@@ -8,7 +8,13 @@
     <string name="pacient">Pacient</string>
     <string name="medicacio">Medicació</string>
     <string name="desc">Descripció</string>
+    <string name="save">Guardar</string>
+    <string name="newMotiv">Nou motiu</string>
+    <string name="newEntry">Crear nou</string>
+    <string name="close">Tancar</string>"
     <!-- pacient-->
+    <string name="previousPacient">&lt; Anterior pacient</string>
+    <string name="nextPacient">Següent pacient &gt;</string>
     <string name="all_name">Nom complet del pacient</string>
     <string name="naixement">Data naixement</string>
     <string name="dni">DNI</string>
@@ -47,6 +53,15 @@
     <string name="tractMalaltia">Tractaments seguits durant la malaltia</string>
     <!--Allergia-->
     <string name="descAllergia">Descripció de la reacció alèrgica</string>
-    <string name="medInfo">Més informació sobre aquest medicament</string>
+    <string name="medInfo">Més informació sobre \naquest medicament</string>
+    <!--Medicament-->
+    <string name="nmed">Nom medicament</string>
+    <string name="marca">Marca</string>
+    <string name="formaPres">Forma de presentació</string>
+    <string name="newformaPres">Nova forma de presentació</string>
+    <string name="efectSecund">Efectes secundaris</string>
+    <string name="previousMed">&lt; Anterior medicament</string>
+    <string name="nextMed">Següent medicament &gt;</string>
+    <string name="searchMed">Buscar medicament</string>
 
 </resources>

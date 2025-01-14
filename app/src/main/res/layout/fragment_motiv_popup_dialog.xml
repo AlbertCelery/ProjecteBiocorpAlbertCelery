@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.hopitalit.MotivPopupDialog">
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/motivPopupEdit"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:hint="@string/defaultHint"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@color/black_alpha_10"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/motivCloseBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/close"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/motivPopupEdit"/>
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/motivSaveBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/save"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/motivCloseBtn"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

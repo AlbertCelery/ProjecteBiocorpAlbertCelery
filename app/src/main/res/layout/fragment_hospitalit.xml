@@ -14,7 +14,7 @@
         android:id="@+id/cardHospView1"
         android:layout_width="480dp"
         android:layout_height="match_parent"
-        android:layout_marginBottom="100dp"
+        android:layout_marginBottom="50dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="8dp"
         app:cardBackgroundColor="@color/primary_alt"
@@ -111,6 +111,16 @@
                 android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="@id/numHospView"
                 app:layout_constraintTop_toBottomOf="@id/hospView" />
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/motiuHospView"
+                app:layout_constraintStart_toStartOf="parent"
+                android:id="@+id/nouMotivBtn"
+                android:text="@string/newMotiv"
+                />
+
+
             <TextView
                 android:id="@+id/numHospValueView"
                 android:layout_width="130dp"
@@ -173,11 +183,12 @@
             <androidx.appcompat.widget.AppCompatButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginTop="50dp"
+
                 app:layout_constraintStart_toStartOf="parent"
                 android:id="@+id/previousHospitalitBtn"
                 app:layout_constraintTop_toBottomOf="@id/motiuHospView"
-                android:layout_marginTop="60dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 android:text="@string/previousHospitalit"/>
             <androidx.appcompat.widget.AppCompatButton
                 android:layout_width="wrap_content"
@@ -187,6 +198,24 @@
                 app:layout_constraintBottom_toBottomOf="@id/previousHospitalitBtn"
                 android:id="@+id/nextHospitalitBtn"
                 />
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/save"
+                app:layout_constraintEnd_toEndOf="@id/previousHospitalitBtn"
+                app:layout_constraintTop_toBottomOf="@id/previousHospitalitBtn"
+
+                android:id="@+id/saveHospitalitBtn"
+                />
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/newEntry"
+                app:layout_constraintStart_toStartOf="@id/nextHospitalitBtn"
+                app:layout_constraintBottom_toBottomOf="@id/saveHospitalitBtn"
+                android:id="@+id/newEntryHospitalitBtn"
+                />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
@@ -203,7 +232,7 @@
         app:layout_constraintStart_toEndOf="@+id/cardHospView1"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintWidth_percent="0.5"
-        android:layout_marginBottom="100dp">
+        android:layout_marginBottom="50dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -442,12 +471,12 @@
                 app:layout_constraintBottom_toBottomOf="@id/fiTractView"
 
                 />
-            <androidx.appcompat.widget.AppCompatEditText
-                android:layout_width="130dp"
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:maxLines="1"
+
                 android:id="@+id/tempsTotalTractEdit"
-                android:background="@color/white_alpha_40"
+
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="@id/fiTractEdit"
                 app:layout_constraintTop_toTopOf="@id/tempsTotalTractView"
@@ -461,7 +490,7 @@
                 app:layout_constraintTop_toBottomOf="@id/tempsTotalTractView"
                 android:id="@+id/previousTractamentsBtn"
                 android:text="@string/previousTractaments"
-                android:layout_marginTop="40dp"/>
+                android:layout_marginTop="10dp"/>
             <androidx.appcompat.widget.AppCompatButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -470,30 +499,28 @@
                 app:layout_constraintBottom_toBottomOf="@id/previousTractamentsBtn"
                 android:id="@+id/nextTractamentsBtn"
                 />
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/save"
+                app:layout_constraintEnd_toEndOf="@id/previousTractamentsBtn"
+                app:layout_constraintTop_toBottomOf="@id/previousTractamentsBtn"
+                android:id="@+id/saveTractHospBtn"
+                />
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/newEntry"
+                app:layout_constraintStart_toStartOf="@id/nextTractamentsBtn"
+                app:layout_constraintBottom_toBottomOf="@id/saveTractHospBtn"
+                android:id="@+id/newEntryTractHospBtn"
+                />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
 <!--TODO: QUIT LAST BUTTONS!!!! -->
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
 
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:text="previous"
-        android:id="@+id/PreviousPBtn"
-        />
-    <androidx.appcompat.widget.AppCompatButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/PreviousPBtn"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:text="next"
-        android:id="@+id/NextHBtn"
-        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

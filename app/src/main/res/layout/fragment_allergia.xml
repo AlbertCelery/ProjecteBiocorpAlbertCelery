@@ -8,7 +8,7 @@
     android:background="@color/primary">
 
     <!--ScrollBar Finita Pero LLarga-->
-
+    <!--TODO:id="@id/descAllergiaView"-->
     <androidx.cardview.widget.CardView
         android:id="@+id/cardHospView1"
         android:layout_width="match_parent"
@@ -29,7 +29,252 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/primary_alt"
+
         >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/medicament"
+            android:textSize="20sp"
+            android:id="@+id/medAllergiaView"
+            app:layout_constraintStart_toStartOf="@id/medAllergiaScrollView"
+            app:layout_constraintBottom_toBottomOf="@id/descAllergiaView"
+
+            />
+        <TextView
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="@string/descAllergia"
+            android:id="@+id/descAllergiaView"
+            app:layout_constraintStart_toStartOf="@id/medAllergiaScrollView"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/medAllergiaScrollView"
+            app:layout_constraintEnd_toEndOf="@id/medAllergiaScrollView"
+            />
+        <!--TODO:Revisar millor scrollview o nestedscrollview-->
+        <ScrollView
+            android:layout_width="600dp"
+            android:layout_height="500dp"
+            android:layout_marginTop="20dp"
+            android:id="@+id/medAllergiaScrollView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/medAllergiaView"
+            app:layout_constraintEnd_toEndOf="parent">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:id="@+id/medAllergiaConstraintLayout1"
+                >
+                <androidx.appcompat.widget.AppCompatSpinner
+                    android:layout_width="130dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:id="@+id/medAllergiaSpinner1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+
+                    android:layout_marginTop="30dp"
+                    android:background="@color/white_alpha_40"
+                    />
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:layout_width="170dp"
+                    android:layout_height="90dp"
+                    android:textSize="18sp"
+                    android:id="@+id/descAllergiaEdit1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/medAllergiaSpinner1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:inputType="textMultiLine"
+                    android:maxLines="4"
+                    android:background="@color/white_alpha_40"
+                    android:scrollbars="vertical"
+                    android:overScrollMode="always"
+                    android:hint="@string/defaultHint"
+
+                    />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/medInfoBtn1"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/medInfo"
+                    android:textAllCaps="false"
+                    app:layout_constraintEnd_toEndOf="parent"
+
+                    app:layout_constraintTop_toTopOf="@id/medAllergiaSpinner1" />
+                <androidx.appcompat.widget.AppCompatSpinner
+                    android:layout_width="130dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:id="@+id/medAllergiaSpinner2"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/descAllergiaEdit1"
+
+                    android:layout_marginTop="30dp"
+                    android:background="@color/white_alpha_40"
+                    />
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:layout_width="170dp"
+                    android:layout_height="90dp"
+                    android:textSize="18sp"
+                    android:id="@+id/descAllergiaEdit2"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/descAllergiaEdit1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginTop="30dp"
+                    android:inputType="textMultiLine"
+                    android:maxLines="4"
+                    android:background="@color/white_alpha_40"
+                    android:scrollbars="vertical"
+                    android:overScrollMode="always"
+                    android:hint="@string/defaultHint"
+
+                    />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/medInfoBtn2"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/medInfo"
+                    android:textAllCaps="false"
+                    app:layout_constraintEnd_toEndOf="parent"
+
+                    app:layout_constraintTop_toTopOf="@id/medAllergiaSpinner2" />
+                <androidx.appcompat.widget.AppCompatSpinner
+                    android:layout_width="130dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:id="@+id/medAllergiaSpinner3"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/descAllergiaEdit2"
+
+                    android:layout_marginTop="30dp"
+                    android:background="@color/white_alpha_40"
+                    />
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:layout_width="170dp"
+                    android:layout_height="90dp"
+                    android:textSize="18sp"
+                    android:id="@+id/descAllergiaEdit3"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/descAllergiaEdit2"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginTop="30dp"
+                    android:inputType="textMultiLine"
+                    android:maxLines="4"
+                    android:background="@color/white_alpha_40"
+                    android:scrollbars="vertical"
+                    android:overScrollMode="always"
+                    android:hint="@string/defaultHint"
+
+                    />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/medInfoBtn3"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/medInfo"
+                    android:textAllCaps="false"
+                    app:layout_constraintEnd_toEndOf="parent"
+
+                    app:layout_constraintTop_toTopOf="@id/medAllergiaSpinner3" />
+                <androidx.appcompat.widget.AppCompatSpinner
+                    android:layout_width="130dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:id="@+id/medAllergiaSpinner4"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/descAllergiaEdit3"
+
+                    android:layout_marginTop="30dp"
+                    android:background="@color/white_alpha_40"
+                    />
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:layout_width="170dp"
+                    android:layout_height="90dp"
+                    android:textSize="18sp"
+                    android:id="@+id/descAllergiaEdit4"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/descAllergiaEdit3"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginTop="30dp"
+                    android:inputType="textMultiLine"
+                    android:maxLines="4"
+                    android:background="@color/white_alpha_40"
+                    android:scrollbars="vertical"
+                    android:overScrollMode="always"
+                    android:hint="@string/defaultHint"
+
+                    />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/medInfoBtn4"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/medInfo"
+                    android:textAllCaps="false"
+                    app:layout_constraintEnd_toEndOf="parent"
+
+                    app:layout_constraintTop_toTopOf="@id/medAllergiaSpinner4" />
+                <androidx.appcompat.widget.AppCompatSpinner
+                    android:layout_width="130dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:id="@+id/medAllergiaSpinner5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/descAllergiaEdit4"
+
+                    android:layout_marginTop="30dp"
+                    android:background="@color/white_alpha_40"
+                    />
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:layout_width="170dp"
+                    android:layout_height="90dp"
+                    android:textSize="18sp"
+                    android:id="@+id/descAllergiaEdit5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/descAllergiaEdit4"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginTop="30dp"
+                    android:inputType="textMultiLine"
+                    android:maxLines="4"
+                    android:background="@color/white_alpha_40"
+                    android:scrollbars="vertical"
+                    android:overScrollMode="always"
+                    android:hint="@string/defaultHint"
+
+                    />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/medInfoBtn5"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/medInfo"
+                    android:textAllCaps="false"
+                    app:layout_constraintEnd_toEndOf="parent"
+
+                    app:layout_constraintTop_toTopOf="@id/medAllergiaSpinner5" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+         <androidx.appcompat.widget.AppCompatButton
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             app:layout_constraintStart_toEndOf="@id/medAllergiaScrollView"
+             app:layout_constraintBottom_toBottomOf="@id/medAllergiaScrollView"
+             android:text="@string/save"
+             android:layout_marginStart="20dp"
+             android:id="@+id/saveAllergiaBtn"
+             />
+
+
+
+
+
+
+
+        
 
     </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

@@ -9,28 +9,144 @@
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
-
-    <androidx.appcompat.widget.AppCompatButton
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="@string/nmed"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    android:layout_marginEnd="40dp"
+    app:layout_constraintBottom_toTopOf="@id/efectSecundView"
+    android:textSize="20sp"
+    android:id="@+id/nMedView"
+    />
+    <androidx.appcompat.widget.AppCompatEditText
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:background="@color/white_alpha_40"
+        app:layout_constraintStart_toEndOf="@id/nMedView"
+        app:layout_constraintTop_toTopOf="@id/nMedView"
+        android:layout_marginStart="20dp"
+        android:id="@+id/nMedEdit"
+        />
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:text="previous"
-        android:id="@+id/PreviousPBtn"
+        android:text="@string/marca"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@id/nMedView"
+        app:layout_constraintTop_toBottomOf="@id/nMedView"
+        android:layout_marginTop="40dp"
+        android:id="@+id/marcaView"
+        />
+    <androidx.appcompat.widget.AppCompatEditText
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:background="@color/white_alpha_40"
+        app:layout_constraintStart_toStartOf="@id/nMedEdit"
+        app:layout_constraintTop_toTopOf="@id/marcaView"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/formaPres"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@id/nMedView"
+        app:layout_constraintTop_toBottomOf="@id/marcaView"
+        android:layout_marginTop="40dp"
+        android:id="@+id/formaPresView"
         />
     <androidx.appcompat.widget.AppCompatButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/PreviousPBtn"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:text="next"
-        android:id="@+id/NextPBtn"
+        android:text="@string/newformaPres"
+        android:id="@+id/newFormaPresBtn"
+        app:layout_constraintStart_toStartOf="@id/formaPresView"
+        app:layout_constraintTop_toBottomOf="@id/formaPresView"
         />
+    <Spinner
+        android:layout_width="170dp"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:background="@color/white_alpha_40"
+        app:layout_constraintStart_toStartOf="@id/nMedEdit"
+        app:layout_constraintTop_toTopOf="@id/formaPresView"
+        android:id="@+id/formaPresSpinner"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/efectSecund"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@id/nMedView"
+        app:layout_constraintTop_toBottomOf="@id/newFormaPresBtn"
+        android:layout_marginTop="40dp"
+        android:id="@+id/efectSecundView"
+        />
+    <androidx.appcompat.widget.AppCompatEditText
+        android:layout_width="170dp"
+        android:layout_height="90dp"
+        android:background="@color/white_alpha_40"
+        app:layout_constraintStart_toStartOf="@id/nMedEdit"
+        app:layout_constraintTop_toTopOf="@id/efectSecundView"
+        android:maxLines="3"
+        android:id="@+id/efectSecundEdit"
+        android:inputType="textMultiLine"
+        android:scrollbars="vertical"
+        android:overScrollMode="always"
+        android:hint="@string/defaultHint"
+
+        />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/efectSecundEdit"
+        android:layout_marginTop="30dp"
+        app:layout_constraintStart_toStartOf="@id/efectSecundView"
+        android:text="@string/previousMed"
+        android:id="@+id/previousMedBtn"
+        />
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/nextMed"
+        app:layout_constraintStart_toEndOf="@id/previousMedBtn"
+        app:layout_constraintBottom_toBottomOf="@id/previousMedBtn"
+        android:id="@+id/nextMedBtn"
+        />
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="wrap_content"
+        android:layout_height="70dp"
+        android:text="@string/searchMed"
+        android:layout_marginStart="20dp"
+        app:layout_constraintStart_toEndOf="@id/nextMedBtn"
+        app:layout_constraintBottom_toBottomOf="@id/formaPresSpinner"
+        android:id="@+id/searchMedBtn"
+        />
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="@string/newEntry"
+        android:id="@+id/newEntryMedBtn"
+        app:layout_constraintStart_toStartOf="@id/searchMedBtn"
+        app:layout_constraintEnd_toEndOf="@id/searchMedBtn"
+        app:layout_constraintTop_toBottomOf="@id/searchMedBtn"
+        />
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="@string/save"
+        android:id="@+id/saveMedBtn"
+        app:layout_constraintStart_toStartOf="@id/newEntryMedBtn"
+
+        app:layout_constraintTop_toBottomOf="@id/newEntryMedBtn"
+        />
+
+
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
