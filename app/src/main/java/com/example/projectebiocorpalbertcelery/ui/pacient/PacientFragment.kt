@@ -26,6 +26,7 @@ class PacientFragment : Fragment() {
     ): View {
 
         _binding = FragmentPacientBinding.inflate(layoutInflater, container, false)
+        clearPacient()
         databaseManager = DatabaseManager()
         binding.newEntryPacientBtn.setOnClickListener {
             clearPacient()

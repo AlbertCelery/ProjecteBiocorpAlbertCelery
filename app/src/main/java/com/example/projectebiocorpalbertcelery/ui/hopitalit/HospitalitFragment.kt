@@ -24,7 +24,7 @@ class HospitalitFragment : Fragment() {
         _binding = FragmentHospitalitBinding.inflate(layoutInflater, container, false)
 
         databaseManager = DatabaseManager()
-        databaseManager.openDatabase(requireContext())
+        //databaseManager.openDatabase(requireContext())
 
         val optionsMotiv: String = "SELECT nom FROM motivhospit"
         val nombres: MutableList<String> = databaseManager.obtenerNombres(optionsMotiv)

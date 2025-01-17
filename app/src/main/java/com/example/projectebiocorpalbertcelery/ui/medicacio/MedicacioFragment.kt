@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.projectebiocorpalbertcelery.data.DatabaseManager
 import com.example.projectebiocorpalbertcelery.databinding.FragmentMedicacioBinding
@@ -21,7 +22,7 @@ class MedicacioFragment : Fragment() {
     ): View {
         _binding = FragmentMedicacioBinding.inflate(layoutInflater, container, false)
         databaseManager = DatabaseManager()
-        databaseManager.openDatabase(requireContext())
+        //databaseManager.openDatabase(requireContext())
 
         val optionsFormaPres: String = "SELECT nom FROM formaPres"
         val nombres: MutableList<String> = databaseManager.obtenerNombres(optionsFormaPres)
@@ -32,8 +33,30 @@ class MedicacioFragment : Fragment() {
             val dialog = MotivPopupDialog()
             dialog.show(parentFragmentManager, "MotivPopupDialog")
         }
+        binding.saveMedBtn.setOnClickListener {
+            val nom = binding.nMedEdit.text.toString()
+            val marca = binding.marcaEdit.text.toString()
+            val formaPres = binding.formaPresSpinner.selectedItem.toString()
+            val efecteSecundari = binding.efectSecundEdit.text.toString()
+            val result = databaseManager.insertDataMedicacio(nom, marca, formaPres, efecteSecundari)
+            if (result) {
+                clearMedicacio()
+                Toast.makeText(requireContext(), "Data Inserted", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(requireContext(), "Error try again", Toast.LENGTH_SHORT).show()
+            }
+
+        }
+        binding.newEntryMedBtn.setOnClickListener {
+            clearMedicacio()
+        }
         return binding.root
     }
 
+    private fun clearMedicacio() {
+        binding.nMedEdit.text?.clear()
+        binding.marcaEdit.text?.clear()
+        binding.efectSecundEdit.text?.clear()
+    }
 
 }

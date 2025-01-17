@@ -13,8 +13,7 @@ public class DatabaseManager {
     private var myFile: File? = null
     private var db: SQLiteDatabase? = null
 
-    private var cursor: Cursor? = null
-    private var currentIndex = 0
+
 fun loadDatabase(){
     myFile = ConnectionClass.myFile
     db = SQLiteDatabase.openOrCreateDatabase(myFile!!.absolutePath, null,null)
@@ -57,6 +56,47 @@ fun loadDatabase(){
 
         return result !=-1L
     }
+    fun getformaPresInt(formaPres: String): Int {
+        loadDatabase()
+        var cursor = db!!.rawQuery("SELECT id FROM formaPres WHERE nom = '$formaPres'", null)
+        var id = -1
+        if (cursor.moveToFirst()) {
+            id = cursor.getInt(0)
+        }
+        cursor.close()
+        return id
+    }
+    fun insertDataMedicacio(nom: String, marca: String, formaPres: String, efecteSecundari: String): Boolean {
+        loadDatabase()
+        val id = getformaPresInt(formaPres)
+        val values = ContentValues()
+        values.put("nom", nom)
+        values.put("marca", marca)
+        values.put("formaPres", id)
+        values.put("efecteSecundari", efecteSecundari)
+        val result = db!!.insert("medicament", null, values)
+        return result !=-1L
+    }
+    /*fun getcurrentdni(): String {//TODO GET CURRENT POSITION!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        loadDatabase()
+        var cursor = db!!.rawQuery("SELECT dni FROM pacient ORDER BY id DESC LIMIT 1", null)
+        var dni = ""
+        if (cursor.moveToFirst()) {
+            dni = cursor.getString(0)
+    }*/
+    /*fun insertDataMalaltia(dni: String, nomMalaltia: String, descripcio: String, sintomes: String, iniciMalaltia: String, fiMalaltia: String): Boolean {
+        loadDatabase()
+        val values = ContentValues()
+        values.put("dni", dni)
+        values.put("nom", nomMalaltia)
+        values.put("descripcio", descripcio)
+        values.put("sintomas", sintomes)
+        values.put("iniciMalaltia", iniciMalaltia)
+        values.put("fiMalaltia", fiMalaltia)
+        val result = db!!.insert("malaltia", null, values)
+        return result !=-1L
+
+    }*/
     fun convertStringToInt(input: String): Int? {
         return try {
             input.toInt() // Intenta convertir la cadena a Int
@@ -69,8 +109,9 @@ fun loadDatabase(){
 
     fun openDatabase(requireContext: Context) {
         loadDatabase()
-
-
     }
+
+
+
 
 }

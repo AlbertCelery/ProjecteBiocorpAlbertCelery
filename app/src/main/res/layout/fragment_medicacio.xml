@@ -15,7 +15,7 @@
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
-    android:layout_marginEnd="40dp"
+    android:layout_marginEnd="400dp"
     app:layout_constraintBottom_toTopOf="@id/efectSecundView"
     android:textSize="20sp"
     android:id="@+id/nMedView"
@@ -41,6 +41,7 @@
         android:id="@+id/marcaView"
         />
     <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/marcaEdit"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:maxLines="1"
