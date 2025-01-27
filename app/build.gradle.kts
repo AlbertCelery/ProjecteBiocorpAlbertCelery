@@ -41,10 +41,12 @@ android {
 
 dependencies {
     val navVersion = "2.7.1"
+    val lifecycleVersion = "2.6.1"
     //NavComponent
     implementation("androidx.navigation:navigation-fragment-ktx:$navVersion")
     implementation("androidx.navigation:navigation-ui-ktx:$navVersion")
-
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion") // Check for the latest version
+    implementation ("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion")
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)

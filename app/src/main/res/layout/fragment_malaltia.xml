@@ -36,7 +36,7 @@
                 android:id="@+id/titleTextMalaltiaView1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/hospitalit"
+                android:text="@string/malaltia"
 
                 android:textSize="20sp"
                 android:textStyle="bold"
@@ -120,7 +120,7 @@
                 app:layout_constraintStart_toEndOf="@id/nMalaltiaView"
                 app:layout_constraintTop_toTopOf="@id/nMalaltiaView"/>
             <EditText
-                android:id="@+id/simpEdit"
+                android:id="@+id/simpMalaltiaEdit"
                 android:layout_width="130dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
@@ -143,12 +143,13 @@
                 app:layout_constraintStart_toEndOf="@id/descMalaltView"
                 app:layout_constraintTop_toTopOf="@id/descMalaltView"/>
             <EditText
-                android:id="@+id/iniciMalaltValue"
+                android:id="@+id/iniciMalaltEdit"
                 android:layout_width="130dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:maxLines="1"
                 android:background="@color/white_alpha_40"
+                android:hint="@string/datehint"
                 android:textSize="20sp"
                 app:layout_constraintStart_toEndOf="@id/iniciMalaltView"
                 app:layout_constraintTop_toTopOf="@id/iniciMalaltView"/>
@@ -161,7 +162,8 @@
                 android:textSize="20sp"
                 android:background="@color/white_alpha_40"
                 app:layout_constraintStart_toEndOf="@id/fiMalaltView"
-                app:layout_constraintTop_toTopOf="@id/fiMalaltView"/>
+                app:layout_constraintTop_toTopOf="@id/fiMalaltView"
+                android:hint="@string/datehint"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -178,7 +180,7 @@
                 android:id="@+id/previousMalaltBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/previousHospitalit"
+                android:text="@string/previousMalaltia"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
 
@@ -186,7 +188,7 @@
             <androidx.appcompat.widget.AppCompatButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/nextHospitalit"
+                android:text="@string/nextMalaltia"
                 app:layout_constraintStart_toEndOf="@id/previousMalaltBtn"
                 app:layout_constraintBottom_toBottomOf="@id/previousMalaltBtn"
                 android:id="@+id/nextMalaltBtn"
@@ -449,6 +451,7 @@
                 android:background="@color/white_alpha_40"
                 android:layout_marginStart="20dp"
                 android:textSize="20sp"
+                android:hint="@string/datehint"
 
                 />
             <androidx.appcompat.widget.AppCompatEditText
@@ -461,6 +464,7 @@
                 app:layout_constraintStart_toStartOf="@id/iniciTractMalaltEdit"
                 app:layout_constraintTop_toTopOf="@id/fiTractMalaltView"
                 app:layout_constraintBottom_toBottomOf="@id/fiTractMalaltView"
+                android:hint="@string/datehint"
 
                 />
             <TextView

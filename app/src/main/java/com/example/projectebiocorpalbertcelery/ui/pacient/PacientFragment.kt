@@ -1,21 +1,39 @@
 package com.example.projectebiocorpalbertcelery.ui.pacient
 
 
+import android.database.Cursor
+import android.database.sqlite.SQLiteDatabase
 import android.os.Bundle
+import android.provider.ContactsContract.Data
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.observe
 import com.example.projectebiocorpalbertcelery.data.DatabaseManager
 import com.example.projectebiocorpalbertcelery.databinding.FragmentPacientBinding
 
   import com.example.projectebiocorpalbertcelery.ui.home.MainActivity
+import com.example.projectebiocorpalbertcelery.ui.medicacio.MedicacioFragmentViewModel
+import java.io.File
 
+/*interface pacientFragmentListener {
+    fun loadPacient(dni: String)
 
-class PacientFragment : Fragment() {
+}*/
+
+class PacientFragment : Fragment()/*, pacientFragmentListener */{
     private var _binding: FragmentPacientBinding? = null
     private val binding get() = _binding!!
+    private var cursor: Cursor? = null
+
+
+    //todo VIEWMODEL*
+    private val sharedViewModel: PacientFragmentViewModel by activityViewModels()
+
 
     private lateinit var databaseManager: DatabaseManager
 
@@ -33,6 +51,7 @@ class PacientFragment : Fragment() {
 
              (activity as? MainActivity)?.clearNomPacient()
         }
+
         binding.savePacientBtn.setOnClickListener {
             val dni = binding.dniEditText.text.toString()
             val nom = binding.NomEditText.text.toString()
@@ -56,6 +75,7 @@ class PacientFragment : Fragment() {
                 codiPostal!!
             )
             if (result) {
+                databaseManager.genAlergiaStack(dni)
                 clearPacient()
 
                 Toast.makeText(requireContext(), "Data Inserted", Toast.LENGTH_SHORT).show()
@@ -66,6 +86,16 @@ class PacientFragment : Fragment() {
 
         return binding.root
     }
+
+
+    //todo VIEWMODEL*
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        sharedViewModel.loadPacientTrigger.observe(viewLifecycleOwner) { dni ->
+            loadPacient(dni)
+        }
+    }
+
 
 
     private fun clearPacient(){
@@ -82,6 +112,38 @@ class PacientFragment : Fragment() {
 
 
     }
+    /*override*/ fun loadPacient(dni: String){
+        //binding.dniEditText.setText(dni)
+               databaseManager = DatabaseManager()
+                databaseManager.loadDatabase()
+                cursor = databaseManager.getDatabyDNIPacient(dni)
+                if (cursor != null && cursor!!.moveToFirst()) {
+                    val nom = cursor!!.getString(cursor!!.getColumnIndexOrThrow("nom"))
+                    val cognom1 = cursor!!.getString(cursor!!.getColumnIndexOrThrow("cognom1"))
+                    val cognom2 = cursor!!.getString(cursor!!.getColumnIndexOrThrow("cognom2"))
+                    val dataNaixement = cursor!!.getString(cursor!!.getColumnIndexOrThrow("naixement"))
+                    val ciutatN = cursor!!.getString(cursor!!.getColumnIndexOrThrow("ciutatN"))
+                    val ciutatR = cursor!!.getString(cursor!!.getColumnIndexOrThrow("ciutatR"))
+                    val carrer = cursor!!.getString(cursor!!.getColumnIndexOrThrow("carrer"))
+                    val codiPostal = cursor!!.getInt(cursor!!.getColumnIndexOrThrow("codPost"))
+                    val naixement = cursor!!.getString(cursor!!.getColumnIndexOrThrow("naixement"))
+                    val edad = databaseManager.getAgePacient(naixement)
+                    binding.NomEditText.setText(nom)
+                    binding.Cognom1EditText.setText(cognom1)
+                    binding.Cognom2EditText.setText(cognom2)
+                    binding.NaixementEditText.setText(dataNaixement)
+                    binding.CiutatNEditText.setText(ciutatN)
+                    binding.CiutatREditText.setText(ciutatR)
+                    binding.CarrerEditText.setText(carrer)
+                    binding.CodiPostalEditText.setText(codiPostal.toString())
+                    binding.dniEditText.setText(dni)
+                    binding.EdatNumberView.text = edad.toString()
+                }else{
+                    Toast.makeText(requireContext(), "No data", Toast.LENGTH_SHORT).show()
+                }
+
+    }
+
 
 
 

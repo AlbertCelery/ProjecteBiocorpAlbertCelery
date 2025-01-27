@@ -19,9 +19,9 @@ class FormaPresPopupDialog : DialogFragment() {
     ): View {
         _binding = FragmentFormaPresPopupDialogBinding.inflate(layoutInflater, container, false)
         binding.formaPresSaveBtn.setOnClickListener {
-            val motiv = binding.formaPresPopupEdit.text.toString()
+            val formapres = binding.formaPresPopupEdit.text.toString()
             val databaseManager = DatabaseManager()
-            databaseManager.saveData(motiv, "motivhospit")
+            databaseManager.saveData(formapres, "formaPres")
             dismiss()
         }
         binding.formaPresCloseBtn.setOnClickListener {

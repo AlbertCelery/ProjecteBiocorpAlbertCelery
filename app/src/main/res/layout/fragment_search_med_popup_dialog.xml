@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.medicacio.SearchMedPopupDialog">
+
+    <androidx.appcompat.widget.AppCompatSpinner
+        android:layout_width="130dp"
+        android:layout_height="40dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:id="@+id/MedSearchSpinner"
+        android:hint="@string/nmed"
+        android:layout_marginTop="30dp"
+        android:background="@color/black_alpha_10"
+        />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/searchMed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/searchMedCloseBtn"
+        android:id="@+id/searchMedBtn"
+        />
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/searchMedCloseBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/close"
+        android:layout_marginTop="30dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/MedSearchSpinner"/>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

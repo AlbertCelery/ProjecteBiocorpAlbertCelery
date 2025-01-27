@@ -7,6 +7,10 @@ import android.database.sqlite.SQLiteDatabase
 import android.widget.Toast
 import com.example.projectebiocorpalbertcelery.ui.home.ConnectionClass
 import java.io.File
+import java.text.ParseException
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
 
 
 public class DatabaseManager {
@@ -56,6 +60,7 @@ fun loadDatabase(){
 
         return result !=-1L
     }
+    //Medicament
     fun getformaPresInt(formaPres: String): Int {
         loadDatabase()
         var cursor = db!!.rawQuery("SELECT id FROM formaPres WHERE nom = '$formaPres'", null)
@@ -77,6 +82,236 @@ fun loadDatabase(){
         val result = db!!.insert("medicament", null, values)
         return result !=-1L
     }
+    //Malaltia
+    fun insertDataMalaltia(nom: String, dni: String, descripcio: String, sintomes: String, iniciMalaltia: String, fiMalaltia: String): Boolean {
+        loadDatabase()
+        val values = ContentValues()
+        values.put("nom", nom)
+        values.put("dni", dni)
+        values.put("descripcio", descripcio)
+        values.put("sintomas", sintomes)
+        values.put("iniciMalaltia", iniciMalaltia)
+        values.put("fiMalaltia", fiMalaltia)
+        val result = db!!.insert("malaltia", null, values)
+        return result !=-1L
+    }
+    fun getPacientLastMalatiaId(dni: String): Int? {
+        loadDatabase()
+        var cursor = db?.rawQuery("SELECT id FROM malaltia WHERE dni = '$dni' ORDER BY id DESC LIMIT 1", null)
+
+        return if (cursor != null && cursor.moveToFirst()) {
+                cursor.getInt(0)
+            } else {
+                null
+            }
+        }
+
+    fun getPacientFirstMalatiaId(dni: String): Int? {
+        loadDatabase()
+        var cursor = db?.rawQuery("SELECT id FROM malaltia WHERE dni = '$dni' ORDER BY id ASC LIMIT 1", null)
+        return if (cursor != null && cursor.moveToFirst()) {
+            cursor.getInt(0)
+        } else {
+            null
+        }
+    }
+    fun getNextMalaltiaPacients(dni: String, idMalaltia: Int):Cursor? {
+        loadDatabase()
+        return db?.rawQuery("SELECT * FROM malaltia WHERE dni = '$dni' AND id > $idMalaltia LIMIT 1", null)
+
+
+    }
+    fun getPreviousMalaltiaPacients(dni: String, idMalaltia: Int): Cursor? {
+        loadDatabase()
+        return db?.rawQuery("SELECT * FROM malaltia WHERE dni = '$dni' AND id < $idMalaltia ORDER BY id DESC LIMIT 1", null)
+
+    }
+    fun getTotalDaysMalaltia(idMalaltia: Int): Int {
+        loadDatabase()
+        var cursor = db!!.rawQuery("SELECT fiMalaltia, iniciMalaltia FROM malaltia WHERE id = $idMalaltia", null)
+        var fiMalaltia = ""
+        var iniciMalaltia = ""
+        if (cursor.moveToFirst()) {
+            fiMalaltia = cursor.getString(0)
+            iniciMalaltia = cursor.getString(1)
+            val sdf = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
+            val datafi = sdf.parse(fiMalaltia)
+            val datainici = sdf.parse(iniciMalaltia)
+            val diffMillis = datafi.time - datainici.time
+            val diffDays = diffMillis / (24 * 60 * 60 * 1000)
+            return diffDays.toInt()
+        }
+        cursor.close()
+        return 0
+    }
+    //Tractament malaltia
+    fun getMalaltiaTractDays(idTractamentMalaltia: Int): Int {
+        loadDatabase()
+        var cursor = db!!.rawQuery("SELECT fiT, iniciT FROM tractamentMalalt WHERE id = $idTractamentMalaltia", null)
+        var fiT = ""
+        var iniciT = ""
+        if (cursor.moveToFirst()) {
+            fiT = cursor.getString(0)
+            iniciT = cursor.getString(1)
+            val sdf = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
+            val datafi = sdf.parse(fiT)
+            val datainici = sdf.parse(iniciT)
+            val diffMillis = datafi.time - datainici.time
+            val diffDays = diffMillis / (24 * 60 * 60 * 1000)
+            return diffDays.toInt()
+        }
+        cursor.close()
+        return 0
+
+
+    }
+    fun getFirstMalaltiaTractament(idMalaltia: Int): Int? {
+        loadDatabase()
+        var cursor = db?.rawQuery("SELECT id FROM tractamentMalalt WHERE idMalaltia = $idMalaltia ORDER BY id LIMIT 1", null)
+        return if (cursor != null && cursor.moveToFirst()) {
+            cursor.getInt(0)
+        } else {
+            null
+        }
+
+
+    }
+    fun getLastMalaltiaTractament(idMalaltia: Int): Int? {
+        loadDatabase()
+        var cursor =db?.rawQuery("SELECT * FROM tractamentMalalt WHERE idMalaltia = $idMalaltia  ORDER BY id DESC LIMIT 1", null)
+        return if (cursor != null && cursor.moveToFirst()) {
+            cursor.getInt(0)
+        } else {
+            null
+        }
+    }
+    fun getPreviousMalaltiaTractament(idMalaltia: Int, idTractament: Int): Cursor? {
+        loadDatabase()
+        return db?.rawQuery("SELECT * FROM tractamentMalalt WHERE idMalaltia = $idMalaltia AND id < $idTractament ORDER BY id LIMIT 1", null)
+    }
+    fun getNextMalaltiaTractament(idMalaltia: Int, idTractament: Int): Cursor? {
+        loadDatabase()
+        return db?.rawQuery("SELECT * FROM tractamentMalalt WHERE idMalaltia = $idMalaltia AND id > $idTractament ORDER BY id LIMIT 1", null)
+    }
+    fun insertDataTractementMalaltia(idMalaltia: Int, horamed1: String, horamed2: String, horamed3: String, horamed4: String, medid: Int, medid2: Int, medid3: Int, medid4: Int, iniciT: String, fiT: String):Boolean{
+        loadDatabase()
+        val values = ContentValues()
+        values.put("idMalaltia", idMalaltia)
+        values.put("horamed1", horamed1)
+        values.put("horamed2", horamed2)
+        values.put("horamed3", horamed3)
+        values.put("horamed4", horamed4)
+        values.put("medid", medid)
+        values.put("medid2", medid2)
+        values.put("medid3", medid3)
+        values.put("medid4", medid4)
+        values.put("iniciT", iniciT)
+        values.put("fiT", fiT)
+        val result = db!!.insert("tractamentMalalt", null, values)
+        return result !=-1L
+
+    }
+    fun gethoramed1Malaltia(idTractamentMalaltia: Int): String {
+        loadDatabase()
+        var cursor = db?.rawQuery("SELECT horamed1 FROM tractamentMalalt WHERE id = $idTractamentMalaltia", null)
+        var horamed1 = ""
+        if (cursor != null && cursor.moveToFirst()) {
+            horamed1 = cursor.getString(0)
+        }
+        cursor?.close()
+        return horamed1
+    }
+    fun gethoramed2Malaltia(idTractamentMalaltia: Int): String {
+        loadDatabase()
+        var cursor = db?.rawQuery("SELECT horamed2 FROM tractamentMalalt WHERE id = $idTractamentMalaltia", null)
+        var horamed2 = ""
+        if (cursor != null && cursor.moveToFirst()) {
+            horamed2 = cursor.getString(0)
+        }
+        cursor?.close()
+        return horamed2
+    }
+    fun gethoramed3Malaltia(idTractamentMalaltia: Int): String {
+        loadDatabase()
+        var cursor = db?.rawQuery("SELECT horamed3 FROM tractamentMalalt WHERE id = $idTractamentMalaltia", null)
+        var horamed3 = ""
+        if (cursor != null && cursor.moveToFirst()) {
+            horamed3 = cursor.getString(0)
+        }
+        cursor?.close()
+        return horamed3
+    }
+    fun gethoramed4Malaltia(idTractamentMalaltia: Int): String {
+        loadDatabase()
+        var cursor = db?.rawQuery("SELECT horamed4 FROM tractamentMalalt WHERE id = $idTractamentMalaltia", null)
+        var horamed4 = ""
+        if (cursor != null && cursor.moveToFirst()) {
+            horamed4 = cursor.getString(0)
+        }
+        cursor?.close()
+        return horamed4
+    }
+    fun getmedidMalaltia(idTractamentMalaltia: Int): Int {
+        loadDatabase()
+        var cursor = db?.rawQuery("SELECT medid FROM tractamentMalalt WHERE id = $idTractamentMalaltia", null)
+        var medid = 0
+        if (cursor != null && cursor.moveToFirst()) {
+            medid = cursor.getInt(0)
+        }
+        cursor?.close()
+        return medid
+    }
+    fun getmedid2Malaltia(idTractamentMalaltia: Int): Int {
+        loadDatabase()
+        var cursor = db?.rawQuery("SELECT medid2 FROM tractamentMalalt WHERE id = $idTractamentMalaltia", null)
+        var medid2 = 0
+        if (cursor != null && cursor.moveToFirst()) {
+            medid2 = cursor.getInt(0)
+        }
+        cursor?.close()
+        return medid2
+    }
+    fun getmedid3Malaltia(idTractamentMalaltia: Int): Int {
+        loadDatabase()
+        var cursor = db?.rawQuery("SELECT medid3 FROM tractamentMalalt WHERE id = $idTractamentMalaltia", null)
+        var medid3 = 0
+        if (cursor != null && cursor.moveToFirst()) {
+            medid3 = cursor.getInt(0)
+        }
+        cursor?.close()
+        return medid3
+    }
+    fun getmedid4Malaltia(idTractamentMalaltia: Int): Int {
+        loadDatabase()
+        var cursor = db?.rawQuery("SELECT medid4 FROM tractamentMalalt WHERE id = $idTractamentMalaltia", null)
+        var medid4 = 0
+        if (cursor != null && cursor.moveToFirst()) {
+            medid4 = cursor.getInt(0)
+        }
+        cursor?.close()
+        return medid4
+    }
+    fun getIniciMalaltiaTract(idTractamentMalaltia: Int): String {
+        loadDatabase()
+        var cursor = db?.rawQuery("SELECT iniciT FROM tractamentMalalt WHERE id = $idTractamentMalaltia", null)
+        var iniciT = ""
+        if (cursor != null && cursor.moveToFirst()) {
+            iniciT = cursor.getString(0)
+        }
+        cursor?.close()
+        return iniciT
+    }
+    fun getFiMalaltiaTract(idTractamentMalaltia: Int): String {
+        loadDatabase()
+        var cursor = db?.rawQuery("SELECT fiT FROM tractamentMalalt WHERE id = $idTractamentMalaltia", null)
+        var fiT = ""
+        if (cursor != null && cursor.moveToFirst()) {
+            fiT = cursor.getString(0)
+        }
+        cursor?.close()
+        return fiT
+    }
+
     /*fun getcurrentdni(): String {//TODO GET CURRENT POSITION!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         loadDatabase()
         var cursor = db!!.rawQuery("SELECT dni FROM pacient ORDER BY id DESC LIMIT 1", null)
@@ -97,6 +332,27 @@ fun loadDatabase(){
         return result !=-1L
 
     }*/
+    //Medicament
+    fun getMedicamentCursor(): Cursor {
+        loadDatabase()
+        return db!!.rawQuery("SELECT * FROM medicament", null)
+    }
+    fun obtenerMedicamentos(): MutableList<String> {
+        val listaMedicamentos = mutableListOf<String>()
+        loadDatabase()
+
+        val cursor = db!!.rawQuery("SELECT nom, marca FROM medicament", null)
+        if (cursor.moveToFirst()) {
+            do {
+                val nombre = cursor.getString(0) // Obtener el nombre del medicamento
+                val marca = cursor.getString(1) // Obtener la marca del medicamento
+                listaMedicamentos.add("$nombre, $marca") // Formatear y agregar a la lista
+            } while (cursor.moveToNext())
+        }
+        cursor.close()
+        db!!.close()
+        return listaMedicamentos
+    }
     fun convertStringToInt(input: String): Int? {
         return try {
             input.toInt() // Intenta convertir la cadena a Int
@@ -105,13 +361,415 @@ fun loadDatabase(){
             null // O puedes devolver un valor por defecto, como 0
         }
     }
+    fun getmedicacioNom(idmed: Int): String {
+        loadDatabase()
+        val cursor = db!!.rawQuery("SELECT nom FROM medicament WHERE id = $idmed", null)
+        var nom = ""
+        if (cursor.moveToFirst()) {
+            nom = cursor.getString(0)
+        }
+        cursor.close()
+        return nom
+    }
+    fun getmedicacioMarca(idmed: Int): String {
+        loadDatabase()
+        val cursor = db!!.rawQuery("SELECT marca FROM medicament WHERE id = $idmed", null)
+        var marca = ""
+        if (cursor.moveToFirst()) {
+            marca = cursor.getString(0)
+            }
+        cursor.close()
+        return marca
+
+    }
+
+    fun getmedicacioEfsec(idmed: Int): String {
+        loadDatabase()
+        val cursor = db!!.rawQuery("SELECT efecteSecundari FROM medicament WHERE id = $idmed", null)
+        var efecteSecundari = ""
+        if (cursor.moveToFirst()) {
+            efecteSecundari = cursor.getString(0)
+        }
+        cursor.close()
+        return efecteSecundari
+
+    }
+    //Allergia
+    fun getAlergiaCursor(dni: String, alergicPosition: Int): Cursor {
+        loadDatabase()
+        return db!!.rawQuery("SELECT * FROM alergia WHERE dni = '$dni' AND alergicPosition = $alergicPosition", null)
+
+
+
+
+    }
+    //TODO POT PETAR PER IDMED DE LALERGIA
+    fun insertDataAlergia(id_medicament: Int?, alergicPosition: Int, descripcio: String, dni: String): Boolean {
+        loadDatabase()
+        val values = ContentValues()
+        values.put("id_medicament", id_medicament)
+        values.put("alergicPosition", alergicPosition)
+        values.put("descripcio", descripcio)
+        values.put("dni", dni)
+        val result = db!!.insert("alergia", null, values)
+        return result !=-1L
+
+    }
+    fun genAlergiaStack(dni: String){
+        insertDataAlergia(null, 1, "", dni)
+        insertDataAlergia(null, 2, "", dni)
+        insertDataAlergia(null, 3, "", dni)
+        insertDataAlergia(null, 4, "", dni)
+        insertDataAlergia(null, 5, "", dni)
+
+
+    }
+
+    /**
+     * No se si es nescesari un update boolea
+     */
+    fun updateAlergia(id_medicament: Int?, alergicPosition: Int, descripcio: String, dni: String): Boolean {
+        loadDatabase()
+        val values = ContentValues()
+        values.put("id_medicament", id_medicament)
+
+        values.put("descripcio", descripcio)
+
+        val result = db!!.update("alergia", values, "dni = '$dni' AND alergicPosition = $alergicPosition", null)
+        return result != 0
+    }
 
 
     fun openDatabase(requireContext: Context) {
         loadDatabase()
     }
+    fun getDatabyDNIPacient(dni: String): Cursor {
+        loadDatabase()
+        return db!!.rawQuery("SELECT * FROM pacient WHERE dni = '$dni'", null)
+
+    }
+    //Malaltia
+    fun getMalaltiaNom(idmalaltia: Int):String{
+        loadDatabase()
+        val cursor = db!!.rawQuery("SELECT nom FROM malaltia WHERE id = $idmalaltia", null)
+        var nom = ""
+        if (cursor.moveToFirst()) {
+            nom = cursor.getString(0)
+        }
+        cursor.close()
+        return nom
+
+    }
+    fun getMalaltiaDescripcio(idmalaltia: Int):String{
+        loadDatabase()
+        val cursor = db!!.rawQuery("SELECT descripcio FROM malaltia WHERE id = $idmalaltia", null)
+        var descripcio = ""
+        if (cursor.moveToFirst()) {
+            descripcio = cursor.getString(0)
+        }
+        cursor.close()
+        return descripcio
 
 
+    }
+    fun getMalaltiaSintomes(idmalaltia: Int):String{
+        loadDatabase()
+        val cursor = db!!.rawQuery("SELECT sintomes FROM malaltia WHERE id = $idmalaltia", null)
+        var sintomes = ""
+        if (cursor.moveToFirst()) {
+            sintomes = cursor.getString(0)
+        }
+        cursor.close()
+        return sintomes
+
+    }
+    fun getMalaltiaInici(idmalaltia: Int):String{
+        loadDatabase()
+        val cursor = db!!.rawQuery("SELECT iniciMalaltia FROM malaltia WHERE id = $idmalaltia", null)
+        var datainici = ""
+        if (cursor.moveToFirst()) {
+            datainici = cursor.getString(0)
+        }
+        cursor.close()
+        return datainici
+
+    }
+    fun getMalaltiaFi(idmalaltia: Int):String {
+        loadDatabase()
+        val cursor = db!!.rawQuery("SELECT fiMalaltia FROM malaltia WHERE id = $idmalaltia", null)
+        var datafi = ""
+        if (cursor.moveToFirst()) {
+            datafi = cursor.getString(0)
+        }
+        cursor.close()
+        return datafi
+    }
+
+    fun getAgePacient(naixement: String): Int {
+        loadDatabase()
+        //todo         val sdf = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
+        val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        return try {
+        val naixementDate = sdf.parse(naixement) ?: return 0
+        val fechaActual = Calendar.getInstance().time
+        val calendarioNacimiento = Calendar.getInstance().apply { time = naixementDate }
+        val calendarioActual = Calendar.getInstance().apply { time = fechaActual }
+        var edad = calendarioActual.get(Calendar.YEAR) - calendarioNacimiento.get(Calendar.YEAR)
+        if (calendarioActual.get(Calendar.MONTH) < calendarioNacimiento.get(Calendar.MONTH) ||
+            (calendarioActual.get(Calendar.MONTH) == calendarioNacimiento.get(Calendar.MONTH) &&
+                    calendarioActual.get(Calendar.DAY_OF_MONTH) < calendarioNacimiento.get(Calendar.DAY_OF_MONTH))) {
+            edad--
+        }
+        edad
+        } catch (e: ParseException) {
+            // Manejar el error de formato
+            println("Error: Formato de fecha incorrecto. ${e.message}")
+            -1 // Retornar -1 o cualquier valor que indique un error
+        } catch (e: Exception) {
+            // Manejar cualquier otra excepción
+            println("Error inesperado: ${e.message}")
+            -1 // Retornar -1 o cualquier valor que indique un error
+        }
+    }
+    //Hospitalitzacio
+    fun insertDataHospitalitzacio(dataInici: String, dataFi: String, nomHosp: String, MotiusHosp: Int, dni: String): Boolean {
+        loadDatabase()
+        val values = ContentValues()
+        values.put("dataInici", dataInici)
+        values.put("dataFi", dataFi)
+        values.put("nomHosp", nomHosp)
+        values.put("MotiusHosp", MotiusHosp)
+        values.put("dni", dni)
+        val result = db!!.insert("hospitalitzacio", null, values)
+        return result !=-1L
+    }
+    fun getIniciHospitalit(idHospitalitzacio:Int):String{
+        loadDatabase()
+        var cursor = db!!.rawQuery("SELECT dataInici FROM hospitalitzacio WHERE id = $idHospitalitzacio", null)
+        var dataInici = ""
+        if (cursor.moveToFirst()) {
+            dataInici = cursor.getString(0)
+        }
+        cursor.close()
+        return dataInici
+    }
+    fun getFiHospitalit(idHospitalitzacio:Int):String{
+        loadDatabase()
+        var cursor = db!!.rawQuery("SELECT dataFi FROM hospitalitzacio WHERE id = $idHospitalitzacio", null)
+        var dataFi = ""
+        if (cursor.moveToFirst()) {
+            dataFi = cursor.getString(0)
+        }
+        cursor.close()
+        return dataFi
+    }
+    fun getTotalDays(ddMMyyyyinici: String, ddMMyyyyfi: String):Int{
+        loadDatabase()
+        val sdf = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
+        val date1 = sdf.parse(ddMMyyyyinici)
+        val date2 = sdf.parse(ddMMyyyyfi)
+        val diffMillis = date2.time - date1.time
+        val diffDays = diffMillis / (24 * 60 * 60 * 1000)
+        return diffDays.toInt()
+
+    }
+    fun getnomHosp(idHospitalitzacio:Int):String{
+        loadDatabase()
+        var cursor = db!!.rawQuery("SELECT nomHosp FROM hospitalitzacio WHERE id = $idHospitalitzacio", null)
+        var nomHosp = ""
+        if (cursor.moveToFirst()) {
+            nomHosp = cursor.getString(0)
+        }
+        cursor.close()
+        return nomHosp
+    }
+    fun getMotiusHosp(idHospitalitzacio:Int):Int{
+        loadDatabase()
+        var cursor = db!!.rawQuery("SELECT MotiusHosp FROM hospitalitzacio WHERE id = $idHospitalitzacio", null)
+        var MotiusHosp= 0
+        if (cursor.moveToFirst()) {
+            MotiusHosp = cursor.getInt(0)
+        }
+        cursor.close()
+        return MotiusHosp
+
+    }
+    fun getFirstHospitalitzacio(dni: String): Int? {
+        loadDatabase()
+        var cursor = db?.rawQuery("SELECT id FROM hospitalitzacio WHERE dni = '$dni' ORDER BY id LIMIT 1", null)
+        return if (cursor != null && cursor.moveToFirst()) {
+            cursor.getInt(0)
+        } else {
+            null
+        }
+
+
+    }
+    fun getLastHospitalitzacio(dni: String): Int? {
+        loadDatabase()
+        var cursor =db?.rawQuery("SELECT id FROM hospitalitzacio WHERE dni = '$dni' ORDER BY id DESC LIMIT 1", null)
+
+        return if (cursor != null && cursor.moveToFirst()) {
+            cursor.getInt(0)
+        } else {
+            null
+        }
+    }
+    fun getPreviousHospitalitzacio(dni: String, idHospitalitzacio: Int): Cursor? {
+        loadDatabase()
+        return db?.rawQuery("SELECT * FROM hospitalitzacio WHERE dni = '$dni' AND id < $idHospitalitzacio ORDER BY id LIMIT 1", null)
+    }
+    fun getNextHospitalitzacio(dni: String, idHospitalitzacio: Int): Cursor? {
+        loadDatabase()
+        return db?.rawQuery("SELECT * FROM hospitalitzacio WHERE dni = '$dni' AND id > $idHospitalitzacio ORDER BY id LIMIT 1", null)
+    }
+    //Tractament Hospitalitzacio
+    fun getFirstHospitalitzacioTract(idHospitalitzacio: Int): Int? {
+        loadDatabase()
+        var cursor = db?.rawQuery("SELECT id FROM tractamentHosp WHERE idHospitalitzacio = $idHospitalitzacio ORDER BY id LIMIT 1", null)
+        return if (cursor != null && cursor.moveToFirst()) {
+            cursor.getInt(0)
+        } else {
+            null
+        }
+
+
+    }
+    fun getLastHospitalitzacioTract(idHospitalitzacio: Int): Int? {
+        loadDatabase()
+        var cursor =db?.rawQuery("SELECT id FROM tractamentHosp WHERE idHospitalitzacio = $idHospitalitzacio ORDER BY id DESC LIMIT 1", null)
+
+        return if (cursor != null && cursor.moveToFirst()) {
+            cursor.getInt(0)
+        } else {
+            null
+        }
+    }
+    fun getPreviousHospitalitzacioTract(idHospitalitzacio: Int, idTractament: Int): Cursor? {
+        loadDatabase()
+        return db?.rawQuery("SELECT * FROM tractamentHosp WHERE idHospitalitzacio = $idHospitalitzacio AND id < $idTractament ORDER BY id LIMIT 1", null)
+    }
+    fun getNextHospitalitzacioTract(idHospitalitzacio: Int, idTractament: Int): Cursor? {
+        loadDatabase()
+        return db?.rawQuery("SELECT * FROM tractamentHosp WHERE idHospitalitzacio = $idHospitalitzacio AND id > $idTractament ORDER BY id LIMIT 1", null)
+    }
+    fun getmedidHosp(idTractamentHosp: Int): Int {
+        loadDatabase()
+        var cursor = db?.rawQuery("SELECT medid FROM tractamentHosp WHERE id = $idTractamentHosp", null)
+        var medid = 0
+        if (cursor != null && cursor.moveToFirst()) {
+            medid = cursor.getInt(0)
+        }
+        cursor?.close()
+        return medid
+    }
+    fun getmedid2Hosp(idTractamentHosp: Int): Int {
+        loadDatabase()
+        var cursor = db?.rawQuery("SELECT medid2 FROM tractamentHosp WHERE id = $idTractamentHosp", null)
+        var medid2 = 0
+        if (cursor != null && cursor.moveToFirst()) {
+            medid2 = cursor.getInt(0)
+        }
+        cursor?.close()
+        return medid2
+    }
+    fun getmedid3Hosp(idTractamentHosp: Int): Int {
+        loadDatabase()
+        var cursor = db?.rawQuery("SELECT medid3 FROM tractamentHosp WHERE id = $idTractamentHosp", null)
+        var medid = 0
+        if (cursor != null && cursor.moveToFirst()) {
+            medid = cursor.getInt(0)
+        }
+        cursor?.close()
+        return medid
+    }
+    fun getmedid4Hosp(idTractamentHosp: Int): Int {
+        loadDatabase()
+        var cursor = db?.rawQuery("SELECT medid4 FROM tractamentHosp WHERE id = $idTractamentHosp", null)
+        var medid = 0
+        if (cursor != null && cursor.moveToFirst()) {
+            medid = cursor.getInt(0)
+        }
+        cursor?.close()
+        return medid
+    }
+    fun gethoramed1Hosp(idTractamentHosp: Int): String {
+        loadDatabase()
+        var cursor = db?.rawQuery("SELECT horamed1 FROM tractamentHosp WHERE id = $idTractamentHosp", null)
+        var horamed1 = ""
+        if (cursor != null && cursor.moveToFirst()) {
+            horamed1 = cursor.getString(0)
+        }
+        cursor?.close()
+        return horamed1
+    }
+    fun gethoramed2Hosp(idTractamentHosp: Int): String {
+        loadDatabase()
+        var cursor = db?.rawQuery("SELECT horamed2 FROM tractamentHosp WHERE id = $idTractamentHosp", null)
+        var horamed1 = ""
+        if (cursor != null && cursor.moveToFirst()) {
+            horamed1 = cursor.getString(0)
+        }
+        cursor?.close()
+        return horamed1
+    }
+    fun gethoramed3Hosp(idTractamentHosp: Int): String {
+        loadDatabase()
+        var cursor = db?.rawQuery("SELECT horamed3 FROM tractamentHosp WHERE id = $idTractamentHosp", null)
+        var horamed1 = ""
+        if (cursor != null && cursor.moveToFirst()) {
+            horamed1 = cursor.getString(0)
+        }
+        cursor?.close()
+        return horamed1
+    }
+    fun gethoramed4Hosp(idTractamentHosp: Int): String {
+        loadDatabase()
+        var cursor = db?.rawQuery("SELECT horamed4 FROM tractamentHosp WHERE id = $idTractamentHosp", null)
+        var horamed1 = ""
+        if (cursor != null && cursor.moveToFirst()) {
+            horamed1 = cursor.getString(0)
+        }
+        cursor?.close()
+        return horamed1
+    }
+    fun getIniciHospTract(idTractamentHosp: Int): String {
+        loadDatabase()
+        var cursor = db?.rawQuery("SELECT iniciT FROM tractamentHosp WHERE id = $idTractamentHosp", null)
+        var iniciT = ""
+        if (cursor != null && cursor.moveToFirst()) {
+            iniciT = cursor.getString(0)
+        }
+        cursor?.close()
+        return iniciT
+    }
+    fun getFiHospTract(idTractamentHosp: Int): String {
+        loadDatabase()
+        var cursor = db?.rawQuery("SELECT fiT FROM tractamentHosp WHERE id = $idTractamentHosp", null)
+        var fiT = ""
+        if (cursor != null && cursor.moveToFirst()) {
+            fiT = cursor.getString(0)
+        }
+        cursor?.close()
+        return fiT
+    }
+    fun insertDataTractamentHosp(idHosp: Int, horamed1: String, horamed2: String, horamed3: String, horamed4: String, medid: Int, medid2: Int, medid3: Int, medid4: Int, iniciT: String, fiT: String):Boolean {
+        loadDatabase()
+        val values = ContentValues()
+        values.put("idHospitalitzacio", idHosp)
+        values.put("horamed1", horamed1)
+        values.put("horamed2", horamed2)
+        values.put("horamed3", horamed3)
+        values.put("horamed4", horamed4)
+        values.put("medid", medid)
+        values.put("medid2", medid2)
+        values.put("medid3", medid3)
+        values.put("medid4", medid4)
+        values.put("iniciT", iniciT)
+        values.put("fiT", fiT)
+        val result = db!!.insert("tractamentHosp", null, values)
+        return result != -1L
+    }
 
 
 }

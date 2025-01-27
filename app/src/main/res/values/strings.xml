@@ -12,11 +12,13 @@
     <string name="newMotiv">Nou motiu</string>
     <string name="newEntry">Crear nou</string>
     <string name="close">Tancar</string>"
+    <string name="datehint">dd-MM-yyyy</string>
     <!-- pacient-->
     <string name="previousPacient">&lt; Anterior pacient</string>
     <string name="nextPacient">Següent pacient &gt;</string>
     <string name="all_name">Nom complet del pacient</string>
     <string name="naixement">Data naixement</string>
+    <string name="naixementExemple">YYYY-MM-DD</string>
     <string name="dni">DNI</string>
     <string name="nom">Nom</string>
     <string name="cnom1">Cognom 1</string>

@@ -137,6 +137,7 @@
                 android:layout_marginStart="20dp"
                 android:maxLines="1"
                 android:textSize="20sp"
+                android:hint="@string/datehint"
                 android:background="@color/white_alpha_40"
                 app:layout_constraintStart_toEndOf="@id/dataIniciView"
                 app:layout_constraintTop_toTopOf="@id/dataIniciView"/>
@@ -147,6 +148,7 @@
                 android:layout_marginStart="20dp"
                 android:maxLines="1"
                 android:textSize="20sp"
+                android:hint="@string/datehint"
                 android:background="@color/white_alpha_40"
                 app:layout_constraintStart_toEndOf="@id/dataFiView"
                 app:layout_constraintTop_toTopOf="@id/dataFiView"/>
@@ -457,6 +459,7 @@
                 android:background="@color/white_alpha_40"
                 android:layout_marginStart="20dp"
                 android:textSize="20sp"
+                android:hint="@string/datehint"
 
                 />
             <androidx.appcompat.widget.AppCompatEditText
@@ -469,6 +472,7 @@
                 app:layout_constraintStart_toStartOf="@id/iniciTractEdit"
                 app:layout_constraintTop_toTopOf="@id/fiTractView"
                 app:layout_constraintBottom_toBottomOf="@id/fiTractView"
+                android:hint="@string/datehint"
 
                 />
             <TextView

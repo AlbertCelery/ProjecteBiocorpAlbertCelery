@@ -54,7 +54,7 @@
             />
         <!--TODO:Revisar millor scrollview o nestedscrollview-->
         <ScrollView
-            android:layout_width="600dp"
+            android:layout_width="800dp"
             android:layout_height="500dp"
             android:layout_marginTop="20dp"
             android:id="@+id/medAllergiaScrollView"
@@ -69,7 +69,7 @@
                 >
                 <androidx.appcompat.widget.AppCompatSpinner
                     android:layout_width="130dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
                     android:textSize="20sp"
                     android:id="@+id/medAllergiaSpinner1"
                     app:layout_constraintStart_toStartOf="parent"
@@ -101,12 +101,52 @@
                     android:layout_height="wrap_content"
                     android:text="@string/medInfo"
                     android:textAllCaps="false"
-                    app:layout_constraintEnd_toEndOf="parent"
-
+                    app:layout_constraintEnd_toStartOf="@id/alergiaSave1Btn"
+                    android:layout_marginEnd="20dp"
                     app:layout_constraintTop_toTopOf="@id/medAllergiaSpinner1" />
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/alergiaSave1Btn"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/medAllergiaSpinner1"
+                    android:text="@string/save"
+                    />
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/alergiaSave2Btn"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/medAllergiaSpinner2"
+                    android:text="@string/save"
+                    />
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/alergiaSave3Btn"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/medAllergiaSpinner3"
+                    android:text="@string/save"
+                    />
+                <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/alergiaSave4Btn"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/medAllergiaSpinner4"
+                android:text="@string/save"
+                />
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/alergiaSave5Btn"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/medAllergiaSpinner5"
+                    android:text="@string/save"
+                    />
                 <androidx.appcompat.widget.AppCompatSpinner
                     android:layout_width="130dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
                     android:textSize="20sp"
                     android:id="@+id/medAllergiaSpinner2"
                     app:layout_constraintStart_toStartOf="parent"
@@ -139,12 +179,12 @@
                     android:layout_height="wrap_content"
                     android:text="@string/medInfo"
                     android:textAllCaps="false"
-                    app:layout_constraintEnd_toEndOf="parent"
-
+                    app:layout_constraintEnd_toStartOf="@id/alergiaSave2Btn"
+                    android:layout_marginEnd="20dp"
                     app:layout_constraintTop_toTopOf="@id/medAllergiaSpinner2" />
                 <androidx.appcompat.widget.AppCompatSpinner
                     android:layout_width="130dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
                     android:textSize="20sp"
                     android:id="@+id/medAllergiaSpinner3"
                     app:layout_constraintStart_toStartOf="parent"
@@ -177,12 +217,12 @@
                     android:layout_height="wrap_content"
                     android:text="@string/medInfo"
                     android:textAllCaps="false"
-                    app:layout_constraintEnd_toEndOf="parent"
-
+                    app:layout_constraintEnd_toStartOf="@id/alergiaSave3Btn"
+                    android:layout_marginEnd="20dp"
                     app:layout_constraintTop_toTopOf="@id/medAllergiaSpinner3" />
                 <androidx.appcompat.widget.AppCompatSpinner
                     android:layout_width="130dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
                     android:textSize="20sp"
                     android:id="@+id/medAllergiaSpinner4"
                     app:layout_constraintStart_toStartOf="parent"
@@ -215,12 +255,12 @@
                     android:layout_height="wrap_content"
                     android:text="@string/medInfo"
                     android:textAllCaps="false"
-                    app:layout_constraintEnd_toEndOf="parent"
-
+                    app:layout_constraintEnd_toStartOf="@id/alergiaSave4Btn"
+                    android:layout_marginEnd="20dp"
                     app:layout_constraintTop_toTopOf="@id/medAllergiaSpinner4" />
                 <androidx.appcompat.widget.AppCompatSpinner
                     android:layout_width="130dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
                     android:textSize="20sp"
                     android:id="@+id/medAllergiaSpinner5"
                     app:layout_constraintStart_toStartOf="parent"
@@ -253,8 +293,8 @@
                     android:layout_height="wrap_content"
                     android:text="@string/medInfo"
                     android:textAllCaps="false"
-                    app:layout_constraintEnd_toEndOf="parent"
-
+                    app:layout_constraintEnd_toStartOf="@id/alergiaSave5Btn"
+android:layout_marginEnd="20dp"
                     app:layout_constraintTop_toTopOf="@id/medAllergiaSpinner5" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
