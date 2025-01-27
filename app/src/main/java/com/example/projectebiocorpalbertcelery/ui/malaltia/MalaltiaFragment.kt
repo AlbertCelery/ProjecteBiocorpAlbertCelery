@@ -5,12 +5,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.projectebiocorpalbertcelery.R
 import com.example.projectebiocorpalbertcelery.data.DatabaseManager
 import com.example.projectebiocorpalbertcelery.databinding.FragmentMalaltiaBinding
+import java.text.ParseException
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 
 class MalaltiaFragment : Fragment() {
@@ -39,7 +44,12 @@ class MalaltiaFragment : Fragment() {
             nextMalaltia()
         }
         binding.saveMalaltBtn.setOnClickListener {
-            saveMalaltia()
+            if (checkdatasaveMalaltia()){
+                saveMalaltia()
+                clearMalaltia()
+            } else {
+                Toast.makeText(requireContext(), "Error check data", Toast.LENGTH_SHORT).show()
+            }
 
         }
         binding.newEntryHospitalitBtn.setOnClickListener {
@@ -66,7 +76,13 @@ class MalaltiaFragment : Fragment() {
             nextTractament()
         }
         binding.saveTractMalaltBtn.setOnClickListener {
-            saveTractamentMalaltia()
+            if (checkdatasaveTractamentMalaltia()){
+                saveTractamentMalaltia()
+                clearTractamentMalaltia()
+            }else{
+                Toast.makeText(requireContext(), "Error check data", Toast.LENGTH_SHORT).show()
+            }
+
         }
         binding.newEntryTractMalaltBtn.setOnClickListener {
             clearTractamentMalaltia()
@@ -198,6 +214,27 @@ class MalaltiaFragment : Fragment() {
         }
         updateBtn()
     }
+    fun checkdatasaveMalaltia():Boolean{
+        val flag1 = (binding.nMalaltiaEdit.text.toString() != "") && (binding.descMalaltEdit.text.toString() != "") && (binding.simpMalaltiaEdit.text.toString() !="")
+        val flag2 = isValidDate(binding.iniciMalaltEdit.text.toString())  && isValidDate(binding.fiMalaltEdit.text.toString())
+        return flag1 && flag2
+    }
+    fun checkdatasaveTractamentMalaltia():Boolean{
+        val flag1 = (binding.horesTractMalaltEdit1.text.toString() != "") && (binding.horesTractMalaltEdit2.text.toString() != "") && (binding.horesTractMalaltEdit3.text.toString() !="")&& (binding.horesTractMalaltEdit4.text.toString() !="")
+        val flag2 = isValidDate(binding.iniciTractMalaltEdit.text.toString())  && isValidDate(binding.fiTractMalaltEdit.text.toString())
+        return flag1 && flag2
+    }
+    fun isValidDate(date: String): Boolean {
+        val sdf = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
+        sdf.isLenient = false // Esto asegura que la fecha sea válida (por ejemplo, no permitirá el 30 de febrero)
+        return try {
+            val parsedDate: Date? = sdf.parse(date)
+            parsedDate != null
+        } catch (e: ParseException) {
+            false
+        }
+    }
+
     fun loadMalaltiaId(idMalaltia: Int){
         clearTractamentMalaltia()
         clearMalaltia()
@@ -317,10 +354,31 @@ class MalaltiaFragment : Fragment() {
     }
     fun updateBtn(){
 
-        binding.previousMalaltBtn.isEnabled = (idMalaltia > (databaseManager.getPacientFirstMalatiaId(dni))!!) and (idMalaltia != 0)
-        binding.nextMalaltBtn.isEnabled = (idMalaltia < (databaseManager.getPacientLastMalatiaId(dni))!!) and (idMalaltia != 0)
-        binding.nextTractMalaltBtn.isEnabled = (idTractamentMalaltia < (databaseManager.getLastMalaltiaTractament(idMalaltia))!!) and (idTractamentMalaltia != 0)
-        binding.previousTractMalaltBtn.isEnabled = (idTractamentMalaltia > (databaseManager.getFirstMalaltiaTractament(idMalaltia))!!) and (idTractamentMalaltia != 0)
+
+        if (databaseManager.getPacientFirstMalatiaId(dni) != null){
+
+
+            binding.previousMalaltBtn.isEnabled = (idMalaltia > (databaseManager.getPacientFirstMalatiaId(dni))!!) and (idMalaltia != 0)
+            binding.nextMalaltBtn.isEnabled = (idMalaltia < (databaseManager.getPacientLastMalatiaId(dni))!!) and (idMalaltia != 0)
+
+
+
+
+        } else {
+            binding.previousMalaltBtn.isEnabled = false
+            binding.nextMalaltBtn.isEnabled = false
+        }
+        if (databaseManager.getFirstMalaltiaTractament(idMalaltia) != null) {
+            binding.nextTractMalaltBtn.isEnabled =
+                (idTractamentMalaltia < (databaseManager.getLastMalaltiaTractament(idMalaltia))!!) and (idTractamentMalaltia != 0)
+            binding.previousTractMalaltBtn.isEnabled =
+                (idTractamentMalaltia > (databaseManager.getFirstMalaltiaTractament(idMalaltia))!!) and (idTractamentMalaltia != 0)
+        }else{
+            binding.nextTractMalaltBtn.isEnabled = false
+            binding.previousTractMalaltBtn.isEnabled = false
+
+        }
+
 
 
     }

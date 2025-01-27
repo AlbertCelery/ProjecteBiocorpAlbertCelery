@@ -21,7 +21,7 @@
     android:id="@+id/nMedView"
     />
     <androidx.appcompat.widget.AppCompatEditText
-        android:layout_width="150dp"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:maxLines="1"
         android:background="@color/white_alpha_40"
@@ -67,9 +67,9 @@
         app:layout_constraintStart_toStartOf="@id/formaPresView"
         app:layout_constraintTop_toBottomOf="@id/formaPresView"
         />
-    <Spinner
+    <androidx.appcompat.widget.AppCompatSpinner
         android:layout_width="170dp"
-        android:layout_height="wrap_content"
+        android:layout_height="30dp"
         android:maxLines="1"
         android:background="@color/white_alpha_40"
         app:layout_constraintStart_toStartOf="@id/nMedEdit"

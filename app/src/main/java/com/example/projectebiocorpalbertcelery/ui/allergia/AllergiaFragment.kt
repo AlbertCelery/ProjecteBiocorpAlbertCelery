@@ -37,6 +37,7 @@ class AllergiaFragment : Fragment() {
         databaseManager.loadDatabase()
         alergiaInit()
 
+
         // alergiaInit()
         //TODO Acabar funcions dels botons
         binding.medInfoBtn1.setOnClickListener {

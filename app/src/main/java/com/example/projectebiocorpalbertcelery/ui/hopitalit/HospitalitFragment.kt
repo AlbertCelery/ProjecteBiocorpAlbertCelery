@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -13,6 +14,10 @@ import com.example.projectebiocorpalbertcelery.R
 import com.example.projectebiocorpalbertcelery.data.DatabaseManager
 import com.example.projectebiocorpalbertcelery.databinding.FragmentHospitalitBinding
 import com.example.projectebiocorpalbertcelery.ui.home.MainActivity
+import java.text.ParseException
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 
 class HospitalitFragment : Fragment() {
@@ -56,7 +61,12 @@ class HospitalitFragment : Fragment() {
             nextTractaments()
         }
         binding.saveHospitalitBtn.setOnClickListener {
-            saveHospitalitzacio()
+            if (checksaveDataHosp()){
+                saveHospitalitzacio()
+            } else {
+                Toast.makeText(requireContext(), "Error check data", Toast.LENGTH_SHORT).show()
+            }
+
         }
         binding.newEntryHospitalitBtn.setOnClickListener {
             clearHospitalitzacio()
@@ -79,7 +89,12 @@ class HospitalitFragment : Fragment() {
 
         }
         binding.saveTractHospBtn.setOnClickListener {
-            saveTractament()
+            if (checksaveDataTract()){
+                saveTractament()
+            } else {
+                Toast.makeText(requireContext(), "Error check data", Toast.LENGTH_SHORT).show()
+            }
+
         }
 
         return binding.root
@@ -97,6 +112,32 @@ class HospitalitFragment : Fragment() {
         binding.tempsTotalHospValue.text = ""
         binding.HospitalEdit.text.clear()
         binding.spinnerMotiuHosp.setSelection(0)
+
+    }
+    fun isValidDate(date: String): Boolean {
+        val sdf = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
+        sdf.isLenient = false // Esto asegura que la fecha sea válida (por ejemplo, no permitirá el 30 de febrero)
+        return try {
+            val parsedDate: Date? = sdf.parse(date)
+            parsedDate != null
+        } catch (e: ParseException) {
+            false
+        }
+    }
+    fun checksaveDataHosp(): Boolean {
+        val inici = binding.dataIniciHospEdit.text.toString()
+        val fi = binding.dataFiHospEdit.text.toString()
+        val flag1 = isValidDate(inici) && isValidDate(fi)
+        val flag2 = binding.HospitalEdit.text.isNotEmpty()
+        return flag1 && flag2
+
+    }
+    fun checksaveDataTract(): Boolean {
+        val inici = binding.iniciTractEdit.text.toString()
+        val fi = binding.fiTractEdit.text.toString()
+        val flag1 = isValidDate(inici) && isValidDate(fi)
+        val flag2 = binding.horesTractEdit1.text?.isNotEmpty()!! || binding.horesTractEdit2.text?.isNotEmpty()!! || binding.horesTractEdit3.text?.isNotEmpty()!! || binding.horesTractEdit4.text?.isNotEmpty()!!
+        return flag1 && flag2
 
     }
     fun clearTractament(){
@@ -181,11 +222,35 @@ class HospitalitFragment : Fragment() {
         updateBtn()
 
     }
-    fun updateBtn(){
-        binding.previousHospitalitBtn.isEnabled = (idHospitalitzacio > databaseManager.getFirstHospitalitzacio(dni)!!) && (idHospitalitzacio != 0)
+
+        fun updateBtn(){
+
+
+            if (databaseManager.getFirstHospitalitzacio(dni) != null){
+
+
+                binding.previousHospitalitBtn.isEnabled = (idHospitalitzacio > databaseManager.getFirstHospitalitzacio(dni)!!) && (idHospitalitzacio != 0)
+                binding.nextHospitalitBtn.isEnabled = (idHospitalitzacio < databaseManager.getLastHospitalitzacio(dni)!!) && (idHospitalitzacio != 0)
+
+
+
+            } else {
+                binding.previousHospitalitBtn.isEnabled = false
+                binding.nextHospitalitBtn.isEnabled = false
+            }
+            if (databaseManager.getFirstHospitalitzacioTract(idHospitalitzacio) != null) {
+                binding.nextTractamentsBtn.isEnabled = (idTractament < databaseManager.getLastHospitalitzacioTract(idHospitalitzacio)!!) && (idTractament != 0)
+                binding.previousTractamentsBtn.isEnabled = (idTractament > databaseManager.getFirstHospitalitzacioTract(idHospitalitzacio)!!) && (idTractament != 0)
+
+            }else {
+                binding.nextTractamentsBtn.isEnabled = false
+                binding.previousTractamentsBtn.isEnabled = false
+            }
+
+        /*binding.previousHospitalitBtn.isEnabled = (idHospitalitzacio > databaseManager.getFirstHospitalitzacio(dni)!!) && (idHospitalitzacio != 0)
         binding.nextHospitalitBtn.isEnabled = (idHospitalitzacio < databaseManager.getLastHospitalitzacio(dni)!!) && (idHospitalitzacio != 0)
         binding.nextTractamentsBtn.isEnabled = (idTractament < databaseManager.getLastHospitalitzacioTract(idHospitalitzacio)!!) && (idTractament != 0)
-        binding.previousTractamentsBtn.isEnabled = (idTractament > databaseManager.getFirstHospitalitzacioTract(idHospitalitzacio)!!) && (idTractament != 0)
+        binding.previousTractamentsBtn.isEnabled = (idTractament > databaseManager.getFirstHospitalitzacioTract(idHospitalitzacio)!!) && (idTractament != 0)*/
 
     }
     fun loadHospitalitzacioNewPacient(dni: String){
@@ -311,6 +376,7 @@ class HospitalitFragment : Fragment() {
 
     }
     fun initHosp(){
+        updateBtn()
         val optionsMedicament: String = "SELECT nom FROM medicament"
         val nombres: MutableList<String> = databaseManager.obtenerNombres(optionsMedicament)
         val adapter =

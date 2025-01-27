@@ -99,7 +99,7 @@
         android:id="@+id/NaixementEditText"
         android:layout_width="200dp"
         android:layout_height="50dp"
-        android:hint="@string/naixementExemple"
+        android:hint="@string/datehint"
         android:maxLines="1"
         app:layout_constraintBottom_toBottomOf="@id/NaixementView"
         app:layout_constraintStart_toEndOf="@id/NaixementView"

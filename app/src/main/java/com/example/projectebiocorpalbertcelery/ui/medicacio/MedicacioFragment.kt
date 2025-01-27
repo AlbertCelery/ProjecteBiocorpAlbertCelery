@@ -30,7 +30,7 @@ class MedicacioFragment : Fragment() {
         databaseManager = DatabaseManager()
         //databaseManager.openDatabase(requireContext())
 
-        val optionsFormaPres: String = "SELECT formaPres FROM medicament"
+        val optionsFormaPres: String = "SELECT nom FROM formaPres"
         val nombres: MutableList<String> = databaseManager.obtenerNombres(optionsFormaPres)
         val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, nombres)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)

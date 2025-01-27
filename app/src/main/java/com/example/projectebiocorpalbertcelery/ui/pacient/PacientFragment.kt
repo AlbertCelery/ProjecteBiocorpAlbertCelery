@@ -19,6 +19,10 @@ import com.example.projectebiocorpalbertcelery.databinding.FragmentPacientBindin
   import com.example.projectebiocorpalbertcelery.ui.home.MainActivity
 import com.example.projectebiocorpalbertcelery.ui.medicacio.MedicacioFragmentViewModel
 import java.io.File
+import java.text.ParseException
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 /*interface pacientFragmentListener {
     fun loadPacient(dni: String)
@@ -52,36 +56,42 @@ class PacientFragment : Fragment()/*, pacientFragmentListener */{
              (activity as? MainActivity)?.clearNomPacient()
         }
 
-        binding.savePacientBtn.setOnClickListener {
-            val dni = binding.dniEditText.text.toString()
-            val nom = binding.NomEditText.text.toString()
-            val cognom1 = binding.Cognom1EditText.text.toString()
-            val cognom2 = binding.Cognom2EditText.text.toString()
-            val ciutatN = binding.CiutatNEditText.text.toString()
-            val ciutatR = binding.CiutatREditText.text.toString()
-            val carrer = binding.CarrerEditText.text.toString()
-            val dataNaixement = binding.NaixementEditText.text.toString()
-            val codiPostal =
-                databaseManager.convertStringToInt(binding.CodiPostalEditText.text.toString())
-            val result = databaseManager.insertDataPacient(
-                dni,
-                nom,
-                cognom1,
-                cognom2,
-                dataNaixement,
-                ciutatN,
-                ciutatR,
-                carrer,
-                codiPostal!!
-            )
-            if (result) {
-                databaseManager.genAlergiaStack(dni)
-                clearPacient()
 
-                Toast.makeText(requireContext(), "Data Inserted", Toast.LENGTH_SHORT).show()
-            } else {
-                Toast.makeText(requireContext(), "Error try again", Toast.LENGTH_SHORT).show()
+        binding.savePacientBtn.setOnClickListener {
+            if (checkdatasave()){
+                val dni = binding.dniEditText.text.toString()
+                val nom = binding.NomEditText.text.toString()
+                val cognom1 = binding.Cognom1EditText.text.toString()
+                val cognom2 = binding.Cognom2EditText.text.toString()
+                val ciutatN = binding.CiutatNEditText.text.toString()
+                val ciutatR = binding.CiutatREditText.text.toString()
+                val carrer = binding.CarrerEditText.text.toString()
+                val dataNaixement = binding.NaixementEditText.text.toString()
+                val codiPostal =
+                    databaseManager.convertStringToInt(binding.CodiPostalEditText.text.toString())
+                val result = databaseManager.insertDataPacient(
+                    dni,
+                    nom,
+                    cognom1,
+                    cognom2,
+                    dataNaixement,
+                    ciutatN,
+                    ciutatR,
+                    carrer,
+                    codiPostal!!
+                )
+                if (result) {
+                    databaseManager.genAlergiaStack(dni)
+                    clearPacient()
+
+                    Toast.makeText(requireContext(), "Data Inserted", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(requireContext(), "Error try again", Toast.LENGTH_SHORT).show()
+                }
+            }else {
+                Toast.makeText(requireContext(), "Error check data", Toast.LENGTH_SHORT).show()
             }
+
         }
 
         return binding.root
@@ -93,6 +103,23 @@ class PacientFragment : Fragment()/*, pacientFragmentListener */{
         super.onViewCreated(view, savedInstanceState)
         sharedViewModel.loadPacientTrigger.observe(viewLifecycleOwner) { dni ->
             loadPacient(dni)
+        }
+    }
+    fun checkdatasave():Boolean{
+
+        val flag1 = (binding.dniEditText.text.toString() != "") && (binding.NomEditText.text.toString() != "") && (binding.Cognom1EditText.text.toString() != "") && (binding.Cognom2EditText.text.toString() != "") && (binding.NaixementEditText.text.toString() != "")
+                && (binding.CiutatNEditText.text.toString() != "") && (binding.CiutatREditText.text.toString() != "") && (binding.CarrerEditText.text.toString() != "") && (binding.CodiPostalEditText.text.toString() != "")
+            val flag2 = (isValidDate(binding.NaixementEditText.text.toString()))
+        return flag2 && flag1
+    }
+    fun isValidDate(date: String): Boolean {
+        val sdf = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
+        sdf.isLenient = false // Esto asegura que la fecha sea válida (por ejemplo, no permitirá el 30 de febrero)
+        return try {
+            val parsedDate: Date? = sdf.parse(date)
+            parsedDate != null
+        } catch (e: ParseException) {
+            false
         }
     }
 
