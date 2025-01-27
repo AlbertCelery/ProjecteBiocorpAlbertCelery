@@ -160,23 +160,13 @@ class HospitalitFragment : Fragment() {
         val iniciHosp = databaseManager.getIniciHospitalit(idHospitalitzacio)
         val fiHosp = databaseManager.getFiHospitalit(idHospitalitzacio)
         val tempstotal = databaseManager.getTotalDays(iniciHosp, fiHosp)
-        var diestempstotal = ""
+
         val motivHosp = databaseManager.getMotiusHosp(idHospitalitzacio)
-        if (tempstotal != 1) {
-            diestempstotal = buildString {
-                append(tempstotal)
-                append(" dies")
-            }
-        } else {
-            diestempstotal = buildString {
-                append(tempstotal)
-                append(" dia")
-            }
-        }
+
         binding.HospitalEdit.setText(nomHosp)
         binding.dataIniciHospEdit.setText(iniciHosp)
         binding.dataFiHospEdit.setText(fiHosp)
-        binding.tempsTotalHospValue.text = diestempstotal
+        binding.tempsTotalHospValue.text = tempstotal.toString()
         binding.spinnerMotiuHosp.setSelection(motivHosp)
         val firstMalaltiaTractamentId = databaseManager.getFirstMalaltiaTractament(idHospitalitzacio)
         if (firstMalaltiaTractamentId != null) {
@@ -264,22 +254,11 @@ class HospitalitFragment : Fragment() {
             val fiHospitalitzacio = databaseManager.getFiHospitalit(firstHospitalitzacioId)
             val tempstotal = databaseManager.getTotalDays(iniciHospitalitzacio, fiHospitalitzacio)
             val motivHosp = databaseManager.getMotiusHosp(firstHospitalitzacioId) - 1
-            var diestempstotal = ""
-            if (tempstotal != 1) {
-                diestempstotal = buildString {
-                    append(tempstotal)
-                    append(" dies")
-                }
-            } else {
-                diestempstotal = buildString {
-                    append(tempstotal)
-                    append(" dia")
-                }
-            }
+
             binding.HospitalEdit.setText(nomHospitalitzacio)
             binding.dataIniciHospEdit.setText(iniciHospitalitzacio)
             binding.dataFiHospEdit.setText(fiHospitalitzacio)
-            binding.tempsTotalHospValue.setText(diestempstotal)
+            binding.tempsTotalHospValue.text = tempstotal
             binding.spinnerMotiuHosp.setSelection(motivHosp)
             idHospitalitzacio = firstHospitalitzacioId
             val firstMalaltiaTractamentId = databaseManager.getFirstMalaltiaTractament(idHospitalitzacio)

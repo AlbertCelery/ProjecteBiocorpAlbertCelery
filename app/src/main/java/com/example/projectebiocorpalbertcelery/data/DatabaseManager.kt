@@ -312,26 +312,7 @@ fun loadDatabase(){
         return fiT
     }
 
-    /*fun getcurrentdni(): String {//TODO GET CURRENT POSITION!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        loadDatabase()
-        var cursor = db!!.rawQuery("SELECT dni FROM pacient ORDER BY id DESC LIMIT 1", null)
-        var dni = ""
-        if (cursor.moveToFirst()) {
-            dni = cursor.getString(0)
-    }*/
-    /*fun insertDataMalaltia(dni: String, nomMalaltia: String, descripcio: String, sintomes: String, iniciMalaltia: String, fiMalaltia: String): Boolean {
-        loadDatabase()
-        val values = ContentValues()
-        values.put("dni", dni)
-        values.put("nom", nomMalaltia)
-        values.put("descripcio", descripcio)
-        values.put("sintomas", sintomes)
-        values.put("iniciMalaltia", iniciMalaltia)
-        values.put("fiMalaltia", fiMalaltia)
-        val result = db!!.insert("malaltia", null, values)
-        return result !=-1L
 
-    }*/
     //Medicament
     fun getMedicamentCursor(): Cursor {
         loadDatabase()
@@ -425,9 +406,7 @@ fun loadDatabase(){
 
     }
 
-    /**
-     * No se si es nescesari un update boolea
-     */
+
     fun updateAlergia(id_medicament: Int?, alergicPosition: Int, descripcio: String, dni: String): Boolean {
         loadDatabase()
         val values = ContentValues()
@@ -440,9 +419,7 @@ fun loadDatabase(){
     }
 
 
-    fun openDatabase(requireContext: Context) {
-        loadDatabase()
-    }
+
     fun getDatabyDNIPacient(dni: String): Cursor {
         loadDatabase()
         return db!!.rawQuery("SELECT * FROM pacient WHERE dni = '$dni'", null)
@@ -507,8 +484,8 @@ fun loadDatabase(){
 
     fun getAgePacient(naixement: String): Int {
         loadDatabase()
-        //todo         val sdf = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
-        val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val sdf = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
+
         return try {
         val naixementDate = sdf.parse(naixement) ?: return 0
         val fechaActual = Calendar.getInstance().time
@@ -522,13 +499,13 @@ fun loadDatabase(){
         }
         edad
         } catch (e: ParseException) {
-            // Manejar el error de formato
+            //Error de Format
             println("Error: Formato de fecha incorrecto. ${e.message}")
-            -1 // Retornar -1 o cualquier valor que indique un error
+            -1 // Retornar -1 en cas de error
         } catch (e: Exception) {
-            // Manejar cualquier otra excepción
+            // Qualsevol altre error
             println("Error inesperado: ${e.message}")
-            -1 // Retornar -1 o cualquier valor que indique un error
+            -1 // retornar en cas de error
         }
     }
     //Hospitalitzacio
@@ -563,14 +540,70 @@ fun loadDatabase(){
         cursor.close()
         return dataFi
     }
-    fun getTotalDays(ddMMyyyyinici: String, ddMMyyyyfi: String):Int{
+    fun getTotalDays(ddMMyyyyinici: String, ddMMyyyyfi: String):String{
         loadDatabase()
         val sdf = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
         val date1 = sdf.parse(ddMMyyyyinici)
         val date2 = sdf.parse(ddMMyyyyfi)
         val diffMillis = date2.time - date1.time
-        val diffDays = diffMillis / (24 * 60 * 60 * 1000)
-        return diffDays.toInt()
+        val diffDays = (diffMillis / (24 * 60 * 60 * 1000)).toInt()
+        val diffMonths = diffDays / 30
+        var stringMonth = ""
+        if (diffMonths > 1) {
+            stringMonth = buildString {
+                append(diffMonths)
+                append(" mesos")
+            }
+        } else if (diffMonths == 1) {
+            stringMonth = buildString {
+                append(diffMonths)
+                append(" mes")
+            }
+        } else {
+            stringMonth = ""
+        }
+        val restidays = diffDays % 30
+        var stringDaysMonth = ""
+        if (restidays >0) {
+            if (diffMonths > 0) {
+                if (restidays > 1) {
+                    stringDaysMonth = buildString {
+                        append(stringMonth)
+                        append("i ")
+                        append(restidays)
+                        append(" dies")
+                    }
+                }else {
+                    stringDaysMonth = buildString {
+                        append(stringMonth)
+                        append("i ")
+                        append(restidays)
+                        append(" dia")
+                    }
+                }
+
+
+            }else{
+                if (restidays > 1) {
+                    stringDaysMonth = buildString {
+                        append(restidays)
+                        append(" dies")
+                    }
+                } else{
+                    stringDaysMonth = buildString {
+                        append(restidays)
+                        append(" dia")
+                    }
+                }
+            }
+        } else if (diffMonths == 0) {
+            stringDaysMonth = "0 dies"
+
+        }
+        return stringDaysMonth
+
+
+
 
     }
     fun getnomHosp(idHospitalitzacio:Int):String{
