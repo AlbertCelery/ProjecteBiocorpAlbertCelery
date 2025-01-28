@@ -92,8 +92,22 @@ class AllergiaFragment : Fragment() {
 
 
     }
+    fun clearFields() {
+        binding.medAllergiaSpinner1.setSelection(0)
+        binding.medAllergiaSpinner2.setSelection(0)
+        binding.medAllergiaSpinner3.setSelection(0)
+        binding.medAllergiaSpinner4.setSelection(0)
+        binding.medAllergiaSpinner5.setSelection(0)
+        binding.descAllergiaEdit1.text?.clear()
+        binding.descAllergiaEdit2.text?.clear()
+        binding.descAllergiaEdit3.text?.clear()
+        binding.descAllergiaEdit4.text?.clear()
+        binding.descAllergiaEdit5.text?.clear()
+
+    }
 
         fun loadAlergia(dni: String) {
+
             this.dni = dni
             databaseManager = DatabaseManager()
             databaseManager.loadDatabase()

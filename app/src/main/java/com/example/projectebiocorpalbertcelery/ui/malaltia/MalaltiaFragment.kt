@@ -193,12 +193,12 @@ class MalaltiaFragment : Fragment() {
         updateBtn()
     }
     fun checkdatasaveMalaltia():Boolean{
-        val flag1 = (binding.nMalaltiaEdit.text.toString() != "") && (binding.descMalaltEdit.text.toString() != "") && (binding.simpMalaltiaEdit.text.toString() !="")
-        val flag2 = isValidDate(binding.iniciMalaltEdit.text.toString())  && isValidDate(binding.fiMalaltEdit.text.toString())
+        val flag1 = (binding.nMalaltiaEdit.text.toString() != "") && (binding.descMalaltEdit.text.toString() != "") && (binding.simpMalaltiaEdit.text.toString() !="") && (dni != "")
+        val flag2 = isValidDate(binding.iniciMalaltEdit.text.toString())  && isValidDate(binding.fiMalaltEdit.text.toString() )
         return flag1 && flag2
     }
     fun checkdatasaveTractamentMalaltia():Boolean{
-        val flag1 = (binding.horesTractMalaltEdit1.text.toString() != "") && (binding.horesTractMalaltEdit2.text.toString() != "") && (binding.horesTractMalaltEdit3.text.toString() !="")&& (binding.horesTractMalaltEdit4.text.toString() !="")
+        val flag1 = (binding.horesTractMalaltEdit1.text.toString() != "") && (binding.horesTractMalaltEdit2.text.toString() != "") && (binding.horesTractMalaltEdit3.text.toString() !="")&& (binding.horesTractMalaltEdit4.text.toString() !="") && (idMalaltia != 0)
         val flag2 = isValidDate(binding.iniciTractMalaltEdit.text.toString())  && isValidDate(binding.fiTractMalaltEdit.text.toString())
         return flag1 && flag2
     }

@@ -173,7 +173,7 @@
                 app:layout_constraintTop_toTopOf="@id/hospView"/>
             <Spinner
                 android:layout_width="150dp"
-                android:layout_height="wrap_content"
+                android:layout_height="30dp"
                 android:layout_marginStart="20dp"
                 android:textSize="20sp"
                 android:maxLines="1"

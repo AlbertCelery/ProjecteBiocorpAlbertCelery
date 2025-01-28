@@ -378,7 +378,7 @@ fun loadDatabase(){
     //Allergia
     fun getAlergiaCursor(dni: String, alergicPosition: Int): Cursor {
         loadDatabase()
-        return db!!.rawQuery("SELECT * FROM alergia WHERE dni = '$dni' AND alergicPosition = $alergicPosition", null)
+        return db!!.rawQuery("SELECT * FROM alergies WHERE dni = '$dni' AND alergicPosition = $alergicPosition", null)
 
 
 
@@ -392,16 +392,16 @@ fun loadDatabase(){
         values.put("alergicPosition", alergicPosition)
         values.put("descripcio", descripcio)
         values.put("dni", dni)
-        val result = db!!.insert("alergia", null, values)
+        val result = db!!.insert("alergies", null, values)
         return result !=-1L
 
     }
     fun genAlergiaStack(dni: String){
-        insertDataAlergia(null, 1, "", dni)
-        insertDataAlergia(null, 2, "", dni)
-        insertDataAlergia(null, 3, "", dni)
-        insertDataAlergia(null, 4, "", dni)
-        insertDataAlergia(null, 5, "", dni)
+        insertDataAlergia(1, 1, "", dni)
+        insertDataAlergia(1, 2, "", dni)
+        insertDataAlergia(1, 3, "", dni)
+        insertDataAlergia(1, 4, "", dni)
+        insertDataAlergia(1, 5, "", dni)
 
 
     }
@@ -414,7 +414,7 @@ fun loadDatabase(){
 
         values.put("descripcio", descripcio)
 
-        val result = db!!.update("alergia", values, "dni = '$dni' AND alergicPosition = $alergicPosition", null)
+        val result = db!!.update("alergies", values, "dni = '$dni' AND alergicPosition = $alergicPosition", null)
         return result != 0
     }
 
@@ -801,6 +801,22 @@ fun loadDatabase(){
         values.put("iniciT", iniciT)
         values.put("fiT", fiT)
         val result = db!!.insert("tractamentHosp", null, values)
+        return result != -1L
+    }
+    //Login
+    fun userPasswordExists(username: String, password: String): Boolean {
+        loadDatabase()
+        val cursor = db!!.rawQuery("SELECT * FROM user WHERE Username = ? AND Password = ?", arrayOf(username, password))
+        val exists = cursor.count > 0
+        cursor.close()
+        return exists
+    }
+    fun saveUserPass(username: String, password: String): Boolean {
+        loadDatabase()
+        val values = ContentValues()
+        values.put("Username", username)
+        values.put("Password", password)
+        val result = db!!.insert("user", null, values)
         return result != -1L
     }
 

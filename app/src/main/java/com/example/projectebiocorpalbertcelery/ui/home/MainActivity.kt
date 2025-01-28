@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
     private var db: SQLiteDatabase? = null
     private var cursor: Cursor? = null
     private var currentIndex = 0
-    private lateinit var pacientFragment: PacientFragment
+    //private lateinit var pacientFragment: PacientFragment
 
 
     //todo VIEWMODEL*
@@ -74,6 +74,7 @@ class MainActivity : AppCompatActivity() {
 
         }
         binding.PreviousPBtn.setOnClickListener {
+
             val dni = previousReg()
             sharedViewModel.triggerLoadPacient(dni)
             sharedViewModel3.triggerLoadAllergia(dni)
@@ -110,12 +111,11 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this, ex.message, Toast.LENGTH_LONG).show()
         }
     }
-    /**   //COMPLETAR TAULES
-     * Malaltia : id, nom, descripcio (inclou hospitalitzacio: si, no)-->si sí ajuntar les que si amb hospitalitzacio
-     * Hospitalitzacio: excloure les malalties i colocaro tot a malalties
-     * **/
+
 
     private fun createTables(){
+        var createTable0 = "CREATE TABLE IF NOT EXISTS user (Username TEXT PRIMARY KEY, Password TEXT)"
+        db!!.execSQL(createTable0)
 
         var createTable = "CREATE TABLE IF NOT EXISTS pacient (dni TEXT PRIMARY KEY, nom TEXT, cognom1 TEXT, cognom2 TEXT, naixement TEXT, ciutatN TEXT, ciutatR TEXT, carrer TEXT, codPost INTEGER)"
         db!!.execSQL(createTable)//TODO: MOSTRAR EDAT PER CALCUL

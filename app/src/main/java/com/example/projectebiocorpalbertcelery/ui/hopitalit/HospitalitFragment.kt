@@ -127,7 +127,7 @@ class HospitalitFragment : Fragment() {
     fun checksaveDataHosp(): Boolean {
         val inici = binding.dataIniciHospEdit.text.toString()
         val fi = binding.dataFiHospEdit.text.toString()
-        val flag1 = isValidDate(inici) && isValidDate(fi)
+        val flag1 = isValidDate(inici) && isValidDate(fi) && (dni != "")
         val flag2 = binding.HospitalEdit.text.isNotEmpty()
         return flag1 && flag2
 
@@ -135,7 +135,7 @@ class HospitalitFragment : Fragment() {
     fun checksaveDataTract(): Boolean {
         val inici = binding.iniciTractEdit.text.toString()
         val fi = binding.fiTractEdit.text.toString()
-        val flag1 = isValidDate(inici) && isValidDate(fi)
+        val flag1 = isValidDate(inici) && isValidDate(fi) && (idHospitalitzacio!= 0)
         val flag2 = binding.horesTractEdit1.text?.isNotEmpty()!! || binding.horesTractEdit2.text?.isNotEmpty()!! || binding.horesTractEdit3.text?.isNotEmpty()!! || binding.horesTractEdit4.text?.isNotEmpty()!!
         return flag1 && flag2
 

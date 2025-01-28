@@ -51,6 +51,7 @@ class PacientFragment : Fragment()/*, pacientFragmentListener */{
         clearPacient()
         databaseManager = DatabaseManager()
         binding.newEntryPacientBtn.setOnClickListener {
+
             clearPacient()
 
              (activity as? MainActivity)?.clearNomPacient()
