@@ -168,9 +168,9 @@ class HospitalitFragment : Fragment() {
         binding.dataFiHospEdit.setText(fiHosp)
         binding.tempsTotalHospValue.text = tempstotal.toString()
         binding.spinnerMotiuHosp.setSelection(motivHosp)
-        val firstMalaltiaTractamentId = databaseManager.getFirstMalaltiaTractament(idHospitalitzacio)
-        if (firstMalaltiaTractamentId != null) {
-            idTractament = firstMalaltiaTractamentId
+        val firstHospitalitTract = databaseManager.getFirstHospitalitzacioTract(idHospitalitzacio)
+        if (firstHospitalitTract != null) {
+            idTractament = firstHospitalitTract
             val nomMedicament1 = databaseManager.getmedidHosp(idTractament)
             val nomMedicament2 = databaseManager.getmedid2Hosp(idTractament)
             val nomMedicament3 = databaseManager.getmedid3Hosp(idTractament)
@@ -181,20 +181,9 @@ class HospitalitFragment : Fragment() {
             val horamed4 = databaseManager.gethoramed4Hosp(idTractament)
             val iniciTractament = databaseManager.getIniciHospTract(idTractament)
             val fiTractament = databaseManager.getFiHospTract(idTractament)
-            val tempsTractament = databaseManager.getMalaltiaTractDays(idTractament)
-            var diestempstotal = ""
-            if (tempsTractament != 1) {
-                diestempstotal = buildString {
-                    append(tempsTractament)
-                    append(" dies")
-                }
-            } else {
-                diestempstotal = buildString {
-                    append(tempsTractament)
-                    append(" dia")
-                }
-            }
-            binding.tempsTotalTractEdit.text = diestempstotal
+            val tempsTractament = databaseManager.getTotalDays(iniciTractament, fiTractament)
+
+            binding.tempsTotalTractEdit.text = tempsTractament
             binding.spinnerMedicamentTract1.setSelection(nomMedicament1)
             binding.spinnerMedicamentTract2.setSelection(nomMedicament2)
             binding.spinnerMedicamentTract3.setSelection(nomMedicament3)
@@ -261,9 +250,9 @@ class HospitalitFragment : Fragment() {
             binding.tempsTotalHospValue.text = tempstotal
             binding.spinnerMotiuHosp.setSelection(motivHosp)
             idHospitalitzacio = firstHospitalitzacioId
-            val firstMalaltiaTractamentId = databaseManager.getFirstMalaltiaTractament(idHospitalitzacio)
-            if (firstMalaltiaTractamentId != null) {
-                idTractament = firstMalaltiaTractamentId
+            val firstHospitalitTract = databaseManager.getFirstHospitalitzacioTract(idHospitalitzacio)
+            if (firstHospitalitTract != null) {
+                idTractament = firstHospitalitTract
                 val nomMedicament1 = databaseManager.getmedidHosp(idTractament)-1
                 val nomMedicament2 = databaseManager.getmedid2Hosp(idTractament)-1
                 val nomMedicament3 = databaseManager.getmedid3Hosp(idTractament)-1
@@ -274,21 +263,10 @@ class HospitalitFragment : Fragment() {
                 val horamed4 = databaseManager.gethoramed4Hosp(idTractament)
                 val iniciTractament = databaseManager.getIniciHospTract(idTractament)
                 val fiTractament = databaseManager.getFiHospTract(idTractament)
-                val tempsTractament = databaseManager.getMalaltiaTractDays(idTractament)
-                var diestempstotal = ""
-                if (tempsTractament != 1) {
-                    diestempstotal = buildString {
-                        append(tempsTractament)
-                        append(" dies")
-                    }
-                } else {
-                    diestempstotal = buildString {
-                        append(tempsTractament)
-                        append(" dia")
-                    }
+                val tempsTractament = databaseManager.getTotalDays(iniciTractament, fiTractament)
 
-                }
-                binding.tempsTotalTractEdit.text = diestempstotal
+
+                binding.tempsTotalTractEdit.text = tempsTractament
                 binding.spinnerMedicamentTract1.setSelection(nomMedicament1)
                 binding.spinnerMedicamentTract2.setSelection(nomMedicament2)
                 binding.spinnerMedicamentTract3.setSelection(nomMedicament3)
@@ -325,21 +303,9 @@ class HospitalitFragment : Fragment() {
         val horamed4 = databaseManager.gethoramed4Hosp(idTractament)
         val iniciTractament = databaseManager.getIniciHospTract(idTractament)
         val fiTractament = databaseManager.getFiHospTract(idTractament)
-        val tempsTractament = databaseManager.getMalaltiaTractDays(idTractament)
-        var diestempstotal = ""
-        if (tempsTractament != 1) {
-            diestempstotal = buildString {
-                append(tempsTractament)
-                append(" dies")
-            }
-        }else{
-            diestempstotal = buildString {
-                append(tempsTractament)
-                append(" dia")
-            }
+        val tempsTractament = databaseManager.getTotalDays(iniciTractament, fiTractament)
 
-        }
-        binding.tempsTotalTractEdit.text = diestempstotal
+        binding.tempsTotalTractEdit.text = tempsTractament
         binding.spinnerMedicamentTract1.setSelection(nomMedicament1)
         binding.spinnerMedicamentTract2.setSelection(nomMedicament2)
         binding.spinnerMedicamentTract3.setSelection(nomMedicament3)

@@ -145,7 +145,7 @@ fun loadDatabase(){
         return 0
     }
     //Tractament malaltia
-    fun getMalaltiaTractDays(idTractamentMalaltia: Int): Int {
+    /*fun getMalaltiaTractDays(idTractamentMalaltia: Int): Int {
         loadDatabase()
         var cursor = db!!.rawQuery("SELECT fiT, iniciT FROM tractamentMalalt WHERE id = $idTractamentMalaltia", null)
         var fiT = ""
@@ -164,7 +164,7 @@ fun loadDatabase(){
         return 0
 
 
-    }
+    }*/
     fun getFirstMalaltiaTractament(idMalaltia: Int): Int? {
         loadDatabase()
         var cursor = db?.rawQuery("SELECT id FROM tractamentMalalt WHERE idMalaltia = $idMalaltia ORDER BY id LIMIT 1", null)

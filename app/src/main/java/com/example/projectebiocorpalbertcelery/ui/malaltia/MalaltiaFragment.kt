@@ -146,25 +146,14 @@ class MalaltiaFragment : Fragment() {
             val sintomesMalaltia = databaseManager.getMalaltiaSintomes(firstMalaltiaId)
             val iniciMalaltia = databaseManager.getMalaltiaInici(firstMalaltiaId)
             val fiMalaltia = databaseManager.getMalaltiaFi(firstMalaltiaId)
-            val tempstotal = databaseManager.getTotalDaysMalaltia(firstMalaltiaId)
-            var diestempstotal = ""
-            if (tempstotal != 1) {
-                diestempstotal = buildString {
-                    append(tempstotal)
-                    append(" dies")
-                }
-            }else{
-                diestempstotal = buildString {
-                    append(tempstotal)
-                    append(" dia")
-                }
-            }
+            val tempstotal = databaseManager.getTotalDays(iniciMalaltia, fiMalaltia)
+
             binding.nMalaltiaEdit.setText(nomMalaltia)
             binding.descMalaltEdit.setText(descripcioMalaltia)
             binding.simpMalaltiaEdit.setText(sintomesMalaltia)
             binding.iniciMalaltEdit.setText(iniciMalaltia)
             binding.fiMalaltEdit.setText(fiMalaltia)
-            binding.tempsMalaltValue.text = diestempstotal
+            binding.tempsMalaltValue.text = tempstotal
             val firstMalaltiaTractamentId = databaseManager.getFirstMalaltiaTractament(firstMalaltiaId!!)
             if (firstMalaltiaTractamentId != null) {
                 val Med1 = databaseManager.getmedidMalaltia(firstMalaltiaTractamentId)
@@ -179,19 +168,8 @@ class MalaltiaFragment : Fragment() {
                     databaseManager.getIniciMalaltiaTract(firstMalaltiaTractamentId)
                 val fiTractamentMalaltia =
                     databaseManager.getFiMalaltiaTract(firstMalaltiaTractamentId)
-                val tempsmalaltia = databaseManager.getMalaltiaTractDays(firstMalaltiaTractamentId)
-                var diestempsmalaltia = ""
-                if (tempsmalaltia != 1) {
-                    diestempsmalaltia = buildString {
-                        append(tempsmalaltia)
-                        append(" dies")
-                    }
-                } else {
-                    diestempsmalaltia = buildString {
-                        append(tempsmalaltia)
-                        append(" dia")
-                    }
-                }
+                val tempsmalaltiatract = databaseManager.getTotalDays(iniciTractamentMalaltia, fiTractamentMalaltia)
+
                 binding.spinnerMedMalaltTract1.setSelection(Med1)
                 binding.spinnerMedMalaltTract2.setSelection(Med2)
                 binding.spinnerMedMalaltTract3.setSelection(Med3)
@@ -202,7 +180,7 @@ class MalaltiaFragment : Fragment() {
                 binding.horesTractMalaltEdit4.setText(horamed4)
                 binding.iniciMalaltEdit.setText(iniciTractamentMalaltia)
                 binding.fiMalaltEdit.setText(fiTractamentMalaltia)
-                binding.tempsMalaltValue.text = diestempsmalaltia
+                binding.tempsMalaltValue.text = tempsmalaltiatract
                 this.idTractamentMalaltia = firstMalaltiaTractamentId
             }else{
                 this.idTractamentMalaltia = 0
@@ -245,26 +223,15 @@ class MalaltiaFragment : Fragment() {
         val sintomesMalaltia = databaseManager.getMalaltiaSintomes(idMalaltia)
         val iniciMalaltia = databaseManager.getMalaltiaInici(idMalaltia)
         val fiMalaltia = databaseManager.getMalaltiaFi(idMalaltia)
-        val tempstotal = databaseManager.getTotalDaysMalaltia(idMalaltia)
-        var diestempstotal = ""
-        if (tempstotal != 1) {
-            diestempstotal = buildString {
-                append(tempstotal)
-                append(" dies")
-            }
-        }else{
-            diestempstotal = buildString {
-                append(tempstotal)
-                append(" dia")
-            }
-        }
+        val tempstotal = databaseManager.getTotalDays(iniciMalaltia, fiMalaltia)
+
         binding.nMalaltiaEdit.setText(nomMalaltia)
         binding.descMalaltEdit.setText(descripcioMalaltia)
         binding.simpMalaltiaEdit.setText(sintomesMalaltia)
         binding.iniciMalaltEdit.setText(iniciMalaltia)
         binding.fiMalaltEdit.setText(fiMalaltia)
 
-        binding.tempsMalaltValue.text = diestempstotal
+        binding.tempsMalaltValue.text = tempstotal
         val firstMalaltiaTractamentId = databaseManager.getFirstMalaltiaTractament(idMalaltia)
         if (firstMalaltiaTractamentId != null) {
             val Med1 = databaseManager.getmedidMalaltia(firstMalaltiaTractamentId) - 1
@@ -278,19 +245,8 @@ class MalaltiaFragment : Fragment() {
             val iniciTractamentMalaltia =
                 databaseManager.getIniciMalaltiaTract(firstMalaltiaTractamentId)
             val fiTractamentMalaltia = databaseManager.getFiMalaltiaTract(firstMalaltiaTractamentId)
-            val tempsmalaltia = databaseManager.getMalaltiaTractDays(firstMalaltiaTractamentId)
-            var diestempsmalaltia = ""
-            if (tempsmalaltia != 1) {
-                diestempsmalaltia = buildString {
-                    append(tempsmalaltia)
-                    append(" dies")
-                }
-            } else {
-                diestempsmalaltia = buildString {
-                    append(tempsmalaltia)
-                    append(" dia")
-                }
-            }
+            val tempsmalaltiatract = databaseManager.getTotalDays(iniciTractamentMalaltia, fiTractamentMalaltia)
+
             binding.spinnerMedMalaltTract1.setSelection(Med1)
             binding.spinnerMedMalaltTract2.setSelection(Med2)
             binding.spinnerMedMalaltTract3.setSelection(Med3)
@@ -301,7 +257,7 @@ class MalaltiaFragment : Fragment() {
             binding.horesTractMalaltEdit4.setText(horamed4)
             binding.iniciMalaltEdit.setText(iniciTractamentMalaltia)
             binding.fiMalaltEdit.setText(fiTractamentMalaltia)
-            binding.tempsMalaltValue.text = diestempsmalaltia
+            binding.tempsMalaltValue.text = tempsmalaltiatract
             this.idTractamentMalaltia = firstMalaltiaTractamentId
         }else {
             this.idTractamentMalaltia = 0
@@ -325,19 +281,8 @@ class MalaltiaFragment : Fragment() {
         val horamed4 = databaseManager.gethoramed4Malaltia(idTractamentMalaltia)
         val iniciTractamentMalaltia = databaseManager.getIniciMalaltiaTract(idTractamentMalaltia)
         val fiTractamentMalaltia = databaseManager.getFiMalaltiaTract(idTractamentMalaltia)
-        val tempsmalaltia = databaseManager.getMalaltiaTractDays(idTractamentMalaltia)
-        var diestempsmalaltia = ""
-        if (tempsmalaltia != 1) {
-            diestempsmalaltia = buildString {
-                append(tempsmalaltia)
-                append(" dies")
-            }
-        }else{
-            diestempsmalaltia = buildString {
-                append(tempsmalaltia)
-                append(" dia")
-            }
-        }
+        val tempsMalaltiaTract = databaseManager.getTotalDays(iniciTractamentMalaltia, fiTractamentMalaltia)
+
         binding.spinnerMedMalaltTract1.setSelection(Med1)
         binding.spinnerMedMalaltTract2.setSelection(Med2)
         binding.spinnerMedMalaltTract3.setSelection(Med3)
@@ -348,7 +293,7 @@ class MalaltiaFragment : Fragment() {
         binding.horesTractMalaltEdit4.setText(horamed4)
         binding.iniciMalaltEdit.setText(iniciTractamentMalaltia)
         binding.fiMalaltEdit.setText(fiTractamentMalaltia)
-        binding.tempsMalaltValue.text = diestempsmalaltia
+        binding.tempsMalaltValue.text = tempsMalaltiaTract
         updateBtn()
 
     }

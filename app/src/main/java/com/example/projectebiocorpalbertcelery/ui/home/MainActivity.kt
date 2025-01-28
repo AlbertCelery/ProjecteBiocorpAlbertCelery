@@ -141,9 +141,8 @@ class MainActivity : AppCompatActivity() {
         var createTable8 = "CREATE TABLE IF NOT EXISTS formaPres (id INTEGER PRIMARY KEY AUTOINCREMENT, nom TEXT)"
         db!!.execSQL(createTable8)
         var createTable9 = "CREATE TABLE IF NOT EXISTS malaltia (id INTEGER PRIMARY KEY AUTOINCREMENT, nom TEXT, descripcio TEXT, dni TEXT, sintomes TEXT, iniciMalaltia TEXT, fiMalaltia TEXT, FOREIGN KEY(dni) REFERENCES pacient(dni))"
-        db!!.execSQL(createTable9)//TODO: Calcular temps total
-       /* var createTable10 = "CREATE TABLE IF NOT EXISTS malaltia_pacient (id_malaltia INTEGER, dni TEXT, iniciMalaltia TEXT, fiMalaltia TEXT, FOREIGN KEY(id_malaltia) REFERENCES malaltia(id), FOREIGN KEY(dni) REFERENCES pacient(dni), PRIMARY KEY(id_malaltia, dni))"
-        db!!.execSQL(createTable10)//TODO: Calcular temps total*/
+        db!!.execSQL(createTable9)
+
 
 
     }
