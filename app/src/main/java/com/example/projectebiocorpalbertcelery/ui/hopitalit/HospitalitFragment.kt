@@ -111,7 +111,7 @@ class HospitalitFragment : Fragment() {
     fun clearHospitalitzacio(){
 
         binding.dataFiHospEdit.text.clear()
-        binding.dataFiHospEdit.text.clear()
+        binding.dataIniciHospEdit.text.clear()
         binding.tempsTotalHospValue.text = ""
         binding.HospitalEdit.text.clear()
         binding.spinnerMotiuHosp.setSelection(0)

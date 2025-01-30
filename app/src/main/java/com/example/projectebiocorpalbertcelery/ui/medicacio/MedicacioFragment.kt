@@ -28,7 +28,7 @@ class MedicacioFragment : Fragment() {
     ): View {
         _binding = FragmentMedicacioBinding.inflate(layoutInflater, container, false)
         databaseManager = DatabaseManager()
-        //databaseManager.openDatabase(requireContext())
+
 
         val optionsFormaPres: String = "SELECT nom FROM formaPres"
         val nombres: MutableList<String> = databaseManager.obtenerNombres(optionsFormaPres)

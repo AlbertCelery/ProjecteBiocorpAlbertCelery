@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
     //private lateinit var pacientFragment: PacientFragment
 
 
-    //todo VIEWMODEL*
+    //VIEWMODEL*
     private val sharedViewModel: PacientFragmentViewModel by viewModels()
     private val sharedViewModel2: MedicacioFragmentViewModel by viewModels()
     private val sharedViewModel3: AllergiaFragmentViewModel by viewModels()
@@ -52,9 +52,7 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        //pacientFragment = PacientFragment()
 
-        // Use the fragment
 
         initUI()
 
@@ -68,14 +66,12 @@ class MainActivity : AppCompatActivity() {
             val dni = nextReg()
 
 
-            //todo VIEWMODEL*
+
             sharedViewModel.triggerLoadPacient(dni)
             sharedViewModel3.triggerLoadAllergia(dni)
             sharedViewModel4.triggerLoadMalaltia(dni)
             sharedViewModel5.triggerLoadHospitalit(dni)
-            //pacientFragmentListener?.loadPacient("dni")
-            //
-           //TODO ACONSEGUIR CANVIAR DE FRAGMENT pacientFragment.loadPacient(dni)
+
 
         }
         binding.PreviousPBtn.setOnClickListener {
@@ -86,7 +82,7 @@ class MainActivity : AppCompatActivity() {
             sharedViewModel4.triggerLoadMalaltia(dni)
             sharedViewModel5.triggerLoadHospitalit(dni)
 
-            //TODO ACONSEGUIR CANVIAR DE FRAGMENT pacientFragment.loadPacient(dni)
+            //ACONSEGUIR CANVIAR DE FRAGMENT pacientFragment.loadPacient(dni)
         }
         updateReg()
 
@@ -123,22 +119,21 @@ class MainActivity : AppCompatActivity() {
         db!!.execSQL(createTable0)
 
         var createTable = "CREATE TABLE IF NOT EXISTS pacient (dni TEXT PRIMARY KEY, nom TEXT, cognom1 TEXT, cognom2 TEXT, naixement TEXT, ciutatN TEXT, ciutatR TEXT, carrer TEXT, codPost INTEGER)"
-        db!!.execSQL(createTable)//TODO: MOSTRAR EDAT PER CALCUL
+        db!!.execSQL(createTable)
         var createTable2 = "CREATE TABLE IF NOT EXISTS hospitalitzacio (id INTEGER PRIMARY KEY AUTOINCREMENT, dataInici TEXT, dataFi TEXT, nomHosp TEXT, MotiusHosp INTEGER, dni TEXT, FOREIGN KEY(dni) REFERENCES pacient(dni), FOREIGN KEY(MotiusHosp) REFERENCES motivhospit(id))"
-        db!!.execSQL(createTable2)//TODO: motiu posar o no i com // MOSTRAR TEMPS TOTAL PER CALCUL
+        db!!.execSQL(createTable2)
         var createTable25 ="CREATE TABLE IF NOT EXISTS tractamentHosp (id INTEGER PRIMARY KEY AUTOINCREMENT, idHospitalitzacio INTEGER, horamed1 TEXT, horamed2 TEXT, horamed3 TEXT, horamed4 TEXT," +
                 " medid INTEGER, medid2 INTEGER, medid3 INTEGER, medid4 INTEGER, iniciT TEXT, fiT TEXT," +
                 " FOREIGN KEY(medid) REFERENCES medicament(id), FOREIGN KEY(medid2) REFERENCES medicament(id)," +
                 " FOREIGN KEY(medid3) REFERENCES medicament(id), FOREIGN KEY(medid4) REFERENCES medicament(id), FOREIGN KEY(idHospitalitzacio) REFERENCES hospitalitzacio(id))"
-        db!!.execSQL(createTable25)//TODO:Calcular temps total
+        db!!.execSQL(createTable25)
         var createTable3 = "CREATE TABLE IF NOT EXISTS medicament (id INTEGER PRIMARY KEY AUTOINCREMENT, nom TEXT, marca TEXT, formaPres INTEGER, efecteSecundari TEXT, FOREIGN KEY(formaPres) REFERENCES formapres(id))"
-        db!!.execSQL(createTable3)//crear un null per a medicament
+        db!!.execSQL(createTable3)
 
         var createTable4 = "CREATE TABLE IF NOT EXISTS tractamentMalalt (id INTEGER PRIMARY KEY AUTOINCREMENT, idMalaltia INTEGER, horamed1 TEXT, horamed2 TEXT, horamed3 TEXT, horamed4 TEXT, medid INTEGER, medid2 INTEGER, medid3 INTEGER, medid4 INTEGER, iniciT TEXT, fiT TEXT," +
                 " FOREIGN KEY(medid) REFERENCES medicament(id), FOREIGN KEY(medid2) REFERENCES medicament(id), FOREIGN KEY(medid3) REFERENCES medicament(id), FOREIGN KEY(medid4) REFERENCES medicament(id), FOREIGN KEY(idMalaltia) REFERENCES malaltia(id))"
-        db!!.execSQL(createTable4)//TODO: Calcular temps total
-        /*var createTable5 = "CREATE TABLE IF NOT EXISTS allergies (id INTEGER PRIMARY KEY AUTOINCREMENT, descripcio TEXT, id_medicament INTEGER, FOREIGN KEY(id_medicament) REFERENCES medicament(id))"
-        db!!.execSQL(createTable5)*///TODO: NO TINC RECURSOS MORALS SUFIENS PER FER ALERGIA EN DOS TAULES!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!ARREGLAR TAULA ALERGIA
+        db!!.execSQL(createTable4)
+
         var createTable6 = "CREATE TABLE IF NOT EXISTS alergies (id_medicament INTEGER, alergicPosition INTEGER, descripcio TEXT, dni TEXT, FOREIGN KEY(id_medicament) REFERENCES medicament(id), FOREIGN KEY(dni) REFERENCES pacient(dni), PRIMARY KEY(alergicPosition, dni))"
         db!!.execSQL(createTable6)
         var createTable7 = "CREATE TABLE IF NOT EXISTS motivhospit (id INTEGER PRIMARY KEY AUTOINCREMENT, nom TEXT)"
