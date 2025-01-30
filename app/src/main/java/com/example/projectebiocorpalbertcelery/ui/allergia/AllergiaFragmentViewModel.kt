@@ -15,4 +15,6 @@ class AllergiaFragmentViewModel: ViewModel() {
 
 
 
+
+
 }

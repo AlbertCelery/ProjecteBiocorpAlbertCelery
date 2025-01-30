@@ -12,8 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ProjecteBiocorpAlbertCelery"
         tools:targetApi="35">
-
-        <!--<activity
+        <activity
 
             android:name=".ui.LoginUser.LoginActivity"
             android:exported="true">
@@ -22,7 +21,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>-->
+        </activity>
         <activity
 
             android:name=".ui.home.MainActivity"

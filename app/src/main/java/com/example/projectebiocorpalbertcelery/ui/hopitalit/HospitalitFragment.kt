@@ -74,6 +74,8 @@ class HospitalitFragment : Fragment() {
         }
         binding.infoTractBtn1.setOnClickListener {
             findNavController().navigate(R.id.medicacioFragment)
+
+
         }
         binding.infoTractBtn2.setOnClickListener {
             findNavController().navigate(R.id.medicacioFragment)
@@ -83,6 +85,7 @@ class HospitalitFragment : Fragment() {
         }
         binding.infoTractBtn4.setOnClickListener {
             findNavController().navigate(R.id.medicacioFragment)
+
         }
         binding.newEntryTractHospBtn.setOnClickListener {
             clearTractament()

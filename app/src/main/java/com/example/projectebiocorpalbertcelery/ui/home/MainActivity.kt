@@ -14,7 +14,10 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.add
 import androidx.fragment.app.commit
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.projectebiocorpalbertcelery.R
@@ -44,7 +47,6 @@ class MainActivity : AppCompatActivity() {
     private val sharedViewModel3: AllergiaFragmentViewModel by viewModels()
     private val sharedViewModel4: MalaltiaFragmentViewModel by viewModels()
     private val sharedViewModel5: HospitalitFragmentViewModel by viewModels()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -56,9 +58,12 @@ class MainActivity : AppCompatActivity() {
 
         initUI()
 
+        val navHost = supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
+        navController = navHost.navController
 
 
-        // TODO ACONSEGUIR CANVIAR DE FRAGMENT supportFragmentManager.beginTransaction().replace(R.id.fragmentContainerView, pacientFragment).commit()*/
+
+
         binding.NextPBtn.setOnClickListener {
             val dni = nextReg()
 

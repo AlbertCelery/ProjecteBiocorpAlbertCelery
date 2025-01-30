@@ -9,7 +9,15 @@
         android:id="@+id/allergiaFragment"
         android:name="com.example.projectebiocorpalbertcelery.ui.allergia.AllergiaFragment"
         android:label="fragment_allergia"
-        tools:layout="@layout/fragment_allergia" />
+        tools:layout="@layout/fragment_allergia"
+        >
+        <action
+            android:id="@+id/action_allergiaFragment_to_medicacioFragment"
+            app:destination="@id/medicacioFragment"
+            />
+    </fragment>
+
+
 
     <fragment
         android:id="@+id/hospitalitFragment"

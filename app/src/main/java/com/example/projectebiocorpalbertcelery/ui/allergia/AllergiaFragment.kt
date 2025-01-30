@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.projectebiocorpalbertcelery.R
 import com.example.projectebiocorpalbertcelery.data.DatabaseManager
@@ -26,6 +27,8 @@ class AllergiaFragment : Fragment() {
     private var cursor: Cursor? = null
     private val sharedViewModel: AllergiaFragmentViewModel by activityViewModels()
     private var dni: String = ""
+    private var isNavigating = false
+    private lateinit var viewModel: AllergiaFragmentViewModel
 
 
     override fun onCreateView(
@@ -40,9 +43,13 @@ class AllergiaFragment : Fragment() {
 
         // alergiaInit()
         //TODO Acabar funcions dels botons
+
         binding.medInfoBtn1.setOnClickListener {
-            findNavController().navigate(R.id.medicacioFragment)
+            findNavController().navigate(R.id.action_allergiaFragment_to_medicacioFragment)
+
+
         }
+
         binding.medInfoBtn2.setOnClickListener {
             findNavController().navigate(R.id.medicacioFragment)
         }
@@ -87,7 +94,11 @@ class AllergiaFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         sharedViewModel.loadAllergiaTrigger.observe(viewLifecycleOwner) { dni ->
             loadAlergia(dni)
+
+
+
         }
+
 
 
 
