@@ -12,6 +12,8 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.projectebiocorpalbertcelery.R
 import com.example.projectebiocorpalbertcelery.data.DatabaseManager
+import com.example.projectebiocorpalbertcelery.data.HospitalDatabaseManager
+import com.example.projectebiocorpalbertcelery.data.TractHospitalDatabaseManager
 import com.example.projectebiocorpalbertcelery.databinding.FragmentHospitalitBinding
 import com.example.projectebiocorpalbertcelery.ui.home.MainActivity
 import java.text.ParseException
@@ -24,6 +26,8 @@ class HospitalitFragment : Fragment() {
     private var _binding: FragmentHospitalitBinding? = null
     private val binding get() = _binding!!
     private lateinit var databaseManager: DatabaseManager
+    private lateinit var hospitalitManager: HospitalDatabaseManager
+    private lateinit var tractHospManager: TractHospitalDatabaseManager
     private var dni: String = ""
     private var idHospitalitzacio: Int = 0
     private var idTractament: Int = 0
@@ -34,7 +38,8 @@ class HospitalitFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentHospitalitBinding.inflate(layoutInflater, container, false)
-
+        hospitalitManager = HospitalDatabaseManager()
+        tractHospManager = TractHospitalDatabaseManager()
         databaseManager = DatabaseManager()
         initHosp()
         //databaseManager.openDatabase(requireContext())
@@ -159,32 +164,33 @@ class HospitalitFragment : Fragment() {
     fun loadHospitalitzacio(){
         clearHospitalitzacio()
         clearTractament()
-        val nomHosp= databaseManager.getnomHosp(idHospitalitzacio)
-        val iniciHosp = databaseManager.getIniciHospitalit(idHospitalitzacio)
-        val fiHosp = databaseManager.getFiHospitalit(idHospitalitzacio)
-        val tempstotal = databaseManager.getTotalDays(iniciHosp, fiHosp)
 
-        val motivHosp = databaseManager.getMotiusHosp(idHospitalitzacio)
+        val nomHosp= hospitalitManager.getnomHosp(idHospitalitzacio)
+        val iniciHosp = hospitalitManager.getIniciHospitalit(idHospitalitzacio)
+            val fiHosp = hospitalitManager.getFiHospitalit(idHospitalitzacio)
+        val tempstotal = hospitalitManager.getTotalDays(iniciHosp, fiHosp)
+
+        val motivHosp = hospitalitManager.getMotiusHosp(idHospitalitzacio)
 
         binding.HospitalEdit.setText(nomHosp)
         binding.dataIniciHospEdit.setText(iniciHosp)
         binding.dataFiHospEdit.setText(fiHosp)
         binding.tempsTotalHospValue.text = tempstotal.toString()
         binding.spinnerMotiuHosp.setSelection(motivHosp)
-        val firstHospitalitTract = databaseManager.getFirstHospitalitzacioTract(idHospitalitzacio)
+        val firstHospitalitTract = tractHospManager.getFirstHospitalitzacioTract(idHospitalitzacio)
         if (firstHospitalitTract != null) {
             idTractament = firstHospitalitTract
-            val nomMedicament1 = databaseManager.getmedidHosp(idTractament)
-            val nomMedicament2 = databaseManager.getmedid2Hosp(idTractament)
-            val nomMedicament3 = databaseManager.getmedid3Hosp(idTractament)
-            val nomMedicament4 = databaseManager.getmedid4Hosp(idTractament)
-            val horamed1 = databaseManager.gethoramed1Hosp(idTractament)
-            val horamed2 = databaseManager.gethoramed2Hosp(idTractament)
-            val horamed3 = databaseManager.gethoramed3Hosp(idTractament)
-            val horamed4 = databaseManager.gethoramed4Hosp(idTractament)
-            val iniciTractament = databaseManager.getIniciHospTract(idTractament)
-            val fiTractament = databaseManager.getFiHospTract(idTractament)
-            val tempsTractament = databaseManager.getTotalDays(iniciTractament, fiTractament)
+            val nomMedicament1 = tractHospManager.getmedidHosp(idTractament)
+            val nomMedicament2 = tractHospManager.getmedid2Hosp(idTractament)
+            val nomMedicament3 = tractHospManager.getmedid3Hosp(idTractament)
+            val nomMedicament4 = tractHospManager.getmedid4Hosp(idTractament)
+            val horamed1 = tractHospManager.gethoramed1Hosp(idTractament)
+            val horamed2 = tractHospManager.gethoramed2Hosp(idTractament)
+            val horamed3 = tractHospManager.gethoramed3Hosp(idTractament)
+            val horamed4 = tractHospManager.gethoramed4Hosp(idTractament)
+            val iniciTractament = tractHospManager.getIniciHospTract(idTractament)
+            val fiTractament = tractHospManager.getFiHospTract(idTractament)
+            val tempsTractament = tractHospManager.getTotalDays(iniciTractament, fiTractament)
 
             binding.tempsTotalTractEdit.text = tempsTractament
             binding.spinnerMedicamentTract1.setSelection(nomMedicament1)
@@ -208,11 +214,11 @@ class HospitalitFragment : Fragment() {
         fun updateBtn(){
 
 
-            if (databaseManager.getFirstHospitalitzacio(dni) != null){
+            if (hospitalitManager.getFirstHospitalitzacio(dni) != null){
 
 
-                binding.previousHospitalitBtn.isEnabled = (idHospitalitzacio > databaseManager.getFirstHospitalitzacio(dni)!!) && (idHospitalitzacio != 0)
-                binding.nextHospitalitBtn.isEnabled = (idHospitalitzacio < databaseManager.getLastHospitalitzacio(dni)!!) && (idHospitalitzacio != 0)
+                binding.previousHospitalitBtn.isEnabled = (idHospitalitzacio > hospitalitManager.getFirstHospitalitzacio(dni)!!) && (idHospitalitzacio != 0)
+                binding.nextHospitalitBtn.isEnabled = (idHospitalitzacio < hospitalitManager.getLastHospitalitzacio(dni)!!) && (idHospitalitzacio != 0)
 
 
 
@@ -220,9 +226,9 @@ class HospitalitFragment : Fragment() {
                 binding.previousHospitalitBtn.isEnabled = false
                 binding.nextHospitalitBtn.isEnabled = false
             }
-            if (databaseManager.getFirstHospitalitzacioTract(idHospitalitzacio) != null) {
-                binding.nextTractamentsBtn.isEnabled = (idTractament < databaseManager.getLastHospitalitzacioTract(idHospitalitzacio)!!) && (idTractament != 0)
-                binding.previousTractamentsBtn.isEnabled = (idTractament > databaseManager.getFirstHospitalitzacioTract(idHospitalitzacio)!!) && (idTractament != 0)
+            if (tractHospManager.getFirstHospitalitzacioTract(idHospitalitzacio) != null) {
+                binding.nextTractamentsBtn.isEnabled = (idTractament < tractHospManager.getLastHospitalitzacioTract(idHospitalitzacio)!!) && (idTractament != 0)
+                binding.previousTractamentsBtn.isEnabled = (idTractament > tractHospManager.getFirstHospitalitzacioTract(idHospitalitzacio)!!) && (idTractament != 0)
 
             }else {
                 binding.nextTractamentsBtn.isEnabled = false
@@ -239,13 +245,13 @@ class HospitalitFragment : Fragment() {
         this.dni = dni
         clearHospitalitzacio()
         clearTractament()
-        val firstHospitalitzacioId = databaseManager.getFirstHospitalitzacio(dni)
+        val firstHospitalitzacioId = hospitalitManager.getFirstHospitalitzacio(dni)
         if (firstHospitalitzacioId != null) {
-            val nomHospitalitzacio = databaseManager.getnomHosp(firstHospitalitzacioId)
-            val iniciHospitalitzacio = databaseManager.getIniciHospitalit(firstHospitalitzacioId)
-            val fiHospitalitzacio = databaseManager.getFiHospitalit(firstHospitalitzacioId)
-            val tempstotal = databaseManager.getTotalDays(iniciHospitalitzacio, fiHospitalitzacio)
-            val motivHosp = databaseManager.getMotiusHosp(firstHospitalitzacioId) - 1
+            val nomHospitalitzacio = hospitalitManager.getnomHosp(firstHospitalitzacioId)
+            val iniciHospitalitzacio = hospitalitManager.getIniciHospitalit(firstHospitalitzacioId)
+            val fiHospitalitzacio = hospitalitManager.getFiHospitalit(firstHospitalitzacioId)
+            val tempstotal = hospitalitManager.getTotalDays(iniciHospitalitzacio, fiHospitalitzacio)
+            val motivHosp = hospitalitManager.getMotiusHosp(firstHospitalitzacioId) - 1
 
             binding.HospitalEdit.setText(nomHospitalitzacio)
             binding.dataIniciHospEdit.setText(iniciHospitalitzacio)
@@ -253,19 +259,19 @@ class HospitalitFragment : Fragment() {
             binding.tempsTotalHospValue.text = tempstotal
             binding.spinnerMotiuHosp.setSelection(motivHosp)
             idHospitalitzacio = firstHospitalitzacioId
-            val firstHospitalitTract = databaseManager.getFirstHospitalitzacioTract(idHospitalitzacio)
+            val firstHospitalitTract = tractHospManager.getFirstHospitalitzacioTract(idHospitalitzacio)
             if (firstHospitalitTract != null) {
                 idTractament = firstHospitalitTract
-                val nomMedicament1 = databaseManager.getmedidHosp(idTractament)-1
-                val nomMedicament2 = databaseManager.getmedid2Hosp(idTractament)-1
-                val nomMedicament3 = databaseManager.getmedid3Hosp(idTractament)-1
-                val nomMedicament4 = databaseManager.getmedid4Hosp(idTractament)-1
-                val horamed1 = databaseManager.gethoramed1Hosp(idTractament)
-                val horamed2 = databaseManager.gethoramed2Hosp(idTractament)
-                val horamed3 = databaseManager.gethoramed3Hosp(idTractament)
-                val horamed4 = databaseManager.gethoramed4Hosp(idTractament)
-                val iniciTractament = databaseManager.getIniciHospTract(idTractament)
-                val fiTractament = databaseManager.getFiHospTract(idTractament)
+                val nomMedicament1 = tractHospManager.getmedidHosp(idTractament)-1
+                val nomMedicament2 = tractHospManager.getmedid2Hosp(idTractament)-1
+                val nomMedicament3 = tractHospManager.getmedid3Hosp(idTractament)-1
+                val nomMedicament4 = tractHospManager.getmedid4Hosp(idTractament)-1
+                val horamed1 = tractHospManager.gethoramed1Hosp(idTractament)
+                val horamed2 = tractHospManager.gethoramed2Hosp(idTractament)
+                val horamed3 = tractHospManager.gethoramed3Hosp(idTractament)
+                val horamed4 = tractHospManager.gethoramed4Hosp(idTractament)
+                val iniciTractament = tractHospManager.getIniciHospTract(idTractament)
+                val fiTractament = tractHospManager.getFiHospTract(idTractament)
                 val tempsTractament = databaseManager.getTotalDays(iniciTractament, fiTractament)
 
 
@@ -296,16 +302,16 @@ class HospitalitFragment : Fragment() {
     }
     fun loadTractament(){
         clearTractament()
-        val nomMedicament1 = databaseManager.getmedidHosp(idTractament)
-        val nomMedicament2 = databaseManager.getmedid2Hosp(idTractament)
-        val nomMedicament3 = databaseManager.getmedid3Hosp(idTractament)
-        val nomMedicament4 = databaseManager.getmedid4Hosp(idTractament)
-        val horamed1 = databaseManager.gethoramed1Hosp(idTractament)
-        val horamed2 = databaseManager.gethoramed2Hosp(idTractament)
-        val horamed3 = databaseManager.gethoramed3Hosp(idTractament)
-        val horamed4 = databaseManager.gethoramed4Hosp(idTractament)
-        val iniciTractament = databaseManager.getIniciHospTract(idTractament)
-        val fiTractament = databaseManager.getFiHospTract(idTractament)
+        val nomMedicament1 = tractHospManager.getmedidHosp(idTractament)
+        val nomMedicament2 = tractHospManager.getmedid2Hosp(idTractament)
+        val nomMedicament3 = tractHospManager.getmedid3Hosp(idTractament)
+        val nomMedicament4 = tractHospManager.getmedid4Hosp(idTractament)
+        val horamed1 = tractHospManager.gethoramed1Hosp(idTractament)
+        val horamed2 = tractHospManager.gethoramed2Hosp(idTractament)
+        val horamed3 = tractHospManager.gethoramed3Hosp(idTractament)
+        val horamed4 = tractHospManager.gethoramed4Hosp(idTractament)
+        val iniciTractament = tractHospManager.getIniciHospTract(idTractament)
+        val fiTractament = tractHospManager.getFiHospTract(idTractament)
         val tempsTractament = databaseManager.getTotalDays(iniciTractament, fiTractament)
 
         binding.tempsTotalTractEdit.text = tempsTractament
@@ -337,7 +343,7 @@ class HospitalitFragment : Fragment() {
 
     }
     fun previousHospitalit(){
-        val nextHospId = databaseManager.getPreviousHospitalitzacio(dni, idHospitalitzacio)
+        val nextHospId = hospitalitManager.getPreviousHospitalitzacio(dni, idHospitalitzacio)
         if (nextHospId != null) {
             if (nextHospId.moveToFirst()) {
                 this.idHospitalitzacio = nextHospId.getInt(0)
@@ -347,7 +353,7 @@ class HospitalitFragment : Fragment() {
         }
     }
     fun nextHospitalit(){
-        val nextHospId = databaseManager.getNextHospitalitzacio(dni, idHospitalitzacio)
+        val nextHospId = hospitalitManager.getNextHospitalitzacio(dni, idHospitalitzacio)
         if (nextHospId != null) {
             if (nextHospId.moveToFirst()) {
                 this.idHospitalitzacio = nextHospId.getInt(0)
@@ -356,7 +362,7 @@ class HospitalitFragment : Fragment() {
         }
     }
     fun previousTractaments(){
-        val nextTractamentId = databaseManager.getPreviousHospitalitzacioTract(idHospitalitzacio, idTractament)
+        val nextTractamentId = tractHospManager.getPreviousHospitalitzacioTract(idHospitalitzacio, idTractament)
         if (nextTractamentId != null) {
             if (nextTractamentId.moveToFirst()) {
                 this.idTractament = nextTractamentId.getInt(0)
@@ -366,7 +372,7 @@ class HospitalitFragment : Fragment() {
     }
     fun nextTractaments() {
         val nextTractamentId =
-            databaseManager.getNextHospitalitzacioTract(idHospitalitzacio, idTractament)
+            tractHospManager.getNextHospitalitzacioTract(idHospitalitzacio, idTractament)
         if (nextTractamentId != null) {
             if (nextTractamentId.moveToFirst()) {
                 this.idTractament = nextTractamentId.getInt(0)
@@ -380,7 +386,7 @@ class HospitalitFragment : Fragment() {
             val motiv = binding.spinnerMotiuHosp.selectedItemPosition + 1
             val dni = dni
             val nomHosp = binding.HospitalEdit.text.toString()
-            databaseManager.insertDataHospitalitzacio(inici, fi, nomHosp, motiv, dni)
+            hospitalitManager.insertDataHospitalitzacio(inici, fi, nomHosp, motiv, dni)
             clearHospitalitzacio()
             clearTractament()
 
@@ -396,7 +402,7 @@ class HospitalitFragment : Fragment() {
             val nomMedicament2 = binding.spinnerMedicamentTract2.selectedItemPosition
             val nomMedicament3 = binding.spinnerMedicamentTract3.selectedItemPosition
             val nomMedicament4 = binding.spinnerMedicamentTract4.selectedItemPosition
-            databaseManager.insertDataTractamentHosp(
+            tractHospManager.insertDataTractamentHosp(
                 idHospitalitzacio,
                 horamed1,
                 horamed2,

@@ -21,7 +21,12 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.projectebiocorpalbertcelery.R
+import com.example.projectebiocorpalbertcelery.data.AllergiaDatabaseManager
 import com.example.projectebiocorpalbertcelery.data.DatabaseManager
+import com.example.projectebiocorpalbertcelery.data.HospitalDatabaseManager
+import com.example.projectebiocorpalbertcelery.data.MedicacioDatabaseManager
+import com.example.projectebiocorpalbertcelery.data.PacientDatabaseManager
+import com.example.projectebiocorpalbertcelery.data.TractHospitalDatabaseManager
 import com.example.projectebiocorpalbertcelery.databinding.ActivityMainBinding
 import com.example.projectebiocorpalbertcelery.ui.allergia.AllergiaFragmentViewModel
 import com.example.projectebiocorpalbertcelery.ui.hopitalit.HospitalitFragmentViewModel
@@ -147,10 +152,339 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    //TODO TEST INSERTS >>>
+    private fun testingDataBase(){
+        //pacients
+        val pacient = PacientDatabaseManager()
+
+        pacient.insertDataPacient("53399387B",
+            "Albert", "Celery", "Cosconera",
+            "19-10-2001", "Escaldes Engordany",
+            "La Seu d'Urgell", "Carrer Major", 25700 )
+
+
+        pacient.insertDataPacient("53389287C",
+            "Josep", "Capdevila", "Saura",
+            "23-02-1967", "Barcelona",
+            "Lleida", "Carrer Alcalde Costa", 25002)
+
+        pacient.insertDataPacient("53396757D",
+            "Clara", "Ponts", "Gómez",
+            "12-04-2004", "Girona",
+            "Banyoles", "Passeig de Mossèn Lluís Constans", 17820)
+        //allergia
+        val alergia = AllergiaDatabaseManager()
+        alergia.genAlergiaStack("53399387B")
+        alergia.genAlergiaStack("53389287C")
+        alergia.genAlergiaStack("53396757D")
+
+
+
+        alergia.updateAlergia(
+            7,
+            1,
+            "Reacción anafiláctica",
+            "53399387B"
+        )
+
+
+
+
+        alergia.updateAlergia(
+            8,
+            2,
+            "Urticaria",
+            "53399387B")
+
+
+
+
+        alergia.updateAlergia(
+            9,
+            1,
+            "Dificultad para respirar",
+            "53389287C")
+
+
+
+
+        alergia.updateAlergia(
+            10,
+            2,
+            "Náuseas y vómitos",
+            "53389287C")
+
+
+
+
+        alergia.updateAlergia(//TODO afegir medicament null
+            2,
+            1,
+            "Erupción cutánea",
+            "53396757D")
+
+
+        //Medicament
+        val formesPres = arrayOf(//TODO Modificar segons els medicaments introduits
+            "Crema",
+            "Injeccions subcutànies",
+            "Comprimits",
+            "Xarop",
+            "Injeccions intramusculars",
+            "Gotes",
+            "Pols",
+            "Parches transdèrmics"
+
+        )
+        val med = MedicacioDatabaseManager()
+
+        med.insertDataMedicacio(
+            "...",//1
+            "...",
+            "...",
+            "..."
+        )
+        med.insertDataMedicacio(
+            "Ibuprofèn",//2
+            "Nurofen",
+            "Comprimits",
+            "Mal de cap, marejos"
+        )
+        med.insertDataMedicacio(
+            "Paracetamol",//3
+            "Panadol",
+            "Xarop",
+            "Nàusees, erupcions cutànies"
+        )
+        med.insertDataMedicacio(
+            "Amoxicil·lina",//4
+            "Amoxil",
+            "Injeccions",
+            "Diarrhea, reaccions al·lèrgiques"
+        )
+        med.insertDataMedicacio(
+            "Loratadina",//5
+            "Claritin",
+            "Comprimits",
+            "Somnolència, sequedat de boca"
+        )
+        med.insertDataMedicacio(
+            "Omeprazol",//6
+            "Losec",
+            "Càpsules",
+            "Dolor abdominal, gasos"
+        )
+        med.insertDataMedicacio(
+            "Penicilina",//7
+            "Pfizer",
+            "Comprimits",
+            "Reacció al·lèrgica"
+        )
+        med.insertDataMedicacio(
+            "Aspirina",//8
+            "Bayer",
+            "Comprimits",
+            "Nàusees"
+        )
+        med.insertDataMedicacio(
+            "Sulfonamida",//9
+            "Sandoz",
+            "Comprimits",
+            "Erupcions cutànies"
+        )
+        med.insertDataMedicacio(
+            "Codeína",//10
+            "Ratiopharm",
+            "Xarop",
+            "Somnolència"
+        )
+
+
+
+
+
+        //hospitalitzacions
+        val motivhospit = HospitalDatabaseManager()
+        val motivHosp = arrayOf(
+            "Cirurgia programada",
+            "Emergencia médica",
+            "Infecció greu",
+            "Malaltia crónica descompensada",
+            "Recuperació postoperatoria",
+            "Tractament de cáncer",
+            "Problemes respiratoris",
+            "Complicacions del embaràs",
+            "Accident o trauma",
+            "Malalties cardiovasculars"
+        )
+        for (i in motivHosp.indices) {
+            motivhospit.saveData(motivHosp[i], "motivhospit")
+        }
+
+        val hospital = HospitalDatabaseManager()
+        hospital.insertDataHospitalitzacio("19-04-2023", "23-04-2023",
+            "Hospital Sant Joan",
+            1, "53399387B")
+        hospital.insertDataHospitalitzacio("24-02-2024", "02-03-2024",
+            "Hospital Sant Joan",
+            2, "53389287B")
+        hospital.insertDataHospitalitzacio(
+            "01-03-2023",
+            "10-03-2023",
+            "Hospital Arnau de Vilanova",
+            1, // Cirurgia programada
+            "53389287C"
+        )
+
+        hospital.insertDataHospitalitzacio(
+            "15-09-2023",
+            "20-09-2023",
+            "Hospital Arnau de Vilanova",
+            2, // Emergència mèdica
+            "53389287C"
+        )
+
+        hospital.insertDataHospitalitzacio(
+            "05-08-2023",
+            "12-08-2023",
+            "Clínica Salus Infirmorum",
+            3, // Infecció greu
+            "53396757D"
+        )
+
+        hospital.insertDataHospitalitzacio(
+            "10-09-2023",
+            "15-09-2023",
+            "Clínica Salus Infirmorum",
+            9, // Accident o trauma
+            "53396757D"
+        )
+
+        hospital.insertDataHospitalitzacio(
+            "01-10-2023",
+            "05-10-2023",
+            "Clínica Salus Infirmorum",
+            5, // Recuperació postoperatòria
+            "53396757D"
+        )
+        val tract = TractHospitalDatabaseManager()
+
+        tract.insertDataTractamentHosp(
+            1,
+            "08:00",
+            "12:00",
+            "",
+            "",
+            2, // id medicament 1
+            3, // id medicament 2
+            0, // id medicament 3 (no s'utilitza)
+            0, // id medicament 4 (no s'utilitza)
+            "19-04-2023",
+            "23-04-2023"
+        )
+
+        tract.insertDataTractamentHosp(
+            2,
+            "09:00",
+            "13:00",
+            "",
+            "",
+            4, // id medicament 1
+            5, // id medicament 2
+            0, // id medicament 3 (no s'utilitza)
+            0, // id medicament 4 (no s'utilitza)
+            "24-02-2024",
+            "02-03-2024"
+        )
+
+        tract.insertDataTractamentHosp(
+            3,
+            "10:00",
+            "14:00",
+            "",
+            "",
+            6, // id medicament 1
+            7, // id medicament 2
+            0, // id medicament 3 (no s'utilitza)
+            0, // id medicament 4 (no s'utilitza)
+            "01-03-2023",
+            "10-03-2023"
+        )
+
+
+        tract.insertDataTractamentHosp(
+            4,
+            "08:00",
+            "12:00",
+            "18:00",
+            "22:00",
+            2, // id medicament 1
+            3, // id medicament 2
+            0, // id medicament 3 (no s'utilitza)
+            0, // id medicament 4 (no s'utilitza)
+            "15-09-2023",
+            "20-09-2023"
+        )
+
+        tract.insertDataTractamentHosp(
+            5,
+            "09:00",
+            "13:00",
+            "",
+            "",
+            4, // id medicament 1
+            5, // id medicament 2
+            0, // id medicament 3 (no s'utilitza)
+            0, // id medicament 4 (no s'utilitza)
+            "05-08-2023",
+            "12-08-2023"
+        )
+
+        tract.insertDataTractamentHosp(
+            6,
+            "10:00",
+            "14:00",
+            "",
+            "",
+            6, // id medicament 1
+            7, // id medicament 2
+            0, // id medicament 3 (no s'utilitza)
+            0, // id medicament 4 (no s'utilitza)
+            "10-09-2023",
+            "15-09-2023"
+        )
+
+        tract.insertDataTractamentHosp(
+            7,
+            "07:00",
+            "11:00",
+            "",
+            "",
+            8, // id medicament 1
+            9, // id medicament 2
+            0, // id medicament 3 (no s'utilitza)
+            0, // id medicament 4 (no s'utilitza)
+            "01-10-2023",
+            "05-10-2023"
+        )
+        
+
+
+
+
+
+
+
+
+    }
+
+
+
     fun initUI(){
         iniNavigation()
         createDatabase()
         createTables()
+        //testingDataBase()
     }
     fun iniNavigation(){
         val navHost = supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
@@ -177,7 +511,7 @@ class MainActivity : AppCompatActivity() {
         sharedViewModel2.triggerLoadMedicacio(idmed)
 
     }
-    //mostrar estudiant
+    //mostrar
     private fun showFullName():String {
         if (cursor != null && !cursor!!.isClosed){
             cursor!!.moveToPosition(currentIndex)

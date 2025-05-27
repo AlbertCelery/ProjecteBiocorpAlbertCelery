@@ -11,14 +11,17 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.projectebiocorpalbertcelery.R
 import com.example.projectebiocorpalbertcelery.data.DatabaseManager
+import com.example.projectebiocorpalbertcelery.data.LoginDatabaseManager
 import com.example.projectebiocorpalbertcelery.databinding.ActivityLoginBinding
 import com.example.projectebiocorpalbertcelery.ui.home.ConnectionClass
 import com.example.projectebiocorpalbertcelery.ui.home.MainActivity
 import java.io.File
+import java.security.MessageDigest
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
     private lateinit var databaseManager: DatabaseManager
+    private lateinit var loginManager: LoginDatabaseManager
     private var myFile: File? = null
     private var db: SQLiteDatabase? = null
 
@@ -33,6 +36,8 @@ class LoginActivity : AppCompatActivity() {
             insets
         }
         databaseManager = DatabaseManager()
+        loginManager = LoginDatabaseManager()
+
         createDatabase()
         createTables()
         binding.loginbtn.setOnClickListener {
@@ -57,7 +62,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
     }
-    fun checkSaveData(): Boolean{
+    private fun checkSaveData(): Boolean{
        return (binding.useredit.text.toString()!="") && (binding.passwordedit.text.toString() != "")
 
 
@@ -65,13 +70,14 @@ class LoginActivity : AppCompatActivity() {
     fun saveUser(){
         val dni = binding.useredit.text.toString()
         val password = binding.passwordedit.text.toString()
-        databaseManager.saveUserPass(dni, password)
+
+        loginManager.saveUserPass(dni, hashString(password))
 
     }
     fun checkUserPass(): Boolean{
         val dni = binding.useredit.text.toString()
         val password = binding.passwordedit.text.toString()
-        return databaseManager.userPasswordExists(dni, password)
+        return loginManager.userPasswordExists(dni, hashString(password))
 
     }
     private fun createDatabase(){
@@ -127,8 +133,16 @@ class LoginActivity : AppCompatActivity() {
         var createTable9 = "CREATE TABLE IF NOT EXISTS malaltia (id INTEGER PRIMARY KEY AUTOINCREMENT, nom TEXT, descripcio TEXT, dni TEXT, sintomes TEXT, iniciMalaltia TEXT, fiMalaltia TEXT, FOREIGN KEY(dni) REFERENCES pacient(dni))"
         db!!.execSQL(createTable9)
 
+    }
+    private fun hashString(input: String): String {
+
+        val digest = MessageDigest.getInstance("SHA-256")
 
 
+        val hashBytes = digest.digest(input.toByteArray())
+
+
+        return hashBytes.joinToString("") { "%02x".format(it) }
     }
 
 

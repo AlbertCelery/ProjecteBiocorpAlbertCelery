@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.projectebiocorpalbertcelery.data.DatabaseManager
+import com.example.projectebiocorpalbertcelery.data.MedicacioDatabaseManager
 import com.example.projectebiocorpalbertcelery.databinding.FragmentMedicacioBinding
 import com.example.projectebiocorpalbertcelery.ui.hopitalit.MotivPopupDialog
 
@@ -17,7 +18,8 @@ import com.example.projectebiocorpalbertcelery.ui.hopitalit.MotivPopupDialog
 class MedicacioFragment : Fragment() {
     private var _binding: FragmentMedicacioBinding? = null
     private val binding get() = _binding!!
-    private lateinit var databaseManager: DatabaseManager
+   // private lateinit var databaseManager: DatabaseManager
+    private lateinit var medicacioManager: MedicacioDatabaseManager
     private val sharedViewModel: MedicacioFragmentViewModel by activityViewModels()
     private var currentIndex = 0
     private var cursor: Cursor? = null
@@ -27,11 +29,12 @@ class MedicacioFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentMedicacioBinding.inflate(layoutInflater, container, false)
-        databaseManager = DatabaseManager()
+       // databaseManager = DatabaseManager()
+        medicacioManager = MedicacioDatabaseManager()
 
 
         val optionsFormaPres: String = "SELECT nom FROM formaPres"
-        val nombres: MutableList<String> = databaseManager.obtenerNombres(optionsFormaPres)
+        val nombres: MutableList<String> = medicacioManager.obtenerNombres(optionsFormaPres)
         val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, nombres)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.formaPresSpinner.adapter = adapter
@@ -48,7 +51,7 @@ class MedicacioFragment : Fragment() {
             val marca = binding.marcaEdit.text.toString()
             val formaPres = binding.formaPresSpinner.selectedItem.toString()
             val efecteSecundari = binding.efectSecundEdit.text.toString()
-            val result = databaseManager.insertDataMedicacio(nom, marca, formaPres, efecteSecundari)
+            val result = medicacioManager.insertDataMedicacio(nom, marca, formaPres, efecteSecundari)
             if (result) {
                 clearMedicacio()
                 Toast.makeText(requireContext(), "Data Inserted", Toast.LENGTH_SHORT).show()
@@ -93,11 +96,11 @@ class MedicacioFragment : Fragment() {
     }
     fun loadmedicament(idmed: Int) {
         currentIndex = idmed
-        val nom = databaseManager.getmedicacioNom(currentIndex)
-        val marca = databaseManager.getmedicacioMarca(currentIndex)
+        val nom = medicacioManager.getmedicacioNom(currentIndex)
+        val marca = medicacioManager.getmedicacioMarca(currentIndex)
 
         val formaPres = currentIndex -1
-        val efecteSecundari = databaseManager.getmedicacioEfsec(currentIndex)
+        val efecteSecundari = medicacioManager.getmedicacioEfsec(currentIndex)
         binding.nMedEdit.setText(nom)
         binding.marcaEdit.setText(marca)
         if (formaPres >= 0) {
@@ -112,7 +115,7 @@ class MedicacioFragment : Fragment() {
 
     }
     private fun updateReg(){
-        cursor = databaseManager.getMedicamentCursor()
+        cursor = medicacioManager.getMedicamentCursor()
         if (cursor!=null && cursor!!.moveToFirst()){
             loadmedicament(currentIndex)
 

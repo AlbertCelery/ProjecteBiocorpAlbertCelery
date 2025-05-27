@@ -13,6 +13,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.projectebiocorpalbertcelery.R
+import com.example.projectebiocorpalbertcelery.data.AllergiaDatabaseManager
 import com.example.projectebiocorpalbertcelery.data.DatabaseManager
 
 
@@ -24,6 +25,7 @@ class AllergiaFragment : Fragment() {
     private var _binding: FragmentAllergiaBinding? = null
     private val binding get() = _binding!!
     private lateinit var databaseManager: DatabaseManager
+    private lateinit var allergiaManager: AllergiaDatabaseManager
     private var cursor: Cursor? = null
     private val sharedViewModel: AllergiaFragmentViewModel by activityViewModels()
     private var dni: String = ""
@@ -37,6 +39,7 @@ class AllergiaFragment : Fragment() {
     ): View {
         _binding = FragmentAllergiaBinding.inflate(layoutInflater, container, false)
         databaseManager = DatabaseManager()
+        allergiaManager = AllergiaDatabaseManager()
         databaseManager.loadDatabase()
         alergiaInit()
 
@@ -65,28 +68,28 @@ class AllergiaFragment : Fragment() {
         binding.alergiaSave1Btn.setOnClickListener {
             val medicament1 = binding.medAllergiaSpinner1.selectedItemPosition + 1
             val descMedicament1 = binding.descAllergiaEdit1.text.toString()
-            databaseManager.updateAlergia(medicament1, 1, descMedicament1, dni)
+            allergiaManager.updateAlergia(medicament1, 1, descMedicament1, dni)
 
         }
         binding.alergiaSave2Btn.setOnClickListener {
             val medicament2 = binding.medAllergiaSpinner2.selectedItemPosition + 1
             val descMedicament2 = binding.descAllergiaEdit2.text.toString()
-            databaseManager.updateAlergia(medicament2, 2, descMedicament2, dni)
+            allergiaManager.updateAlergia(medicament2, 2, descMedicament2, dni)
         }
         binding.alergiaSave3Btn.setOnClickListener {
             val medicament3 = binding.medAllergiaSpinner3.selectedItemPosition + 1
             val descMedicament3 = binding.descAllergiaEdit3.text.toString()
-            databaseManager.updateAlergia(medicament3, 3, descMedicament3, dni)
+            allergiaManager.updateAlergia(medicament3, 3, descMedicament3, dni)
         }
         binding.alergiaSave4Btn.setOnClickListener {
             val medicament4 = binding.medAllergiaSpinner4.selectedItemPosition + 1
             val descMedicament4 = binding.descAllergiaEdit4.text.toString()
-            databaseManager.updateAlergia(medicament4, 4, descMedicament4, dni)
+            allergiaManager.updateAlergia(medicament4, 4, descMedicament4, dni)
         }
         binding.alergiaSave5Btn.setOnClickListener {
             val medicament5 = binding.medAllergiaSpinner5.selectedItemPosition + 1
             val descMedicament5 = binding.descAllergiaEdit5.text.toString()
-            databaseManager.updateAlergia(medicament5, 5, descMedicament5, dni)
+            allergiaManager.updateAlergia(medicament5, 5, descMedicament5, dni)
         }
         return binding.root
     }
@@ -122,7 +125,7 @@ class AllergiaFragment : Fragment() {
             this.dni = dni
             databaseManager = DatabaseManager()
             databaseManager.loadDatabase()
-            cursor = databaseManager.getAlergiaCursor(dni, 1)
+            cursor = allergiaManager.getAlergiaCursor(dni, 1)
             if (cursor != null && cursor!!.moveToFirst()) {
                 val idMedicament = cursor!!.getInt(0)
                 if (idMedicament > 0) {
@@ -131,7 +134,7 @@ class AllergiaFragment : Fragment() {
                     binding.descAllergiaEdit1.setText(cursor!!.getString(2))
                 }
             }
-            cursor = databaseManager.getAlergiaCursor(dni, 2)
+            cursor = allergiaManager.getAlergiaCursor(dni, 2)
             if (cursor != null && cursor!!.moveToFirst()) {
                 val idMedicament = cursor!!.getInt(0)
                 if (idMedicament > 0) {
@@ -140,7 +143,7 @@ class AllergiaFragment : Fragment() {
                     binding.descAllergiaEdit2.setText(cursor!!.getString(2))
                 }
             }
-            cursor = databaseManager.getAlergiaCursor(dni, 3)
+            cursor = allergiaManager.getAlergiaCursor(dni, 3)
             if (cursor != null && cursor!!.moveToFirst()) {
                 val idMedicament = cursor!!.getInt(0)
                 if (idMedicament > 0) {
@@ -149,7 +152,7 @@ class AllergiaFragment : Fragment() {
                     binding.descAllergiaEdit3.setText(cursor!!.getString(2))
                 }
             }
-            cursor = databaseManager.getAlergiaCursor(dni, 4)
+            cursor = allergiaManager.getAlergiaCursor(dni, 4)
             if (cursor != null && cursor!!.moveToFirst()) {
                 val idMedicament = cursor!!.getInt(0)
                 if (idMedicament > 0) {
@@ -158,7 +161,7 @@ class AllergiaFragment : Fragment() {
                     binding.descAllergiaEdit4.setText(cursor!!.getString(2))
                 }
             }
-            cursor = databaseManager.getAlergiaCursor(dni, 5)
+            cursor = allergiaManager.getAlergiaCursor(dni, 5)
             if (cursor != null && cursor!!.moveToFirst()) {
                 val idMedicament = cursor!!.getInt(0)
                 if (idMedicament > 0) {

@@ -10,7 +10,7 @@
     <color name="accent">#01D6F6</color>
     <color name="black_alpha_70">#B3000000</color>
     <color name="black_alpha_10">#1A000000</color>
-    <color name="error">#FFB000</color>
+    <!--<color name="error">#FFB000</color>-->
     <color name="white_alpha_40">#66FFFFFF</color>"
     <!--//////////////extra//////////////////-->
     <color name="silver">#C0C0C0</color>

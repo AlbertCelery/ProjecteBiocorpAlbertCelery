@@ -11,6 +11,8 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.projectebiocorpalbertcelery.R
 import com.example.projectebiocorpalbertcelery.data.DatabaseManager
+import com.example.projectebiocorpalbertcelery.data.MalaltiaDatabaseManager
+import com.example.projectebiocorpalbertcelery.data.TractMalaltiaDatabaseManager
 import com.example.projectebiocorpalbertcelery.databinding.FragmentMalaltiaBinding
 import java.text.ParseException
 import java.text.SimpleDateFormat
@@ -25,6 +27,8 @@ class MalaltiaFragment : Fragment() {
     private var idMalaltia = 0
     private var idTractamentMalaltia = 0
     private lateinit var databaseManager: DatabaseManager
+    private lateinit var malaltiaManager: MalaltiaDatabaseManager
+    private lateinit var tractMalaltiaManager: TractMalaltiaDatabaseManager
     private val sharedViewModel: MalaltiaFragmentViewModel by activityViewModels()
 
     override fun onCreateView(
@@ -32,8 +36,8 @@ class MalaltiaFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentMalaltiaBinding.inflate(layoutInflater, container, false)
-
-
+        tractMalaltiaManager = TractMalaltiaDatabaseManager()
+        malaltiaManager = MalaltiaDatabaseManager()
         databaseManager = DatabaseManager()
         malaltiaInit()
         loadMalaltiaNewPacient(dni)
@@ -97,10 +101,9 @@ class MalaltiaFragment : Fragment() {
         sharedViewModel.loadMalaltiaTrigger.observe(viewLifecycleOwner) { dni ->
             loadMalaltiaNewPacient(dni)
         }
-
     }
     fun malaltiaInit() {
-
+        //updateBtn()
         val optionsMedicacio: String = "SELECT nom FROM medicament"
         val nombres: MutableList<String> = databaseManager.obtenerNombres(optionsMedicacio)
         val adapter =
@@ -110,7 +113,6 @@ class MalaltiaFragment : Fragment() {
         binding.spinnerMedMalaltTract2.adapter = adapter
         binding.spinnerMedMalaltTract3.adapter = adapter
         binding.spinnerMedMalaltTract4.adapter = adapter
-
     }
     fun clearMalaltia(){
         binding.nMalaltiaEdit.text.clear()
@@ -131,7 +133,6 @@ class MalaltiaFragment : Fragment() {
         binding.horesTractMalaltEdit4.text?.clear()
         binding.iniciMalaltEdit.text.clear()
         binding.fiMalaltEdit.text.clear()
-
     }
 
     fun loadMalaltiaNewPacient(dni: String){
@@ -139,14 +140,14 @@ class MalaltiaFragment : Fragment() {
         databaseManager = DatabaseManager()
         clearMalaltia()
         clearTractamentMalaltia()
-        val firstMalaltiaId = databaseManager.getPacientFirstMalatiaId(dni)
+        val firstMalaltiaId = malaltiaManager.getPacientFirstMalatiaId(dni)
         if (firstMalaltiaId != null) {
-            val nomMalaltia = databaseManager.getMalaltiaNom(firstMalaltiaId)
-            val descripcioMalaltia = databaseManager.getMalaltiaDescripcio(firstMalaltiaId)
-            val sintomesMalaltia = databaseManager.getMalaltiaSintomes(firstMalaltiaId)
-            val iniciMalaltia = databaseManager.getMalaltiaInici(firstMalaltiaId)
-            val fiMalaltia = databaseManager.getMalaltiaFi(firstMalaltiaId)
-            val tempstotal = databaseManager.getTotalDays(iniciMalaltia, fiMalaltia)
+            val nomMalaltia = malaltiaManager.getMalaltiaNom(firstMalaltiaId)
+            val descripcioMalaltia = malaltiaManager.getMalaltiaDescripcio(firstMalaltiaId)
+            val sintomesMalaltia = malaltiaManager.getMalaltiaSintomes(firstMalaltiaId)
+            val iniciMalaltia = malaltiaManager.getMalaltiaInici(firstMalaltiaId)
+            val fiMalaltia = malaltiaManager.getMalaltiaFi(firstMalaltiaId)
+            val tempstotal = malaltiaManager.getTotalDays(iniciMalaltia, fiMalaltia)
 
             binding.nMalaltiaEdit.setText(nomMalaltia)
             binding.descMalaltEdit.setText(descripcioMalaltia)
@@ -154,20 +155,20 @@ class MalaltiaFragment : Fragment() {
             binding.iniciMalaltEdit.setText(iniciMalaltia)
             binding.fiMalaltEdit.setText(fiMalaltia)
             binding.tempsMalaltValue.text = tempstotal
-            val firstMalaltiaTractamentId = databaseManager.getFirstMalaltiaTractament(firstMalaltiaId!!)
+            val firstMalaltiaTractamentId = tractMalaltiaManager.getFirstMalaltiaTractament(firstMalaltiaId!!)
             if (firstMalaltiaTractamentId != null) {
-                val Med1 = databaseManager.getmedidMalaltia(firstMalaltiaTractamentId)
-                val Med2 = databaseManager.getmedid2Malaltia(firstMalaltiaTractamentId)
-                val Med3 = databaseManager.getmedid3Malaltia(firstMalaltiaTractamentId)
-                val Med4 = databaseManager.getmedid4Malaltia(firstMalaltiaTractamentId)
-                val horamed1 = databaseManager.gethoramed1Malaltia(firstMalaltiaTractamentId)
-                val horamed2 = databaseManager.gethoramed2Malaltia(firstMalaltiaTractamentId)
-                val horamed3 = databaseManager.gethoramed3Malaltia(firstMalaltiaTractamentId)
-                val horamed4 = databaseManager.gethoramed4Malaltia(firstMalaltiaTractamentId)
+                val Med1 = tractMalaltiaManager.getmedidMalaltia(firstMalaltiaTractamentId)
+                val Med2 = tractMalaltiaManager.getmedid2Malaltia(firstMalaltiaTractamentId)
+                val Med3 = tractMalaltiaManager.getmedid3Malaltia(firstMalaltiaTractamentId)
+                val Med4 = tractMalaltiaManager.getmedid4Malaltia(firstMalaltiaTractamentId)
+                val horamed1 = tractMalaltiaManager.gethoramed1Malaltia(firstMalaltiaTractamentId)
+                val horamed2 = tractMalaltiaManager.gethoramed2Malaltia(firstMalaltiaTractamentId)
+                val horamed3 = tractMalaltiaManager.gethoramed3Malaltia(firstMalaltiaTractamentId)
+                val horamed4 = tractMalaltiaManager.gethoramed4Malaltia(firstMalaltiaTractamentId)
                 val iniciTractamentMalaltia =
-                    databaseManager.getIniciMalaltiaTract(firstMalaltiaTractamentId)
+                    tractMalaltiaManager.getIniciMalaltiaTract(firstMalaltiaTractamentId)
                 val fiTractamentMalaltia =
-                    databaseManager.getFiMalaltiaTract(firstMalaltiaTractamentId)
+                    tractMalaltiaManager.getFiMalaltiaTract(firstMalaltiaTractamentId)
                 val tempsmalaltiatract = databaseManager.getTotalDays(iniciTractamentMalaltia, fiTractamentMalaltia)
 
                 binding.spinnerMedMalaltTract1.setSelection(Med1)
@@ -218,12 +219,12 @@ class MalaltiaFragment : Fragment() {
         clearMalaltia()
 
 
-        val nomMalaltia = databaseManager.getMalaltiaNom(idMalaltia)
-        val descripcioMalaltia = databaseManager.getMalaltiaDescripcio(idMalaltia)
-        val sintomesMalaltia = databaseManager.getMalaltiaSintomes(idMalaltia)
-        val iniciMalaltia = databaseManager.getMalaltiaInici(idMalaltia)
-        val fiMalaltia = databaseManager.getMalaltiaFi(idMalaltia)
-        val tempstotal = databaseManager.getTotalDays(iniciMalaltia, fiMalaltia)
+        val nomMalaltia = malaltiaManager.getMalaltiaNom(idMalaltia)
+        val descripcioMalaltia = malaltiaManager.getMalaltiaDescripcio(idMalaltia)
+        val sintomesMalaltia = malaltiaManager.getMalaltiaSintomes(idMalaltia)
+        val iniciMalaltia = malaltiaManager.getMalaltiaInici(idMalaltia)
+        val fiMalaltia = malaltiaManager.getMalaltiaFi(idMalaltia)
+        val tempstotal = databaseManager.getTotalDays(iniciMalaltia, fiMalaltia)//todo repasar
 
         binding.nMalaltiaEdit.setText(nomMalaltia)
         binding.descMalaltEdit.setText(descripcioMalaltia)
@@ -232,19 +233,20 @@ class MalaltiaFragment : Fragment() {
         binding.fiMalaltEdit.setText(fiMalaltia)
 
         binding.tempsMalaltValue.text = tempstotal
-        val firstMalaltiaTractamentId = databaseManager.getFirstMalaltiaTractament(idMalaltia)
+        val firstMalaltiaTractamentId = tractMalaltiaManager.getFirstMalaltiaTractament(idMalaltia)
+
         if (firstMalaltiaTractamentId != null) {
-            val Med1 = databaseManager.getmedidMalaltia(firstMalaltiaTractamentId) - 1
-            val Med2 = databaseManager.getmedid2Malaltia(firstMalaltiaTractamentId) - 1
-            val Med3 = databaseManager.getmedid3Malaltia(firstMalaltiaTractamentId) - 1
-            val Med4 = databaseManager.getmedid4Malaltia(firstMalaltiaTractamentId) - 1
-            val horamed1 = databaseManager.gethoramed1Malaltia(firstMalaltiaTractamentId)
-            val horamed2 = databaseManager.gethoramed2Malaltia(firstMalaltiaTractamentId)
-            val horamed3 = databaseManager.gethoramed3Malaltia(firstMalaltiaTractamentId)
-            val horamed4 = databaseManager.gethoramed4Malaltia(firstMalaltiaTractamentId)
+            val Med1 = tractMalaltiaManager.getmedidMalaltia(firstMalaltiaTractamentId) - 1
+            val Med2 = tractMalaltiaManager.getmedid2Malaltia(firstMalaltiaTractamentId) - 1
+            val Med3 = tractMalaltiaManager.getmedid3Malaltia(firstMalaltiaTractamentId) - 1
+            val Med4 = tractMalaltiaManager.getmedid4Malaltia(firstMalaltiaTractamentId) - 1
+            val horamed1 = tractMalaltiaManager.gethoramed1Malaltia(firstMalaltiaTractamentId)
+            val horamed2 = tractMalaltiaManager.gethoramed2Malaltia(firstMalaltiaTractamentId)
+            val horamed3 = tractMalaltiaManager.gethoramed3Malaltia(firstMalaltiaTractamentId)
+            val horamed4 = tractMalaltiaManager.gethoramed4Malaltia(firstMalaltiaTractamentId)
             val iniciTractamentMalaltia =
-                databaseManager.getIniciMalaltiaTract(firstMalaltiaTractamentId)
-            val fiTractamentMalaltia = databaseManager.getFiMalaltiaTract(firstMalaltiaTractamentId)
+                tractMalaltiaManager.getIniciMalaltiaTract(firstMalaltiaTractamentId)
+            val fiTractamentMalaltia = tractMalaltiaManager.getFiMalaltiaTract(firstMalaltiaTractamentId)
             val tempsmalaltiatract = databaseManager.getTotalDays(iniciTractamentMalaltia, fiTractamentMalaltia)
 
             binding.spinnerMedMalaltTract1.setSelection(Med1)
@@ -271,16 +273,16 @@ class MalaltiaFragment : Fragment() {
     }
     fun loadMalaltiaTractament(idTractamentMalaltia: Int){
         clearTractamentMalaltia()
-        val Med1 = databaseManager.getmedidMalaltia(idTractamentMalaltia)
-        val Med2 = databaseManager.getmedid2Malaltia(idTractamentMalaltia)
-        val Med3 = databaseManager.getmedid3Malaltia(idTractamentMalaltia)
-        val Med4 = databaseManager.getmedid4Malaltia(idTractamentMalaltia)
-        val horamed1 = databaseManager.gethoramed1Malaltia(idTractamentMalaltia)
-        val horamed2 = databaseManager.gethoramed2Malaltia(idTractamentMalaltia)
-        val horamed3 = databaseManager.gethoramed3Malaltia(idTractamentMalaltia)
-        val horamed4 = databaseManager.gethoramed4Malaltia(idTractamentMalaltia)
-        val iniciTractamentMalaltia = databaseManager.getIniciMalaltiaTract(idTractamentMalaltia)
-        val fiTractamentMalaltia = databaseManager.getFiMalaltiaTract(idTractamentMalaltia)
+        val Med1 = tractMalaltiaManager.getmedidMalaltia(idTractamentMalaltia)
+        val Med2 = tractMalaltiaManager.getmedid2Malaltia(idTractamentMalaltia)
+        val Med3 = tractMalaltiaManager.getmedid3Malaltia(idTractamentMalaltia)
+        val Med4 = tractMalaltiaManager.getmedid4Malaltia(idTractamentMalaltia)
+        val horamed1 = tractMalaltiaManager.gethoramed1Malaltia(idTractamentMalaltia)
+        val horamed2 = tractMalaltiaManager.gethoramed2Malaltia(idTractamentMalaltia)
+        val horamed3 = tractMalaltiaManager.gethoramed3Malaltia(idTractamentMalaltia)
+        val horamed4 = tractMalaltiaManager.gethoramed4Malaltia(idTractamentMalaltia)
+        val iniciTractamentMalaltia = tractMalaltiaManager.getIniciMalaltiaTract(idTractamentMalaltia)
+        val fiTractamentMalaltia = tractMalaltiaManager.getFiMalaltiaTract(idTractamentMalaltia)
         val tempsMalaltiaTract = databaseManager.getTotalDays(iniciTractamentMalaltia, fiTractamentMalaltia)
 
         binding.spinnerMedMalaltTract1.setSelection(Med1)
@@ -300,11 +302,11 @@ class MalaltiaFragment : Fragment() {
     fun updateBtn(){
 
 
-        if (databaseManager.getPacientFirstMalatiaId(dni) != null){
+        if (malaltiaManager.getPacientFirstMalatiaId(dni) != null){
 
 
-            binding.previousMalaltBtn.isEnabled = (idMalaltia > (databaseManager.getPacientFirstMalatiaId(dni))!!) and (idMalaltia != 0)
-            binding.nextMalaltBtn.isEnabled = (idMalaltia < (databaseManager.getPacientLastMalatiaId(dni))!!) and (idMalaltia != 0)
+            binding.previousMalaltBtn.isEnabled = (idMalaltia > (malaltiaManager.getPacientFirstMalatiaId(dni))!!) and (idMalaltia != 0)
+            binding.nextMalaltBtn.isEnabled = (idMalaltia < (malaltiaManager.getPacientLastMalatiaId(dni))!!) and (idMalaltia != 0)
 
 
 
@@ -313,11 +315,11 @@ class MalaltiaFragment : Fragment() {
             binding.previousMalaltBtn.isEnabled = false
             binding.nextMalaltBtn.isEnabled = false
         }
-        if (databaseManager.getFirstMalaltiaTractament(idMalaltia) != null) {
+        if (tractMalaltiaManager.getFirstMalaltiaTractament(idMalaltia) != null) {
             binding.nextTractMalaltBtn.isEnabled =
-                (idTractamentMalaltia < (databaseManager.getLastMalaltiaTractament(idMalaltia))!!) and (idTractamentMalaltia != 0)
+                (idTractamentMalaltia < (tractMalaltiaManager.getLastMalaltiaTractament(idMalaltia))!!) and (idTractamentMalaltia != 0)
             binding.previousTractMalaltBtn.isEnabled =
-                (idTractamentMalaltia > (databaseManager.getFirstMalaltiaTractament(idMalaltia))!!) and (idTractamentMalaltia != 0)
+                (idTractamentMalaltia > (tractMalaltiaManager.getFirstMalaltiaTractament(idMalaltia))!!) and (idTractamentMalaltia != 0)
         }else{
             binding.nextTractMalaltBtn.isEnabled = false
             binding.previousTractMalaltBtn.isEnabled = false
@@ -328,7 +330,7 @@ class MalaltiaFragment : Fragment() {
 
     }
     fun nextTractament(){
-        val nextTractamentId = databaseManager.getNextMalaltiaTractament(idMalaltia, idTractamentMalaltia)
+        val nextTractamentId = tractMalaltiaManager.getNextMalaltiaTractament(idMalaltia, idTractamentMalaltia)
         if (nextTractamentId != null) {
             if (nextTractamentId.moveToFirst()) {
                 this.idTractamentMalaltia = nextTractamentId.getInt(0)
@@ -338,7 +340,7 @@ class MalaltiaFragment : Fragment() {
         }
     }
     fun previousTractament(){
-        val previousTractamentId = databaseManager.getPreviousMalaltiaTractament(idMalaltia, idTractamentMalaltia)
+        val previousTractamentId = tractMalaltiaManager.getPreviousMalaltiaTractament(idMalaltia, idTractamentMalaltia)
         if (previousTractamentId != null) {
             if (previousTractamentId.moveToFirst()) {
                 this.idTractamentMalaltia = previousTractamentId.getInt(0)
@@ -348,7 +350,7 @@ class MalaltiaFragment : Fragment() {
     }
     fun nextMalaltia(){
 
-        val nextMalaltiaId = databaseManager.getNextMalaltiaPacients(dni, this.idMalaltia)
+        val nextMalaltiaId = malaltiaManager.getNextMalaltiaPacients(dni, this.idMalaltia)
         if (nextMalaltiaId != null) {
             if (nextMalaltiaId.moveToFirst()) {
                 this.idMalaltia = nextMalaltiaId.getInt(0)
@@ -359,7 +361,7 @@ class MalaltiaFragment : Fragment() {
 
     }
     fun previousMalaltia(){
-        val previousMalaltiaId = databaseManager.getPreviousMalaltiaPacients(dni, this.idMalaltia)
+        val previousMalaltiaId = malaltiaManager.getPreviousMalaltiaPacients(dni, this.idMalaltia)
         if (previousMalaltiaId != null) {
             if (previousMalaltiaId.moveToFirst()) {
                 this.idMalaltia = previousMalaltiaId.getInt(0)
@@ -374,7 +376,7 @@ class MalaltiaFragment : Fragment() {
         val iniciMalaltia = binding.iniciMalaltEdit.text.toString()
         val fiMalaltia = binding.fiMalaltEdit.text.toString()
 
-        databaseManager.insertDataMalaltia(nomMalaltia, dni, descripcioMalaltia, sintomesMalaltia, iniciMalaltia, fiMalaltia)
+        malaltiaManager.insertDataMalaltia(nomMalaltia, dni, descripcioMalaltia, sintomesMalaltia, iniciMalaltia, fiMalaltia)
         clearMalaltia()
 
     }
@@ -389,7 +391,7 @@ class MalaltiaFragment : Fragment() {
         val horamed4 = binding.horesTractMalaltEdit4.text.toString()
         val iniciMalaltia = binding.iniciMalaltEdit.text.toString()
         val fiMalaltia = binding.fiMalaltEdit.text.toString()
-        databaseManager.insertDataTractementMalaltia(idMalaltia, horamed1, horamed2, horamed3, horamed4, med1, med2, med3, med4, iniciMalaltia, fiMalaltia)
+        tractMalaltiaManager.insertDataTractementMalaltia(idMalaltia, horamed1, horamed2, horamed3, horamed4, med1, med2, med3, med4, iniciMalaltia, fiMalaltia)
         clearTractamentMalaltia()
 
 

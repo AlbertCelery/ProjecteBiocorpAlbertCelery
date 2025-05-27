@@ -10,6 +10,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
 import com.example.projectebiocorpalbertcelery.R
 import com.example.projectebiocorpalbertcelery.data.DatabaseManager
+import com.example.projectebiocorpalbertcelery.data.MedicacioDatabaseManager
 import com.example.projectebiocorpalbertcelery.databinding.FragmentFormaPresPopupDialogBinding
 import com.example.projectebiocorpalbertcelery.databinding.FragmentSearchMedPopupDialogBinding
 import com.example.projectebiocorpalbertcelery.ui.home.MainActivity
@@ -20,6 +21,7 @@ import com.example.projectebiocorpalbertcelery.ui.home.MainActivity
 class SearchMedPopupDialog : DialogFragment() {
     private var _binding: FragmentSearchMedPopupDialogBinding? = null
     private lateinit var databaseManager: DatabaseManager
+    private lateinit var medicacioManager: MedicacioDatabaseManager
     private val binding get() = _binding!!
     private val sharedViewModel: MedicacioFragmentViewModel by activityViewModels()
     override fun onCreateView(
@@ -29,9 +31,10 @@ class SearchMedPopupDialog : DialogFragment() {
     ): View {
         _binding = FragmentSearchMedPopupDialogBinding.inflate(layoutInflater, container, false)
         databaseManager = DatabaseManager()
+        medicacioManager = MedicacioDatabaseManager()
 
 
-        val nombres: MutableList<String> = databaseManager.obtenerMedicamentos()
+        val nombres: MutableList<String> = medicacioManager.obtenerMedicamentos()
         val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, nombres)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.MedSearchSpinner.adapter = adapter

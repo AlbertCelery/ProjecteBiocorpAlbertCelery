@@ -13,7 +13,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.observe
+import com.example.projectebiocorpalbertcelery.data.AllergiaDatabaseManager
 import com.example.projectebiocorpalbertcelery.data.DatabaseManager
+import com.example.projectebiocorpalbertcelery.data.PacientDatabaseManager
 import com.example.projectebiocorpalbertcelery.databinding.FragmentPacientBinding
 
   import com.example.projectebiocorpalbertcelery.ui.home.MainActivity
@@ -40,7 +42,8 @@ class PacientFragment : Fragment()/*, pacientFragmentListener */{
 
 
     private lateinit var databaseManager: DatabaseManager
-
+    private lateinit var pacientManager: PacientDatabaseManager
+    private lateinit var allergiaManager: AllergiaDatabaseManager
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -50,6 +53,9 @@ class PacientFragment : Fragment()/*, pacientFragmentListener */{
         _binding = FragmentPacientBinding.inflate(layoutInflater, container, false)
         clearPacient()
         databaseManager = DatabaseManager()
+        pacientManager = PacientDatabaseManager()
+        allergiaManager = AllergiaDatabaseManager()
+
         binding.newEntryPacientBtn.setOnClickListener {
 
             clearPacient()
@@ -69,8 +75,8 @@ class PacientFragment : Fragment()/*, pacientFragmentListener */{
                 val carrer = binding.CarrerEditText.text.toString()
                 val dataNaixement = binding.NaixementEditText.text.toString()
                 val codiPostal =
-                    databaseManager.convertStringToInt(binding.CodiPostalEditText.text.toString())
-                val result = databaseManager.insertDataPacient(
+                    pacientManager.convertStringToInt(binding.CodiPostalEditText.text.toString())
+                val result = pacientManager.insertDataPacient(
                     dni,
                     nom,
                     cognom1,
@@ -82,7 +88,7 @@ class PacientFragment : Fragment()/*, pacientFragmentListener */{
                     codiPostal!!
                 )
                 if (result) {
-                    databaseManager.genAlergiaStack(dni)
+                    allergiaManager.genAlergiaStack(dni)
                     clearPacient()
 
                     Toast.makeText(requireContext(), "Data Inserted", Toast.LENGTH_SHORT).show()
@@ -144,7 +150,7 @@ class PacientFragment : Fragment()/*, pacientFragmentListener */{
         //binding.dniEditText.setText(dni)
                databaseManager = DatabaseManager()
                 databaseManager.loadDatabase()
-                cursor = databaseManager.getDatabyDNIPacient(dni)
+                cursor = pacientManager.getDatabyDNIPacient(dni)
                 if (cursor != null && cursor!!.moveToFirst()) {
                     val nom = cursor!!.getString(cursor!!.getColumnIndexOrThrow("nom"))
                     val cognom1 = cursor!!.getString(cursor!!.getColumnIndexOrThrow("cognom1"))
@@ -155,7 +161,7 @@ class PacientFragment : Fragment()/*, pacientFragmentListener */{
                     val carrer = cursor!!.getString(cursor!!.getColumnIndexOrThrow("carrer"))
                     val codiPostal = cursor!!.getInt(cursor!!.getColumnIndexOrThrow("codPost"))
                     val naixement = cursor!!.getString(cursor!!.getColumnIndexOrThrow("naixement"))
-                    val edad = databaseManager.getAgePacient(naixement)
+                    val edad = pacientManager.getAgePacient(naixement)
                     binding.NomEditText.setText(nom)
                     binding.Cognom1EditText.setText(cognom1)
                     binding.Cognom2EditText.setText(cognom2)

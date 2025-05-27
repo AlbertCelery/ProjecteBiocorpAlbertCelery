@@ -13,9 +13,9 @@ import java.util.Calendar
 import java.util.Locale
 
 
-public class DatabaseManager {
-    private var myFile: File? = null
-    private var db: SQLiteDatabase? = null
+open class DatabaseManager {
+    protected var myFile: File? = null
+    protected var db: SQLiteDatabase? = null
 
 
 fun loadDatabase(){
@@ -42,7 +42,7 @@ fun loadDatabase(){
         db!!.execSQL("INSERT INTO $tableName (nom) VALUES ('$data')")
 
     }
-    fun insertDataPacient(dni: String, nom: String, cognom1: String, cognom2: String, dataNaixement: String, ciutatN: String, ciutatR: String, carrer: String, codiPostal: Int): Boolean {
+    /**fun insertDataPacient(dni: String, nom: String, cognom1: String, cognom2: String, dataNaixement: String, ciutatN: String, ciutatR: String, carrer: String, codiPostal: Int): Boolean {
         loadDatabase()
 
         val values = ContentValues()
@@ -59,8 +59,12 @@ fun loadDatabase(){
         val result = db!!.insert("pacient", null, values)
 
         return result !=-1L
-    }
+    }*/
+    //Pacient
+   // fun getdniPacient(cursor: Cursor)
+
     //Medicament
+    /**
     fun getformaPresInt(formaPres: String): Int {
         loadDatabase()
         var cursor = db!!.rawQuery("SELECT id FROM formaPres WHERE nom = '$formaPres'", null)
@@ -81,9 +85,9 @@ fun loadDatabase(){
         values.put("efecteSecundari", efecteSecundari)
         val result = db!!.insert("medicament", null, values)
         return result !=-1L
-    }
+    }*/
     //Malaltia
-    fun insertDataMalaltia(nom: String, dni: String, descripcio: String, sintomes: String, iniciMalaltia: String, fiMalaltia: String): Boolean {
+    /*fun insertDataMalaltia(nom: String, dni: String, descripcio: String, sintomes: String, iniciMalaltia: String, fiMalaltia: String): Boolean {
         loadDatabase()
         val values = ContentValues()
         values.put("nom", nom)
@@ -143,9 +147,9 @@ fun loadDatabase(){
         }
         cursor.close()
         return 0
-    }
+    }*//*
     //Tractament malaltia
-    /*fun getMalaltiaTractDays(idTractamentMalaltia: Int): Int {
+    fun getMalaltiaTractDays(idTractamentMalaltia: Int): Int {
         loadDatabase()
         var cursor = db!!.rawQuery("SELECT fiT, iniciT FROM tractamentMalalt WHERE id = $idTractamentMalaltia", null)
         var fiT = ""
@@ -164,7 +168,7 @@ fun loadDatabase(){
         return 0
 
 
-    }*/
+    }
     fun getFirstMalaltiaTractament(idMalaltia: Int): Int? {
         loadDatabase()
         var cursor = db?.rawQuery("SELECT id FROM tractamentMalalt WHERE idMalaltia = $idMalaltia ORDER BY id LIMIT 1", null)
@@ -311,9 +315,10 @@ fun loadDatabase(){
         cursor?.close()
         return fiT
     }
+*/
 
-
-    //Medicament
+    //Medicament//TODO pasar a medicament
+    /*
     fun getMedicamentCursor(): Cursor {
         loadDatabase()
         return db!!.rawQuery("SELECT * FROM medicament", null)
@@ -334,6 +339,8 @@ fun loadDatabase(){
         db!!.close()
         return listaMedicamentos
     }
+
+     */
     fun convertStringToInt(input: String): Int? {
         return try {
             input.toInt() // Intenta convertir la cadena a Int
@@ -342,6 +349,7 @@ fun loadDatabase(){
             null // O puedes devolver un valor por defecto, como 0
         }
     }
+    /*
     fun getmedicacioNom(idmed: Int): String {
         loadDatabase()
         val cursor = db!!.rawQuery("SELECT nom FROM medicament WHERE id = $idmed", null)
@@ -375,7 +383,10 @@ fun loadDatabase(){
         return efecteSecundari
 
     }
+
+     */
     //Allergia
+    /*
     fun getAlergiaCursor(dni: String, alergicPosition: Int): Cursor {
         loadDatabase()
         return db!!.rawQuery("SELECT * FROM alergies WHERE dni = '$dni' AND alergicPosition = $alergicPosition", null)
@@ -384,6 +395,7 @@ fun loadDatabase(){
 
 
     }
+
     //TODO POT PETAR PER IDMED DE LALERGIA
     fun insertDataAlergia(id_medicament: Int?, alergicPosition: Int, descripcio: String, dni: String): Boolean {
         loadDatabase()
@@ -420,12 +432,21 @@ fun loadDatabase(){
 
 
 
+     */
+    //pacient
+/*
+
     fun getDatabyDNIPacient(dni: String): Cursor {
         loadDatabase()
         return db!!.rawQuery("SELECT * FROM pacient WHERE dni = '$dni'", null)
 
     }
+
+     */
+
+
     //Malaltia
+    /*
     fun getMalaltiaNom(idmalaltia: Int):String{
         loadDatabase()
         val cursor = db!!.rawQuery("SELECT nom FROM malaltia WHERE id = $idmalaltia", null)
@@ -481,7 +502,10 @@ fun loadDatabase(){
         cursor.close()
         return datafi
     }
+    */
 
+    //pacient
+    /*
     fun getAgePacient(naixement: String): Int {
         loadDatabase()
         val sdf = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
@@ -508,7 +532,9 @@ fun loadDatabase(){
             -1 // retornar en cas de error
         }
     }
+    */
     //Hospitalitzacio
+    /*
     fun insertDataHospitalitzacio(dataInici: String, dataFi: String, nomHosp: String, MotiusHosp: Int, dni: String): Boolean {
         loadDatabase()
         val values = ContentValues()
@@ -540,7 +566,7 @@ fun loadDatabase(){
         cursor.close()
         return dataFi
     }
-    fun getTotalDays(ddMMyyyyinici: String, ddMMyyyyfi: String):String{
+   */ fun getTotalDays(ddMMyyyyinici: String, ddMMyyyyfi: String):String{
         loadDatabase()
         val sdf = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
         val date1 = sdf.parse(ddMMyyyyinici)
@@ -605,7 +631,7 @@ fun loadDatabase(){
 
 
 
-    }
+    }/*
     fun getnomHosp(idHospitalitzacio:Int):String{
         loadDatabase()
         var cursor = db!!.rawQuery("SELECT nomHosp FROM hospitalitzacio WHERE id = $idHospitalitzacio", null)
@@ -656,7 +682,10 @@ fun loadDatabase(){
         loadDatabase()
         return db?.rawQuery("SELECT * FROM hospitalitzacio WHERE dni = '$dni' AND id > $idHospitalitzacio ORDER BY id LIMIT 1", null)
     }
+
+     */
     //Tractament Hospitalitzacio
+    /*
     fun getFirstHospitalitzacioTract(idHospitalitzacio: Int): Int? {
         loadDatabase()
         var cursor = db?.rawQuery("SELECT id FROM tractamentHosp WHERE idHospitalitzacio = $idHospitalitzacio ORDER BY id LIMIT 1", null)
@@ -802,8 +831,9 @@ fun loadDatabase(){
         values.put("fiT", fiT)
         val result = db!!.insert("tractamentHosp", null, values)
         return result != -1L
-    }
+    }*/
     //Login
+    /*
     fun userPasswordExists(username: String, password: String): Boolean {
         loadDatabase()
         val cursor = db!!.rawQuery("SELECT * FROM user WHERE Username = ? AND Password = ?", arrayOf(username, password))
@@ -819,6 +849,8 @@ fun loadDatabase(){
         val result = db!!.insert("user", null, values)
         return result != -1L
     }
+
+     */
 
 
 }
